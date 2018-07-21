@@ -1,0 +1,2 @@
+2018-07-10 17:34:05.286 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 17:34:35.836 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8

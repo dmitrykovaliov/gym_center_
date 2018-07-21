@@ -1,0 +1,4 @@
+2018-07-10 16:30:10.988 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 16:30:11.355 [main] INFO  gym.db.dao.impl.FaqDaoImpl - 13
+2018-07-10 16:30:43.584 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 16:30:44.005 [main] INFO  gym.db.dao.impl.FaqDaoImpl - 13

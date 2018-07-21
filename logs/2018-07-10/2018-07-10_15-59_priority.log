@@ -1,0 +1,7 @@
+2018-07-10 15:59:12.850 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 15:59:13.287 [main] INFO  gym.db.dao.impl.ActivityDaoImpl - 4
+2018-07-10 15:59:13.312 [main] INFO  gym.db.dao.impl.ActivityDaoImpl - [Activity{idActivity=1, name='Gym', price=7, note='USD per training 60 min'} com.dk.gym.entity.Activity@b38388b6, Activity{idActivity=2, name='Gym with personal trainer', price=12, note='USD per training 60 min'} com.dk.gym.entity.Activity@f45898a9, Activity{idActivity=3, name='Boxing', price=9, note='USD per training 45 min'} com.dk.gym.entity.Activity@36e212f9, Activity{idActivity=4, name='Fitness', price=8, note='USD per training 60 min'} com.dk.gym.entity.Activity@8f42b681]
+2018-07-10 15:59:13.313 [main] INFO  gym.db.dao.impl.ActivityDaoImpl - Activity{idActivity=3, name='Boxing', price=9, note='USD per training 45 min'} com.dk.gym.entity.Activity@36e212f9
+2018-07-10 15:59:13.330 [main] INFO  gym.db.dao.impl.ActivityDaoImpl - 5
+2018-07-10 15:59:13.330 [main] INFO  gym.db.dao.impl.ActivityDaoImpl - Activity{idActivity=3, name='Boxing', price=9, note='this is the text'} com.dk.gym.entity.Activity@962386ad
+2018-07-10 15:59:13.343 [main] INFO  gym.db.dao.impl.ActivityDaoImpl - true

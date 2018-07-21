@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1" parallel="false" thread-count="1">
+
+    <test name="test1">
+    <groups>
+        <define name="base"/>
+        <define name="chain>"/>
+    </groups>
+
+        <classes>
+            <class name="com.dk.gym.validator.BigDecimalValidatorTest"/>
+        </classes>
+
+    </test>
+</suite>

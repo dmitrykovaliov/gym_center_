@@ -1,0 +1,4 @@
+2018-07-10 19:39:19.473 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 19:39:19.830 [main] INFO  gym.db.dao.impl.TrainerDaoImpl - 3
+2018-07-10 19:39:19.845 [main] INFO  gym.db.dao.impl.TrainerDaoImpl - [Trainer{idTrainer=1, name='Grisha', lastName='Dvorin', phone='375335256545', personalData='personal trainer', idUser=8} com.dk.gym.entity.Trainer@1d5337cd, Trainer{idTrainer=2, name='Misha', lastName='Voronin', phone='375295344565', personalData='personal trainer', idUser=9} com.dk.gym.entity.Trainer@96fe5263, Trainer{idTrainer=3, name='Fedia', lastName='Avakian', phone='375442556595', personalData='boxing trainer', idUser=10} com.dk.gym.entity.Trainer@5cbfa0fd]
+2018-07-10 19:39:19.846 [main] INFO  gym.db.dao.impl.TrainerDaoImpl - Trainer{idTrainer=3, name='Fedia', lastName='Avakian', phone='375442556595', personalData='boxing trainer', idUser=10} com.dk.gym.entity.Trainer@5cbfa0fd

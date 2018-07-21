@@ -1,0 +1,7 @@
+2018-07-10 18:08:26.235 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 18:08:26.641 [main] INFO  gym.db.dao.impl.PaymentDaoImpl - 4
+2018-07-10 18:08:26.660 [main] INFO  gym.db.dao.impl.PaymentDaoImpl - [Payment{idPayment=1, date=2018-05-06, amount=96, note='null', idOrder=1} com.dk.gym.entity.Payment@ab74dc1c, Payment{idPayment=2, date=2018-05-07, amount=61, note='null', idOrder=2} com.dk.gym.entity.Payment@ab737f00, Payment{idPayment=3, date=2018-06-06, amount=30, note='null', idOrder=3} com.dk.gym.entity.Payment@ab902262, Payment{idPayment=4, date=2018-06-07, amount=26, note='null', idOrder=3} com.dk.gym.entity.Payment@ab9cdcc6]
+2018-07-10 18:08:26.663 [main] INFO  gym.db.dao.impl.PaymentDaoImpl - Payment{idPayment=3, date=2018-06-06, amount=30, note='null', idOrder=3} com.dk.gym.entity.Payment@ab902262
+2018-07-10 18:08:26.681 [main] INFO  gym.db.dao.impl.PaymentDaoImpl - 5
+2018-07-10 18:08:26.681 [main] INFO  gym.db.dao.impl.PaymentDaoImpl - Payment{idPayment=3, date=2018-06-06, amount=30, note='this is the text', idOrder=3} com.dk.gym.entity.Payment@10127532
+2018-07-10 18:08:26.694 [main] INFO  gym.db.dao.impl.PaymentDaoImpl - true

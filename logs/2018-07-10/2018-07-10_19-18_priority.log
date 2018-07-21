@@ -1,0 +1,8 @@
+2018-07-10 19:18:11.340 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 19:18:11.775 [main] INFO  gym.db.dao.impl.PrescriptionDaoImpl - 2
+2018-07-10 19:18:42.314 [main] INFO  dk.gym.db.connection.ConnectionPool - Successfully initialized connection pool. PoolSize: 8
+2018-07-10 19:18:42.707 [main] INFO  gym.db.dao.impl.PrescriptionDaoImpl - 2
+2018-07-10 19:18:42.732 [main] INFO  gym.db.dao.impl.PrescriptionDaoImpl - [Prescription{idOrder=1, idTrainer=1, date=2018-05-01, weekQuantity=4, trainingsWeek=2, trainerNote='null', clientNote='null', agreedDate=2018-05-01} com.dk.gym.entity.Prescription@5dae4f82, Prescription{idOrder=3, idTrainer=2, date=2018-06-01, weekQuantity=4, trainingsWeek=2, trainerNote='null', clientNote='training should be changed on 2 times per week', agreedDate=2018-06-02} com.dk.gym.entity.Prescription@df98fa44]
+2018-07-10 19:18:42.733 [main] INFO  gym.db.dao.impl.PrescriptionDaoImpl - Prescription{idOrder=3, idTrainer=3, date=2018-06-01, weekQuantity=4, trainingsWeek=2, trainerNote='null', clientNote='training should be changed on 2 times per week', agreedDate=2018-06-02} com.dk.gym.entity.Prescription@147f3585
+2018-07-10 19:18:42.747 [main] INFO  gym.db.dao.impl.PrescriptionDaoImpl - -1
+2018-07-10 19:18:42.747 [main] INFO  gym.db.dao.impl.PrescriptionDaoImpl - Prescription{idOrder=3, idTrainer=3, date=2018-06-01, weekQuantity=4, trainingsWeek=2, trainerNote='this is the text', clientNote='training should be changed on 2 times per week', agreedDate=2018-06-02} com.dk.gym.entity.Prescription@40473cb5
