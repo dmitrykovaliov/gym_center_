@@ -1,0 +1,4 @@
+
+asquid:S1192"LDefine a constant instead of duplicating this literal "ord_closure" 4 times.(µÁÇí
+dsquid:S2095"JUse try-with-resources or close this "OrderDaoImpl" in a "finally" clause.(ð“…åÿÿÿÿÿ
+asquid:S2259"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(¯ÃÀ‹ûÿÿÿÿ

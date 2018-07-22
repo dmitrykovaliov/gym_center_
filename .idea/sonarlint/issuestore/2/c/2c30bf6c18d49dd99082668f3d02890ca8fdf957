@@ -1,0 +1,4 @@
+
+Lsquid:S1068"7Remove this unused "SQL_DELETE_TRAINING" private field.(¸Ú¦ƒ
+bsquid:S2095"MUse try-with-resources or close this "TrainingDaoImpl" in a "finally" clause.(‘…¹Ž
+[squid:S2259"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(ìÃÿ
