@@ -1,6 +1,5 @@
 package com.dk.gym.command;
 
-
 import com.dk.gym.constant.PageConstant;
 import com.dk.gym.page.ContentPage;
 import com.dk.gym.page.PageType;
@@ -19,6 +18,6 @@ public class LogoutCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(PageType.FORWARD, pageUrl);
+        return new ContentPage(PageType.REDIRECT, pageUrl);
     }
 }

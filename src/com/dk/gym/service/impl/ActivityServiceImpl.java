@@ -6,17 +6,13 @@ import com.dk.gym.entity.Activity;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.service.ActivityService;
-import com.dk.gym.servlet.RequestContent;
 import com.dk.gym.validator.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import resource.LocaleManager;
-
 import java.math.BigDecimal;
 import java.util.List;
-
-import static com.dk.gym.constant.ParamConstant.PARAM_ERROR;
 
 public class ActivityServiceImpl implements ActivityService {
 

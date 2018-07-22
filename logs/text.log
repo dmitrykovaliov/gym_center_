@@ -1,12 +1,2 @@
-2018-07-21 18:50:11.293 [main] INFO  com.dk.gym.validator.RangeValidator - 0
-2018-07-21 18:50:11.309 [main] INFO  com.dk.gym.validator.RangeValidator - 1
-2018-07-21 18:50:11.311 [main] INFO  com.dk.gym.validator.RangeValidator - 2
-2018-07-21 18:50:11.312 [main] INFO  com.dk.gym.validator.RangeValidator - -1
-2018-07-21 18:50:11.314 [main] INFO  com.dk.gym.validator.RangeValidator - 5
-2018-07-21 18:50:11.316 [main] INFO  com.dk.gym.validator.RangeValidator - 6
-2018-07-21 18:50:11.317 [main] INFO  com.dk.gym.validator.RangeValidator - 0
-2018-07-21 18:50:11.318 [main] INFO  com.dk.gym.validator.RangeValidator - 1
-2018-07-21 18:50:11.320 [main] INFO  com.dk.gym.validator.RangeValidator - 2
-2018-07-21 18:50:11.321 [main] INFO  com.dk.gym.validator.RangeValidator - -1
-2018-07-21 18:50:11.326 [main] INFO  com.dk.gym.validator.RangeValidator - 7
-2018-07-21 18:50:11.327 [main] INFO  com.dk.gym.validator.RangeValidator - 8
+2018-07-22 09:36:35.538 [main] INFO  com.dk.gym.util.CryptPass - 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+2018-07-22 09:36:47.155 [main] INFO  com.dk.gym.util.CryptPass - PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=

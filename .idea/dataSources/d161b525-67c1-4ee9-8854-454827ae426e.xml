@@ -1374,7 +1374,7 @@ id_trainer</ColNames>
     </column>
     <column id="315" parent="241" name="us_password">
       <Position>3</Position>
-      <DataType>varchar(80)|0</DataType>
+      <DataType>varchar(64)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

@@ -6,6 +6,7 @@ import com.dk.gym.page.PageType;
 import com.dk.gym.servlet.RequestContent;
 
 public class EmptyCommand implements ActionCommand {
+
     @Override
     public ContentPage execute(RequestContent content) {
 

@@ -1,6 +1,7 @@
 
 jsquid:S2068"U'PASSWORD' detected in this expression, review this potentially hardcoded credential.(ÏÏæ
-;squid:S1170"!Make this final field static too.(é—¶åúÿÿÿÿ
 6squid:S1170"!Make this final field static too.(ÏÏæ
 osquid:S00116"TRename this field "USER_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é—¶åúÿÿÿÿ
 nsquid:S00116"XRename this field "USER_PASSWORD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÏæ
+;squid:S1170"!Make this final field static too.(é—¶åúÿÿÿÿ
+Vsquid:S1161":Add the "@Override" annotation above this method signature(‡èú×8®Ù¥óË,

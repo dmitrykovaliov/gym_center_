@@ -1,12 +1,12 @@
 
-§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(öïã•úÿÿÿÿ8‡ù¸ëË,
-§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ÎòØÞüÿÿÿÿ8Øî×ëË,
-lsquid:S1192"KDefine a constant instead of duplicating this literal "diffferent" 3 times.(¼óŽçùÿÿÿÿ8´ŸÐëË,
+§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ö¤ãëýÿÿÿÿ8ƒè½ëË,
+§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(‚ëô¡þÿÿÿÿ8Ÿ—µëË,
 ¢%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ÿ²ü¼8¯åÅëË,
 hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(‚ëô¡þÿÿÿÿ8Ÿ—µëË,
+§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ÎòØÞüÿÿÿÿ8Øî×ëË,
 hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(öïã•úÿÿÿÿ8Ÿ—µëË,
-csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ÿ²ü¼8¯åÅëË,
 hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ÎòØÞüÿÿÿÿ8´ŸÐëË,
+§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(öïã•úÿÿÿÿ8‡ù¸ëË,
+lsquid:S1192"KDefine a constant instead of duplicating this literal "diffferent" 3 times.(¼óŽçùÿÿÿÿ8´ŸÐëË,
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ÿ²ü¼8¯åÅëË,
 hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ö¤ãëýÿÿÿÿ8ƒè½ëË,
-§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(‚ëô¡þÿÿÿÿ8Ÿ—µëË,
-§%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ö¤ãëýÿÿÿÿ8ƒè½ëË,

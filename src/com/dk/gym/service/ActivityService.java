@@ -2,10 +2,7 @@ package com.dk.gym.service;
 
 import com.dk.gym.entity.Activity;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.servlet.RequestContent;
-
 import java.util.List;
-
 
 public interface ActivityService {
 

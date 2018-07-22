@@ -1,4 +1,2 @@
 
-{squid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰8…“úÀÊ,
-msquid:S1450"QRemove the "md" field and declare it as a local variable in the relevant methods.(½¡ÈÓ8…“úÀÊ,
-Ssquid:S1135"2Complete the task associated to this TODO comment.(ñ•Ôøÿÿÿÿ8ÓÓ·ºË,
+Ssquid:S1135"2Complete the task associated to this TODO comment.(ñ•Ôøÿÿÿÿ8¨šÊ…Ì,

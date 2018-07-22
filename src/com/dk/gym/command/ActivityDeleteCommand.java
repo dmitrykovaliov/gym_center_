@@ -24,21 +24,22 @@ public class ActivityDeleteCommand implements ActionCommand {
     public ContentPage execute(RequestContent content) throws CommandException {
 
         String id = content.findParameter(PARAM_ID);
+        String message;
 
         if (new LineNotEmptyValidator().validate(id)) {
             try {
-                String message = ActivityServiceImpl.getInstance().deleteItem(id);
-                if (LocaleManager.getProperty("message.error.invalid").equals(message)) {
-                    content.insertAttribute(PARAM_ERROR, message);
-                    content.insertAttribute(PARAM_DONE, LocaleManager.getProperty("message.info.itemNotDeleted"));
-                } else if(MESSAGE_FALSE.equals(message)) {
-                    content.insertAttribute(PARAM_ERROR, LocaleManager.getProperty("message.error.database"));
-                    content.insertAttribute(PARAM_DONE, LocaleManager.getProperty("message.info.itemNotDeleted"));
-                } else {
-                    content.insertAttribute(PARAM_DONE, LocaleManager.getProperty("message.info.itemDeleted"));
-                }
+                message = ActivityServiceImpl.getInstance().deleteItem(id);
             } catch (ServiceException e) {
                 throw new CommandException(e);
+            }
+            if (LocaleManager.getProperty("message.error.invalid").equals(message)) {
+                content.insertAttribute(PARAM_ERROR, message);
+                content.insertAttribute(PARAM_DONE, LocaleManager.getProperty("message.info.itemNotDeleted"));
+            } else if (MESSAGE_FALSE.equals(message)) {
+                content.insertAttribute(PARAM_ERROR, LocaleManager.getProperty("message.error.database"));
+                content.insertAttribute(PARAM_DONE, LocaleManager.getProperty("message.info.itemNotDeleted"));
+            } else {
+                content.insertAttribute(PARAM_DONE, LocaleManager.getProperty("message.info.itemDeleted"));
             }
         } else {
             content.insertAttribute(PARAM_ERROR, LocaleManager.getProperty("message.info.emptyLine"));
