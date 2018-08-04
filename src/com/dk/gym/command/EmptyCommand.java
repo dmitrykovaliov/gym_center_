@@ -1,9 +1,7 @@
 package com.dk.gym.command;
 
 import com.dk.gym.constant.PageConstant;
-import com.dk.gym.page.ContentPage;
-import com.dk.gym.page.PageType;
-import com.dk.gym.servlet.RequestContent;
+import com.dk.gym.controller.RequestContent;
 
 public class EmptyCommand implements ActionCommand {
 
@@ -12,6 +10,6 @@ public class EmptyCommand implements ActionCommand {
 
         String pageUrl = PageConstant.PAGE_LOGIN;
 
-        return new ContentPage(PageType.FORWARD, pageUrl);
+        return new ContentPage(RequestMethod.FORWARD, pageUrl);
     }
 }

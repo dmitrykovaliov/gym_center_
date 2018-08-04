@@ -1,5 +1,6 @@
 package com.dk.gym.dao.impl;
 
+import com.dk.gym.entity.join.JoinPrescription;
 import com.dk.gym.pool.ConnectionPool;
 import com.dk.gym.dao.PrescriptionDao;
 import com.dk.gym.entity.Prescription;
@@ -25,8 +26,15 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
 
     private static final String SQL_SELECT_ALL_PRESCRIPTION = "SELECT id_order, id_trainer, pre_date, pre_weeks, " +
             "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription";
+
+    private static final String SQL_JOIN_ALL_PRESCRIPTION = "SELECT id_order, tr_name, tr_lastname, pre_date, pre_weeks, " +
+            "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " +
+            "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer";
+
     private static final String SQL_SELECT_PRESCRIPTION_BY_ID = "SELECT id_order, id_trainer, pre_date, pre_weeks, " +
             "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription where id_order=?";
+    private static final String SQL_DELETE_PRESCRIPTION = "DELETE FROM prescription WHERE id_trainer = ? AND id_order = ?";
+
 
     public PrescriptionDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
@@ -84,6 +92,17 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         }
     }
 
+    public boolean delete(int idTrainer, int idOrder) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_PRESCRIPTION)) {
+            statement.setInt(1, idTrainer);
+            statement.setInt(2, idOrder);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
     @Override
     public List<Prescription> findAll() throws DaoException {
         List<Prescription> list = new ArrayList<>();
@@ -110,6 +129,38 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
             }
         } catch (SQLException e) {
             throw new DaoException("Can't find", e);
+        }
+
+        LOGGER.log(Level.INFO, list.size());
+
+        return list;
+    }
+
+    @Override
+    public List<JoinPrescription> findJoinAll() throws DaoException {
+        List<JoinPrescription> list = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_JOIN_ALL_PRESCRIPTION)) {
+
+                while (resultSet.next()) {
+
+                    JoinPrescription joinPrescription = new JoinPrescription();
+
+                    joinPrescription.getPrescription().setIdOrder(resultSet.getInt("id_order"));
+                    joinPrescription.getTrainer().setName(resultSet.getString("tr_name"));
+                    joinPrescription.getTrainer().setLastName(resultSet.getString("tr_lastname"));
+                    joinPrescription.getPrescription().setDate(resultSet.getDate("pre_date").toLocalDate());
+                    joinPrescription.getPrescription().setWeekQuantity(resultSet.getInt("pre_weeks"));
+                    joinPrescription.getPrescription().setTrainingsWeek(resultSet.getInt("pre_trainings_per_week"));
+                    joinPrescription.getPrescription().setTrainerNote(resultSet.getString("pre_trainer_note"));
+                    joinPrescription.getPrescription().setClientNote(resultSet.getString("pre_client_note"));
+                    joinPrescription.getPrescription().setAgreedDate(resultSet.getDate("pre_agreed").toLocalDate());
+
+                    list.add(joinPrescription);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Can't findJoinAll", e);
         }
 
         LOGGER.log(Level.INFO, list.size());

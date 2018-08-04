@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class DateValidator extends BaseValidator {
+public class DateValidator extends AbstractValidator {
 
     private static final String DATE_REGEX = "^\\d{4}[-./]\\d{2}[-./]\\d{2}$";
 

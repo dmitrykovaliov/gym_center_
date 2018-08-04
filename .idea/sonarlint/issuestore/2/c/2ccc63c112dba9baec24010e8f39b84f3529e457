@@ -1,4 +1,9 @@
 
-asquid:S1192"LDefine a constant instead of duplicating this literal "ord_closure" 4 times.(µÁÇí
-dsquid:S2095"JUse try-with-resources or close this "OrderDaoImpl" in a "finally" clause.(ð“…åÿÿÿÿÿ
-asquid:S2259"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(¯ÃÀ‹ûÿÿÿÿ
+ksquid:S2095"JUse try-with-resources or close this "OrderDaoImpl" in a "finally" clause.(ð“…åÿÿÿÿÿ8Ë„Æ Ð,
+esquid:S1192"IDefine a constant instead of duplicating this literal "ord_date" 3 times.(ÎŒý£8Ë„Æ Ð,
+isquid:S1192"MDefine a constant instead of duplicating this literal "ord_discount" 3 times.(ƒ”‘Ö8Ë„Æ Ð,
+nsquid:S1192"MDefine a constant instead of duplicating this literal "ord_feedback" 3 times.(§È¦ëýÿÿÿÿ8Ë„Æ Ð,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 3 times.(¯ÃÀ‹ûÿÿÿÿ8Ë„Æ Ð,
+hsquid:S1192"LDefine a constant instead of duplicating this literal "ord_closure" 6 times.(µÁÇí8Ë„Æ Ð,
+ksquid:S1192"JDefine a constant instead of duplicating this literal "ord_price" 3 times.(ÑúÈàøÿÿÿÿ8Ë„Æ Ð,
+hsquid:S2259"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(¯ÃÀ‹ûÿÿÿÿ8Ë„Æ Ð,

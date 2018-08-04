@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class PriceValidator extends BaseValidator {
+public class PriceValidator extends AbstractValidator {
 
     private static final String PRICE_REGEX = "(^\\d+[,.]\\d{2}$)|(^\\d*[,.]\\d$)|(^\\d+$)";
 

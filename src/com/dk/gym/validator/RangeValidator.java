@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class RangeValidator extends BaseValidator {
+public class RangeValidator extends AbstractValidator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -35,7 +35,7 @@ public class RangeValidator extends BaseValidator {
         return isValid;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { //todo delete main
         String message = "015";
         System.out.println(new RangeValidator(15, 20).validate(message));
     }

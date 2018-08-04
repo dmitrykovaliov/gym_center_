@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class OnlyDigitsValidator extends BaseValidator {
+public class OnlyDigitsValidator extends AbstractValidator {
 
     private static final String ONLY_DIGITS_REGEX = "^\\d*$";
 

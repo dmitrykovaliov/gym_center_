@@ -1,10 +1,10 @@
 package com.dk.gym.dao.impl;
 
 import com.dk.gym.dao.UserDao;
-import com.dk.gym.pool.ConnectionPool;
 import com.dk.gym.entity.Role;
 import com.dk.gym.entity.User;
 import com.dk.gym.exception.DaoException;
+import com.dk.gym.pool.ConnectionPool;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,14 +20,17 @@ public class UserDaoImpl extends UserDao {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String SQL_INSERT_USER = "INSERT INTO user(id_user, us_login, us_password, us_role, us_iconpath) VALUES (NULL, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_USER = "UPDATE user SET us_login = ?, us_password = ?, us_role = ?, us_iconpath = ? WHERE id_user = ?";
-
-    private static final String SQL_SELECT_ALL_USERS = "SELECT id_user, us_login, us_password, us_role, us_iconpath FROM user";
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role, us_iconpath FROM user WHERE id_user=?";
+    private static final String SQL_INSERT_USER = "INSERT INTO user(id_user, us_login, us_password, us_role) " +
+            "VALUES (NULL, ?, ?, ?)";
+    private static final String SQL_UPDATE_USER = "UPDATE user SET us_login = ?, us_password = ?, us_role = ?" +
+            "WHERE id_user = ?";
+    private static final String SQL_SELECT_ALL_USERS = "SELECT id_user, us_login, us_password, us_role FROM user";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role" +
+            " FROM user WHERE id_user = ?";
 
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id_user = ?";
 
+    private static final String SQL_LOGIN_PASS = "SELECT id_user, us_role FROM user WHERE us_login = ? AND us_password = ?";
 
     public UserDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
@@ -36,22 +39,23 @@ public class UserDaoImpl extends UserDao {
     @Override
     public int create(User entity) throws DaoException {
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER,
+                Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setString(3, entity.getRole().toString());
-            statement.setString(4, entity.getPicPath());
+            statement.setString(2, entity.getPass());
+            statement.setString(3, entity.getRole() != null ? entity.getRole().toString() : "");
+
             statement.executeUpdate();
+
             try (ResultSet generatedKey = statement.getGeneratedKeys()) {
 
                 if (generatedKey.next()) {
                     return generatedKey.getInt(1);
                 }
             }
-
         } catch (SQLException e) {
-            throw new DaoException("Can't create user ", e);
+            throw new DaoException("Not created: ", e);
         }
 
         return -1;
@@ -62,15 +66,13 @@ public class UserDaoImpl extends UserDao {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
 
             statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setString(3, entity.getRole().toString());
-            statement.setString(4, entity.getPicPath());
-            statement.setInt(5, entity.getIdUser());
+            statement.setString(2, entity.getPass());
+            statement.setString(3, entity.getRole() != null ? entity.getRole().toString() : "");
+            statement.setInt(4, entity.getIdUser());
 
             statement.executeUpdate();
 
             return true;
-
         } catch (SQLException e) {
             throw new DaoException("Can't update user", e);
         }
@@ -78,6 +80,7 @@ public class UserDaoImpl extends UserDao {
 
     @Override
     public List<User> findAll() throws DaoException {
+
         List<User> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
@@ -89,22 +92,24 @@ public class UserDaoImpl extends UserDao {
 
                     user.setIdUser(resultSet.getInt("id_user"));
                     user.setLogin(resultSet.getString("us_login"));
-                    user.setPassword(resultSet.getString("us_password"));
-                    user.setRole(Role.valueOf(resultSet.getString("us_role").toUpperCase()));
-                    user.setPicPath(resultSet.getString("us_iconpath"));
+                    user.setPass(resultSet.getString("us_password"));
+                    String role = resultSet.getString("us_role");
+                    if (role != null && !role.isEmpty()) {
+                        user.setRole(Role.valueOf(role));
+                    }
 
                     list.add(user);
-
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find", e);
+            throw new DaoException("Not found", e);
         }
 
         LOGGER.log(Level.INFO, list.size());
 
         return list;
     }
+
 
     @Override
     public User findEntityById(int id) throws DaoException {
@@ -117,16 +122,18 @@ public class UserDaoImpl extends UserDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet != null) {
                     resultSet.next();
-                }
-                user.setIdUser(resultSet.getInt("id_user"));
-                user.setLogin(resultSet.getString("us_login"));
-                user.setPassword(resultSet.getString("us_password"));
-                user.setRole(Role.valueOf(resultSet.getString("us_role").toUpperCase()));
-                user.setPicPath(resultSet.getString("us_iconpath"));
 
+                    user.setIdUser(resultSet.getInt("id_user"));
+                    user.setLogin(resultSet.getString("us_login"));
+                    user.setPass(resultSet.getString("us_password"));
+                    String role = resultSet.getString("us_role");
+                    if (role != null && !role.isEmpty()) {
+                        user.setRole(Role.valueOf(role));
+                    }
+                }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find", e);
+            throw new DaoException("Not found: ", e);
         }
 
         return user;
@@ -144,14 +151,24 @@ public class UserDaoImpl extends UserDao {
     }
 
     @Override
-    public boolean delete(User entity) throws DaoException {
-        int id = entity.getIdUser();
-        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
-            statement.setInt(1, id);
-            statement.executeUpdate();
-            return true;
+    public Role findUser(String login, String pass) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_LOGIN_PASS)) {
+            statement.setString(1, login);
+            statement.setString(2, pass);
+
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet != null && resultSet.next()) {
+                    String role = resultSet.getString("us_role");
+                    if (role != null && !role.isEmpty()) {
+                        return Role.valueOf(role);
+                    }
+                }
+            }
+            return null;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Not checked: ", e);
         }
     }
 
@@ -159,17 +176,20 @@ public class UserDaoImpl extends UserDao {
         UserDao userDao = new UserDaoImpl();
         List<User> entities = userDao.findAll();
 
-        User entity = userDao.findEntityById(3);
+        User entity = userDao.findEntityById(1);
 
         LOGGER.log(Level.INFO, entities);
         LOGGER.log(Level.INFO, entity);
 
-        //LOGGER.log(Level.INFO, userDao.create(entity));
+        entity.setLogin("root25");
 
-//        entity.setPicPath("this the text");
-//        LOGGER.log(Level.INFO, entity);
-//
-//        LOGGER.log(Level.INFO, userDao.update(entity));
+        LOGGER.log(Level.INFO, userDao.create(entity));
+
+        entity.setLogin("root27");
+
+        LOGGER.log(Level.INFO, userDao.update(entity));
+
+        LOGGER.log(Level.INFO, userDao.findUser("root", "PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE="));
 
     }
 }

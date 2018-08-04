@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class ContainsCapitalValidator extends BaseValidator {
+public class ContainsCapitalValidator extends AbstractValidator {
 
     private static final String CAPITAL_REGEX = ".*[A-Z].*";
 

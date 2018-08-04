@@ -1,14 +1,13 @@
 package com.dk.gym.validator;
 
 
-public class ChainIdValidator extends BaseValidator {
+public class ChainIdValidator {
 
-    @Override
     public boolean validate(String message) {
 
-        BaseValidator notEmptyValidator = new NotEmptyValidator();
-        BaseValidator idValidator = new OnlyDigitsValidator();
-        BaseValidator rangeValidator = new RangeValidator(0, Integer.MAX_VALUE);
+        AbstractValidator notEmptyValidator = new NotEmptyValidator(); //includes notEmptyValidator
+        AbstractValidator idValidator = new OnlyDigitsValidator();
+        AbstractValidator rangeValidator = new RangeValidator(1, Integer.MAX_VALUE); //SQL range
 
         notEmptyValidator.setNext(idValidator);
         idValidator.setNext(rangeValidator);

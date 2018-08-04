@@ -19,14 +19,18 @@ public class ClientDaoImpl extends ClientDao {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String SQL_INSERT_CLIENT = "INSERT INTO client(id_client, cl_name, cl_lastname, cl_phone," +
-            "cl_email, cl_personal_data, id_user) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT_CLIENT = "INSERT INTO client(id_client, cl_name, cl_lastname, cl_phone, " +
+            "cl_email, cl_personal_data, cl_iconpath) " +
+            "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET cl_name = ?, cl_lastname = ?, cl_phone = ?, " +
-            "cl_email = ?, cl_personal_data = ?, id_user = ? WHERE id_client = ?";
+            "cl_email = ?, cl_personal_data = ?, cl_iconpath = ? " +
+            "WHERE id_client = ?";
     private static final String SQL_SELECT_ALL_ACTIVITIES = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
-            "cl_email, cl_personal_data, id_user FROM client";
+            "cl_email, cl_personal_data, cl_iconpath FROM client";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
-            "cl_email, cl_personal_data, id_user FROM client WHERE id_client = ?";
+            "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_client = ?";
+    private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE id_client = ?";
+
 
     public ClientDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
@@ -35,26 +39,25 @@ public class ClientDaoImpl extends ClientDao {
     @Override
     public int create(Client entity) throws DaoException {
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_CLIENT, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_CLIENT,
+                Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, entity.getName());
-            statement.setString(2, entity.getLastname());
+            statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getPhone());
             statement.setString(4, entity.getEmail());
             statement.setString(5, entity.getPersonalData());
-            statement.setInt(6, entity.getIdUser());
+            statement.setString(6, entity.getIconPath());
 
             statement.executeUpdate();
 
             try (ResultSet generatedKey = statement.getGeneratedKeys()) {
-
                 if (generatedKey.next()) {
                     return generatedKey.getInt(1);
                 }
             }
-
         } catch (SQLException e) {
-            throw new DaoException("Can't create client ", e);
+            throw new DaoException("Not created: ", e);
         }
 
         return -1;
@@ -64,13 +67,12 @@ public class ClientDaoImpl extends ClientDao {
     public boolean update(Client entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT)) {
 
-
             statement.setString(1, entity.getName());
-            statement.setString(2, entity.getLastname());
+            statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getPhone());
             statement.setString(4, entity.getEmail());
             statement.setString(5, entity.getPersonalData());
-            statement.setInt(6, entity.getIdUser());
+            statement.setString(6, entity.getIconPath());
             statement.setInt(7, entity.getIdClient());
 
             statement.executeUpdate();
@@ -95,24 +97,24 @@ public class ClientDaoImpl extends ClientDao {
 
                     client.setIdClient(resultSet.getInt("id_client"));
                     client.setName(resultSet.getString("cl_name"));
-                    client.setLastname(resultSet.getString("cl_lastname"));
+                    client.setLastName(resultSet.getString("cl_lastname"));
                     client.setPhone(resultSet.getString("cl_phone"));
                     client.setEmail(resultSet.getString("cl_email"));
                     client.setPersonalData(resultSet.getString("cl_personal_data"));
-                    client.setIdUser(resultSet.getInt("id_user"));
+                    client.setIconPath(resultSet.getString("cl_iconpath"));
 
                     list.add(client);
-
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find", e);
+            throw new DaoException("Not found", e);
         }
 
         LOGGER.log(Level.INFO, list.size());
 
         return list;
     }
+
 
     @Override
     public Client findEntityById(int id) throws DaoException {
@@ -123,27 +125,36 @@ public class ClientDaoImpl extends ClientDao {
             statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet != null) {
-                    resultSet.next();
+                if (resultSet != null && resultSet.next()) {
+
+                    client.setIdClient(resultSet.getInt("id_client"));
+                    client.setName(resultSet.getString("cl_name"));
+                    client.setLastName(resultSet.getString("cl_lastname"));
+                    client.setPhone(resultSet.getString("cl_phone"));
+                    client.setEmail(resultSet.getString("cl_email"));
+                    client.setPersonalData(resultSet.getString("cl_personal_data"));
+                    client.setIconPath(resultSet.getString("cl_iconpath"));
                 }
-
-                client.setIdClient(resultSet.getInt("id_client"));
-                client.setName(resultSet.getString("cl_name"));
-                client.setLastname(resultSet.getString("cl_lastname"));
-                client.setPhone(resultSet.getString("cl_phone"));
-                client.setEmail(resultSet.getString("cl_email"));
-                client.setPersonalData(resultSet.getString("cl_personal_data"));
-                client.setIdUser(resultSet.getInt("id_user"));
-
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find", e);
+            throw new DaoException("Not found: ", e);
         }
 
         return client;
     }
 
-    public static void main(String[] args) throws DaoException {
+    @Override
+    public boolean delete(int id) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLIENT)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public static void main(String[] args) throws DaoException { //todo delete
         ClientDao clientDao = new ClientDaoImpl();
         List<Client> entities = clientDao.findAll();
 
@@ -152,13 +163,8 @@ public class ClientDaoImpl extends ClientDao {
         LOGGER.log(Level.INFO, entities);
         LOGGER.log(Level.INFO, entity);
 
-       LOGGER.log(Level.INFO, clientDao.create(entity));
+        LOGGER.log(Level.INFO, clientDao.create(entity));
 
-       entity.setLastname("CHECK");
-        LOGGER.log(Level.INFO, entity);
-
-
-       LOGGER.log(Level.INFO, clientDao.update(entity));
-
+        LOGGER.log(Level.INFO, clientDao.update(entity));
     }
 }

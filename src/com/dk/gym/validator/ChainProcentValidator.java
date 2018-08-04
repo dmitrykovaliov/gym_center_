@@ -1,12 +1,18 @@
 package com.dk.gym.validator;
 
-public class ChainProcentValidator extends BaseValidator {
-    @Override
-    public boolean validate(String message) {
-        BaseValidator lengthValidator = new LengthValidator(1, 3);
-        BaseValidator onlyDigitsValidator = new OnlyDigitsValidator();
-        lengthValidator.setNext(onlyDigitsValidator);
+import com.dk.gym.validator.AbstractValidator;
+import com.dk.gym.validator.OnlyDigitsValidator;
+import com.dk.gym.validator.RangeValidator;
 
-        return lengthValidator.validate(message);
+public class ChainProcentValidator {
+
+    public boolean validate(String message) {
+
+        AbstractValidator onlyDigitsValidator = new OnlyDigitsValidator();
+        AbstractValidator rangeValidator = new RangeValidator(0, 100);
+
+        onlyDigitsValidator.setNext(rangeValidator);
+
+        return onlyDigitsValidator.validate(message);
     }
 }

@@ -1,7 +1,2 @@
 
-Y
-squid:S106"9Replace this use of System.out or System.err by a logger.( ´Ìÿÿÿÿÿ8¬é¢ÃÊ,
-Y
-squid:S106"9Replace this use of System.out or System.err by a logger.(ô×Ä×şÿÿÿÿ8ÂóŸÃÊ,
-Y
-squid:S106"9Replace this use of System.out or System.err by a logger.(ÎÎïëúÿÿÿÿ8ÂóŸÃÊ,
+Lsquid:S1068"2Remove this unused "TIME_DELIMETER" private field.(øïĞÖşÿÿÿÿ

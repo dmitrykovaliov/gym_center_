@@ -4,22 +4,25 @@ public class Client extends Entity {
 
     private int idClient;
     private String name;
-    private String lastname;
+    private String lastName;
     private String phone;
     private String email;
     private String personalData;
+    private String iconPath;
     private int idUser;
 
     public Client() {
     }
 
-    public Client(int idClient, String name, String lastname, String phone, String email, String personalData, int idUser) {
+    public Client(int idClient, String name, String lastName, String phone, String email,
+                  String personalData, String iconPath, int idUser) {
         this.idClient = idClient;
         this.name = name;
-        this.lastname = lastname;
+        this.lastName = lastName;
         this.phone = phone;
         this.email = email;
         this.personalData = personalData;
+        this.iconPath = iconPath;
         this.idUser = idUser;
     }
 
@@ -39,12 +42,12 @@ public class Client extends Entity {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -71,6 +74,14 @@ public class Client extends Entity {
         this.personalData = personalData;
     }
 
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
+    }
+
     public int getIdUser() {
         return idUser;
     }
@@ -89,20 +100,23 @@ public class Client extends Entity {
         if (idClient != client.idClient) return false;
         if (idUser != client.idUser) return false;
         if (name != null ? !name.equals(client.name) : client.name != null) return false;
-        if (lastname != null ? !lastname.equals(client.lastname) : client.lastname != null) return false;
+        if (lastName != null ? !lastName.equals(client.lastName) : client.lastName != null) return false;
         if (phone != null ? !phone.equals(client.phone) : client.phone != null) return false;
         if (email != null ? !email.equals(client.email) : client.email != null) return false;
-        return personalData != null ? personalData.equals(client.personalData) : client.personalData == null;
+        if (personalData != null ? !personalData.equals(client.personalData) : client.personalData != null)
+            return false;
+        return iconPath != null ? iconPath.equals(client.iconPath) : client.iconPath == null;
     }
 
     @Override
     public int hashCode() {
         int result = idClient;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (personalData != null ? personalData.hashCode() : 0);
+        result = 31 * result + (iconPath != null ? iconPath.hashCode() : 0);
         result = 31 * result + idUser;
         return result;
     }
@@ -112,10 +126,11 @@ public class Client extends Entity {
         return "Client{" +
                 "idClient=" + idClient +
                 ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", personalData='" + personalData + '\'' +
+                ", iconPath='" + iconPath + '\'' +
                 ", idUser=" + idUser +
                 "} " + super.toString();
     }

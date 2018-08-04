@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class LengthValidator extends BaseValidator {
+public class LengthValidator extends AbstractValidator {
 
     private int minLength;
     private int maxLength;

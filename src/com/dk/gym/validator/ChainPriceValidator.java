@@ -1,11 +1,15 @@
 package com.dk.gym.validator;
 
-public class ChainPriceValidator extends BaseValidator {
-    @Override
+import com.dk.gym.validator.AbstractValidator;
+import com.dk.gym.validator.LengthValidator;
+import com.dk.gym.validator.PriceValidator;
+
+public class ChainPriceValidator {
+
     public boolean validate(String message) {
 
-        BaseValidator lengthValidator = new LengthValidator(0, 20);
-        BaseValidator priceValidator = new PriceValidator();
+        AbstractValidator lengthValidator = new LengthValidator(0, 20);
+        AbstractValidator priceValidator = new PriceValidator();
 
         lengthValidator.setNext(priceValidator);
 

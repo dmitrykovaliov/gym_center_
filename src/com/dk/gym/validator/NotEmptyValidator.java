@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class NotEmptyValidator extends BaseValidator {
+public class NotEmptyValidator extends AbstractValidator {
 
 
     @Override

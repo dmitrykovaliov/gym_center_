@@ -1,0 +1,76 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/jsp/general/main.jsp"><b>GYM24</b></a>
+            <div style="float:left">
+                <a class="locale_ref"
+                   href="${pageContext.request.contextPath}${sessionScope.locale == 'ru_RU' ? '/controller?command=locale': ''}">EN</a>/
+                <a class="locale_ref"
+                   href="${pageContext.request.contextPath}${sessionScope.locale != 'ru_RU' ? '/controller?command=locale': ''}">RU</a>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <fmt:message key="menu.catalog"/>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="${pageContext.servletContext.contextPath}/controller?command=activity_read">
+                                <fmt:message key="menu.activity"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.servletContext.contextPath}/controller?command=client_read">
+                                <fmt:message key="menu.client"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.servletContext.contextPath}/controller?command=trainer_read">
+                                <fmt:message key="menu.trainer"/>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=order_read">
+                        <fmt:message key="menu.order"/>
+                    </a>
+                </li>
+                <li><a href="${pageContext.servletContext.contextPath}/controller?command=prescription_read">
+                    <fmt:message key="menu.prescription"/>
+                </a>
+                </li>
+                <li>
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=training_read">
+                        <fmt:message key="menu.training"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=user_read">
+                        <fmt:message key="menu.user"/>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <div>${sessionScope.role}
+                            <span class="caret"></span></div>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}/controller?command=logout">LogOut</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+

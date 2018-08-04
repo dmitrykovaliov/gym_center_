@@ -13,24 +13,10 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
-    private static final Logger LOGGER = LogManager.getLogger(EmailSender.class);
-
-
-    public EmailSender() {
-    }
-
-    /**
-     * Sends email to definite e-mail address.
-     *
-     * @param sendToEmail e-mail address
-     * @param mailSubject name of subject
-     * @param mailText    text of e-mail message
-     *
-     * @return true if operation proceeded successfully, else return false.
-     */
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static boolean sendMail(String sendToEmail, String mailSubject, String mailText) {
-        Session mailSession = (new EmailSessionCreator()).createSession();
+        Session mailSession = new EmailSessionCreator().createSession();
         mailSession.setDebug(true);
 
         MimeMessage message = new MimeMessage(mailSession);
@@ -41,7 +27,7 @@ public class EmailSender {
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
-            LOGGER.log(Level.ERROR, "Cannot send an email: " + e, e);
+            LOGGER.log(Level.ERROR, "Email not sent: ", e);
         }
         return false;
     }

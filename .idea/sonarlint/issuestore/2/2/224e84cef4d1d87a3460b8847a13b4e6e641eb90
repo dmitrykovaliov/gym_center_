@@ -1,6 +1,5 @@
 
-hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(¯åÕøÿÿÿÿ8À¶î¼Ë,
-]squid:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(¯áÑë
-nsquid:S1192"MDefine a constant instead of duplicating this literal "Interrupted!" 3 times.(·¾ÙÓøÿÿÿÿ8ÖÔŒ¾Ë,
-Ssquid:S1135"2Complete the task associated to this TODO comment.(‘ÒÏõùÿÿÿÿ8ú¿¤½Ë,
-asquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(âˆ³Ÿşÿÿÿÿ
+dsquid:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(¯áÑë8û°€Ğ,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(òî—ûÿÿÿÿ8û°€Ğ,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ö ùÿÿÿÿ8û°€Ğ,
+Psquid:S1066"/Merge this if statement with the enclosing one.(éÿ¿Üùÿÿÿÿ8û°€Ğ,

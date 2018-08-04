@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 
-public class BigDecimalValidator extends BaseValidator {
+public class BigDecimalValidator extends AbstractValidator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 

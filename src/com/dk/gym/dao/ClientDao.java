@@ -1,11 +1,13 @@
 package com.dk.gym.dao;
 
 import com.dk.gym.entity.Client;
+import com.dk.gym.entity.Role;
 import com.dk.gym.exception.DaoException;
 
 import java.util.List;
 
 public abstract class ClientDao extends AbstractDao<Client> {
+
     @Override
     public abstract List<Client> findAll() throws DaoException;
 
@@ -17,4 +19,6 @@ public abstract class ClientDao extends AbstractDao<Client> {
 
     @Override
     public abstract boolean update(Client entity) throws DaoException;
+
+    public abstract boolean delete(int id) throws DaoException;
 }

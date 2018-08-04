@@ -7,17 +7,20 @@ public class Trainer extends Entity {
     private String lastName;
     private String phone;
     private String personalData;
+    private String iconPath;
     private int idUser;
 
     public Trainer() {
     }
 
-    public Trainer(int idTrainer, String name, String lastName, String phone, String personalData, int idUser) {
+    public Trainer(int idTrainer, String name, String lastName, String phone,
+                   String personalData, String iconPath, int idUser) {
         this.idTrainer = idTrainer;
         this.name = name;
         this.lastName = lastName;
         this.phone = phone;
         this.personalData = personalData;
+        this.iconPath = iconPath;
         this.idUser = idUser;
     }
 
@@ -61,6 +64,14 @@ public class Trainer extends Entity {
         this.personalData = personalData;
     }
 
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
+    }
+
     public int getIdUser() {
         return idUser;
     }
@@ -81,7 +92,9 @@ public class Trainer extends Entity {
         if (name != null ? !name.equals(trainer.name) : trainer.name != null) return false;
         if (lastName != null ? !lastName.equals(trainer.lastName) : trainer.lastName != null) return false;
         if (phone != null ? !phone.equals(trainer.phone) : trainer.phone != null) return false;
-        return personalData != null ? personalData.equals(trainer.personalData) : trainer.personalData == null;
+        if (personalData != null ? !personalData.equals(trainer.personalData) : trainer.personalData != null)
+            return false;
+        return iconPath != null ? iconPath.equals(trainer.iconPath) : trainer.iconPath == null;
     }
 
     @Override
@@ -91,6 +104,7 @@ public class Trainer extends Entity {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (personalData != null ? personalData.hashCode() : 0);
+        result = 31 * result + (iconPath != null ? iconPath.hashCode() : 0);
         result = 31 * result + idUser;
         return result;
     }
@@ -103,6 +117,7 @@ public class Trainer extends Entity {
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", personalData='" + personalData + '\'' +
+                ", iconPath='" + iconPath + '\'' +
                 ", idUser=" + idUser +
                 "} " + super.toString();
     }

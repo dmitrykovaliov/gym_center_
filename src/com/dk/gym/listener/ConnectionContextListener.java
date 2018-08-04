@@ -11,12 +11,12 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class ConnectionContextListener implements ServletContextListener {
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        ConnectionPool.getInstance().initPool();
-        LOGGER.log(Level.INFO, "Pool initialized");
+        ConnectionPool
+                .getInstance()
+                .initPool();
     }
 
     @Override

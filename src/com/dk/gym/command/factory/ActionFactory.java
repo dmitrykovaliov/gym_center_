@@ -3,7 +3,7 @@ package com.dk.gym.command.factory;
 import com.dk.gym.command.ActionCommand;
 import com.dk.gym.command.CommandType;
 import com.dk.gym.command.EmptyCommand;
-import com.dk.gym.servlet.RequestContent;
+import com.dk.gym.controller.RequestContent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

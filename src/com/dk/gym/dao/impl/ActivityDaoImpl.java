@@ -45,12 +45,10 @@ public class ActivityDaoImpl extends ActivityDao {
             statement.executeUpdate();
 
             try (ResultSet generatedKey = statement.getGeneratedKeys()) {
-
                 if (generatedKey.next()) {
                     return generatedKey.getInt(1);
                 }
             }
-
         } catch (SQLException e) {
             throw new DaoException("Can't create activity ", e);
         }
@@ -67,8 +65,8 @@ public class ActivityDaoImpl extends ActivityDao {
             statement.setInt(4, entity.getIdActivity());
 
             statement.executeUpdate();
-            return true;
 
+            return true;
         } catch (SQLException e) {
             throw new DaoException("Can't update activity", e);
         }
@@ -91,9 +89,7 @@ public class ActivityDaoImpl extends ActivityDao {
 
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ACTIVITIES)) {
-
                 while (resultSet.next()) {
-
                     Activity activity = new Activity();
 
                     activity.setIdActivity(resultSet.getInt("id_activity"));
@@ -102,13 +98,11 @@ public class ActivityDaoImpl extends ActivityDao {
                     activity.setNote(resultSet.getString("act_note"));
 
                     list.add(activity);
-
                 }
             }
         } catch (SQLException e) {
             throw new DaoException("Can't find", e);
         }
-
         LOGGER.log(Level.INFO, list.size());
 
         return list;
@@ -125,18 +119,16 @@ public class ActivityDaoImpl extends ActivityDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet != null) {
                     resultSet.next();
-                }
 
                 activity.setIdActivity(resultSet.getInt("id_activity"));
                 activity.setName(resultSet.getString("act_name"));
                 activity.setPrice(resultSet.getBigDecimal("act_price"));
                 activity.setNote(resultSet.getString("act_note"));
-
+                }
             }
         } catch (SQLException e) {
             throw new DaoException("Can't find", e);
         }
-
         return activity;
     }
 
@@ -156,6 +148,9 @@ public class ActivityDaoImpl extends ActivityDao {
 
 
        LOGGER.log(Level.INFO, activityDao.update(entity));
+
+       boolean updt = activityDao.delete(49);
+       LOGGER.log(Level.INFO, "!!!" + updt);
 
     }
 }

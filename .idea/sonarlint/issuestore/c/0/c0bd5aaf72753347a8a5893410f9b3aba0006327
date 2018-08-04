@@ -1,3 +1,2 @@
 
-2squid:S1118"Hide this public constructor.(Œ¦»¤
-–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Œ¦»¤
+Vsquid:S1118":Add a private constructor to hide the implicit public one.(ç°½ñ8è¡ü¸Í,

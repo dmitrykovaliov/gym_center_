@@ -1,18 +1,18 @@
 package com.dk.gym.validator;
 
 
-public class ChainPassValidator extends BaseValidator {
+public class ChainPassValidator {
 
-    @Override
     public boolean validate(String pass) {
 
-        BaseValidator passValidator = new LengthValidator(8, 20);
-        BaseValidator containsDigit = new ContainsDigitValidator();
-        passValidator.setNext(containsDigit);
-        BaseValidator containsCapitalLetter = new ContainsCapitalValidator();
+        AbstractValidator lengthValidator = new LengthValidator(8, 20);
+        AbstractValidator containsDigit = new ContainsDigitValidator();
+        AbstractValidator containsCapitalLetter = new ContainsCapitalValidator();
+
+        lengthValidator.setNext(containsDigit);
         containsDigit.setNext(containsCapitalLetter);
 
-        return passValidator.validate(pass);
+        return lengthValidator.validate(pass);
     }
 
     public static void main(String[] args) {//todo

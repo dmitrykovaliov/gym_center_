@@ -13,7 +13,7 @@ public class Training extends Entity {
     private String clientNote;
     private String trainerNote;
     private int idOrder;
-    private int idTrainer; //can be null;
+    private Integer idTrainer;
 
     public Training() {
     }
@@ -95,7 +95,7 @@ public class Training extends Entity {
         this.idOrder = idOrder;
     }
 
-    public int getIdTrainer() {
+    public Integer getIdTrainer() {
         return idTrainer;
     }
 

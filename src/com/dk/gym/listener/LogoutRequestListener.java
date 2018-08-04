@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 
 @WebListener
-public class LogoutRequestListener implements ServletRequestListener{
+public class LogoutRequestListener implements ServletRequestListener {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -21,11 +21,9 @@ public class LogoutRequestListener implements ServletRequestListener{
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest req = (HttpServletRequest) servletRequestEvent.getServletRequest();
-            if(ParamConstant.PARAM_LOGOUT.equals(req.getParameter(ParamConstant.PARAM_COMMAND))) {
-                req.getSession().invalidate();
-                LOGGER.log(Level.INFO, "Session invalidated");
-            }
-
-
+        if (ParamConstant.PARAM_LOGOUT.equals(req.getParameter(ParamConstant.PARAM_COMMAND))) {
+            req.getSession().invalidate();
+            LOGGER.log(Level.INFO, "Session invalidated");
+        }
     }
 }

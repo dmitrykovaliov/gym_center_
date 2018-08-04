@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class ContainsDigitValidator extends BaseValidator {
+public class ContainsDigitValidator extends AbstractValidator {
 
     private static final String DIGIT_REGEX = ".*\\d.*";
 

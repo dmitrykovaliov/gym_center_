@@ -1,6 +1,7 @@
 package com.dk.gym.dao.impl;
 
 import com.dk.gym.dao.OrderDao;
+import com.dk.gym.entity.join.JoinOrder;
 import com.dk.gym.pool.ConnectionPool;
 import com.dk.gym.entity.Order;
 import com.dk.gym.exception.DaoException;
@@ -23,12 +24,16 @@ public class OrderDaoImpl extends OrderDao {
     private static final String SQL_UPDATE_ORDER = "UPDATE order_ SET ord_date = ?, ord_price = ?, " +
             "ord_discount = ?, ord_closure = ?, ord_feedback = ?, id_client = ?, id_activity = ?  " +
             "WHERE id_order = ?";
-
     private static final String SQL_SELECT_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount, " +
             "ord_closure, ord_feedback, id_client, id_activity FROM order_";
+    private static final String SQL_JOIN_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount,ord_closure," +
+            " ord_feedback, cl_name, cl_lastname, act_name FROM order_ " +
+            "JOIN client c ON order_.id_client = c.id_client " +
+            "JOIN activity a ON order_.id_activity = a.id_activity";
     private static final String SQL_SELECT_ORDER_BY_ID = "SELECT id_order, ord_date, ord_price, ord_discount," +
             "ord_closure, ord_feedback, id_client, id_activity FROM order_ " +
             "where id_order=?";
+    private static final String SQL_DELETE_ORDER = "DELETE FROM order_ WHERE id_order = ?";
 
     public OrderDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
@@ -97,6 +102,17 @@ public class OrderDaoImpl extends OrderDao {
     }
 
     @Override
+    public boolean delete(int id) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ORDER)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
     public List<Order> findAll() throws DaoException {
         List<Order> list = new ArrayList<>();
 
@@ -121,11 +137,44 @@ public class OrderDaoImpl extends OrderDao {
                     order.setIdActivity(resultSet.getInt("id_activity"));
 
                     list.add(order);
-
                 }
             }
         } catch (SQLException e) {
             throw new DaoException("Can't find", e);
+        }
+
+        LOGGER.log(Level.INFO, list.size());
+
+        return list;
+    }
+
+    @Override
+    public List<JoinOrder> findJoinAll() throws DaoException {
+        List<JoinOrder> list = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_JOIN_ALL_ORDER)) {
+
+                while (resultSet.next()) {
+
+                    JoinOrder joinOrder = new JoinOrder();
+
+                    joinOrder.getOrder().setIdOrder(resultSet.getInt("id_order"));
+                    joinOrder.getOrder().setDate(resultSet.getDate("ord_date").toLocalDate());
+                    joinOrder.getOrder().setPrice(resultSet.getBigDecimal("ord_price"));
+                    joinOrder.getOrder().setDiscount(resultSet.getInt("ord_discount"));
+                    if(resultSet.getDate("ord_closure")!=null) {
+                        joinOrder.getOrder().setClosureDate(resultSet.getDate("ord_closure").toLocalDate());
+                    }
+                    joinOrder.getOrder().setFeedback(resultSet.getString("ord_feedback"));
+                    joinOrder.getClient().setName(resultSet.getString("cl_name"));
+                    joinOrder.getClient().setLastName(resultSet.getString("cl_lastname"));
+                    joinOrder.getActivity().setName(resultSet.getString("act_name"));
+
+                    list.add(joinOrder);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Can't findJoinAll", e);
         }
 
         LOGGER.log(Level.INFO, list.size());

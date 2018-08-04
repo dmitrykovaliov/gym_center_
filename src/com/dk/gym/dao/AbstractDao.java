@@ -8,12 +8,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public abstract class AbstractDao<T extends Entity> implements AutoCloseable{
+public abstract class AbstractDao<T extends Entity> implements AutoCloseable {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected ProxyConnection connection;
 
+    public void setConnection(ProxyConnection connection) {
+        this.connection = connection;
+    }
 
     public abstract List<T> findAll() throws DaoException;
 
@@ -24,7 +27,7 @@ public abstract class AbstractDao<T extends Entity> implements AutoCloseable{
     public abstract boolean update(T entity) throws DaoException;
 
     public void close() {
-        if(connection!=null) {
+        if (connection != null) {
             connection.close();
         }
     }

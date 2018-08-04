@@ -1,6 +1,7 @@
 package com.dk.gym.dao;
 
 import com.dk.gym.entity.Training;
+import com.dk.gym.entity.join.JoinTraining;
 import com.dk.gym.exception.DaoException;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public abstract class TrainingDao extends AbstractDao<Training> {
 
     @Override
     public abstract boolean update(Training entity) throws DaoException;
+
+    public abstract boolean delete(int id) throws DaoException;
+
+    public abstract List<JoinTraining> findJoinAll() throws DaoException;
 }

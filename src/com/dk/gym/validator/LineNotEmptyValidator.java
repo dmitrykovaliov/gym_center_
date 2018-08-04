@@ -4,7 +4,7 @@ public class LineNotEmptyValidator {
 
     public boolean validate(String ... message) {
 
-        BaseValidator notEmptyValidator = new NotEmptyValidator();
+        AbstractValidator notEmptyValidator = new NotEmptyValidator();
 
         for (String s : message) {
 

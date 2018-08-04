@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-public class TimeValidator extends BaseValidator {
+public class TimeValidator extends AbstractValidator {
 
     private static final String TIME_REGEX = "^\\d{1,2}[:]\\d{2}$";
 
