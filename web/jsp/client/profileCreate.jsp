@@ -43,7 +43,7 @@
 <div>
     <form class="ui-form" id="createForm" name="createForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="client_update">
+        <input type="hidden" name="command" value="client_create">
         <div class="form-row">
             <input id="id" form="createForm" type="text" name="id" readonly autocomplete="off">
             <label for="id"><fmt:message key="table.client.id"/></label>
@@ -67,18 +67,6 @@
         <div class="form-row">
             <input id="personalData" form="createForm" type="text" name="personalData" autocomplete="off">
             <label for="personalData"><fmt:message key="table.client.personalData"/></label>
-        </div>
-        <div class="form-row">
-            <input id="login" form="createForm" type="text" name="login" autocomplete="off">
-            <label for="login"><fmt:message key="table.client.login"/></label>
-        </div>
-        <div class="form-row">
-            <input id="pass" form="createForm" type="text" name="pass" autocomplete="off">
-            <label for="pass"><fmt:message key="table.client.pass"/></label>
-        </div>
-        <div class="form-row">
-            <input id="role" form="createForm" type="text" name="role" autocomplete="off">
-            <label for="role"><fmt:message key="table.client.role"/></label>
         </div>
         <div class="form-row">
             <input id="icon" form="createForm" type="file" name="iconPath">

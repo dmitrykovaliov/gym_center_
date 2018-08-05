@@ -43,46 +43,30 @@
 <div>
     <form class="ui-form" id="createForm" name="createForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="client_create">
+        <input type="hidden" name="command" value="trainer_create">
         <div class="form-row">
             <input id="id" form="createForm" type="text" name="id" readonly autocomplete="off">
-            <label for="id"><fmt:message key="table.client.id"/></label>
+            <label for="id"><fmt:message key="table.trainer.id"/></label>
         </div>
         <div class="form-row">
             <input id="name" form="createForm" type="text" name="name" autocomplete="off">
-            <label for="name"><fmt:message key="table.client.name"/></label>
+            <label for="name"><fmt:message key="table.trainer.name"/></label>
         </div>
         <div class="form-row">
             <input id="lastName" form="createForm" type="text" name="lastName" autocomplete="off">
-            <label for="lastName"><fmt:message key="table.client.lastName"/></label>
+            <label for="lastName"><fmt:message key="table.trainer.lastName"/></label>
         </div>
         <div class="form-row">
             <input id="phone" form="createForm" type="text" name="phone" autocomplete="off">
-            <label for="phone"><fmt:message key="table.client.phone"/></label>
-        </div>
-        <div class="form-row">
-            <input id="email" form="createForm" type="text" name="email" autocomplete="off">
-            <label for="email"><fmt:message key="table.client.email"/></label>
+            <label for="phone"><fmt:message key="table.trainer.phone"/></label>
         </div>
         <div class="form-row">
             <input id="personalData" form="createForm" type="text" name="personalData" autocomplete="off">
-            <label for="personalData"><fmt:message key="table.client.personalData"/></label>
-        </div>
-        <div class="form-row">
-            <input id="login" form="createForm" type="text" name="login" autocomplete="off">
-            <label for="login"><fmt:message key="table.client.login"/></label>
-        </div>
-        <div class="form-row">
-            <input id="pass" form="createForm" type="text" name="pass" autocomplete="off">
-            <label for="pass"><fmt:message key="table.client.pass"/></label>
-        </div>
-        <div class="form-row">
-            <input id="role" form="createForm" type="text" name="role" autocomplete="off">
-            <label for="role"><fmt:message key="table.client.role"/></label>
+            <label for="personalData"><fmt:message key="table.trainer.personalData"/></label>
         </div>
         <div class="form-row">
             <input id="icon" form="createForm" type="file" name="iconPath">
-            <label for="icon"><fmt:message key="table.client.iconPath"/></label>
+            <label for="icon"><fmt:message key="table.trainer.iconPath"/></label>
         </div>
 
         <input form="createForm" id="idSubm" type="submit"

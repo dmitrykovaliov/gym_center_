@@ -25,7 +25,9 @@ public class TrainerDaoImpl extends TrainerDao {
     private static final String SQL_UPDATE_CLIENT = "UPDATE trainer SET tr_name = ?, tr_lastname = ?, tr_phone = ?, " +
             "tr_personal_data = ?, tr_iconpath = ? " +
             "WHERE id_trainer = ?";
-    private static final String SQL_SELECT_ALL_ACTIVITIES = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
+    private static final String SQL_UPDATE_USERID_TRAINER = "UPDATE trainer SET id_user = ? " +
+            "WHERE id_trainer = ?";
+    private static final String SQL_SELECT_ALL_TRAINERS = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer WHERE id_trainer = ?";
@@ -83,12 +85,28 @@ public class TrainerDaoImpl extends TrainerDao {
     }
 
     @Override
+    public boolean updateUserId(Integer idUser, int idTrainer) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USERID_TRAINER)) {
+
+            statement.setObject(1, idUser);
+            statement.setInt(2, idTrainer);
+
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            throw new DaoException("Can't update trainer", e);
+        }
+    }
+
+    @Override
     public List<Trainer> findAll() throws DaoException {
 
         List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ACTIVITIES)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_TRAINERS)) {
 
                 while (resultSet.next()) {
 
@@ -156,7 +174,7 @@ public class TrainerDaoImpl extends TrainerDao {
         TrainerDao trainerDao = new TrainerDaoImpl();
         List<Trainer> entities = trainerDao.findAll();
 
-        Trainer entity = trainerDao.findEntityById(3);
+        Trainer entity = trainerDao.findEntityById(1);
 
         LOGGER.log(Level.INFO, entities);
         LOGGER.log(Level.INFO, entity);
@@ -164,5 +182,7 @@ public class TrainerDaoImpl extends TrainerDao {
         LOGGER.log(Level.INFO, trainerDao.create(entity));
 
         LOGGER.log(Level.INFO, trainerDao.update(entity));
+
+        LOGGER.log(Level.INFO, trainerDao.updateUserId(null, 1));
     }
 }

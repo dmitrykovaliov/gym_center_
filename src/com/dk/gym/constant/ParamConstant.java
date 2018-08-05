@@ -13,6 +13,7 @@ public class ParamConstant {
     public static final String PARAM_READ_ALL_ACTIVITY = "readAllActivity";
     public static final String PARAM_READ_ALL_TRAINER = "readAllTrainer";
     public static final String PARAM_READ_ALL_ORDER = "readAllOrder";
+    public static final String PARAM_READ_ALL_ROLE = "readAllRole";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_PRICE = "price";
     public static final String PARAM_NOTE = "note";
@@ -21,7 +22,7 @@ public class ParamConstant {
     public static final String PARAM_ORDER_ID = "orderId";
     public static final String PARAM_CLIENT_ID = "clientId";
     public static final String PARAM_ACTIVITY_ID = "activityId";
-    public static final String PARAM_ID_FOREIGN = "idForeign";
+    public static final String PARAM_USER_ID = "userId";
     public static final String PARAM_ERROR = "error";
     public static final String PARAM_DONE = "done";
     public static final String ATTR_URL_QUERY = "urlQuery";

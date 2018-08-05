@@ -10,7 +10,7 @@ import com.dk.gym.entity.builder.TrainerDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
-import com.dk.gym.validator.TrainerValidator;
+import com.dk.gym.validator.impl.TrainerValidator;
 import com.dk.gym.validator.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +19,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static com.dk.gym.constant.ParamConstant.PARAM_ID;
-import static com.dk.gym.constant.ParamConstant.PARAM_LOGIN;
 
 
 public class TrainerService {

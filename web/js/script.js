@@ -136,15 +136,19 @@ function addIdToFieldTraining (idAct, idHid, idSubm, idNumber, create, update) {
     }
 }
 
-function addIdToFieldUser (idAct, idHid, idSubm, idNumber, create, update) {
+function addIdToFieldUser (idAct, idHid, idSubm, idCl, idTr, idNumber, idClient, idTrainer, create, update) {
 
     var act = document.getElementById(idAct);
+    var cl = document.getElementById(idCl);
+    var tr = document.getElementById(idTr);
     var hid = document.getElementById(idHid);
     var subm = document.getElementById(idSubm);
 
     if(act.value == idNumber) {
 
         act.value = "";
+        cl.value = "";
+        tr.value = "";
         subm.value = create;
         hid.value = "user_create";
 
@@ -152,6 +156,8 @@ function addIdToFieldUser (idAct, idHid, idSubm, idNumber, create, update) {
         // focusedElem.focus();
 
         act.value = idNumber;
+        cl.value = idClient;
+        tr.value = idTrainer;
 
         subm.value = update;
         hid.value = "user_update";

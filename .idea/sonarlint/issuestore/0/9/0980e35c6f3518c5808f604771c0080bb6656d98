@@ -1,10 +1,10 @@
 
-msquid:S2095"QUse try-with-resources or close this "PrescriptionDaoImpl" in a "finally" clause.(û‹Ä‘8Ó‡¢ƒĞ,
-msquid:S1192"QDefine a constant instead of duplicating this literal "pre_trainer_note" 3 times.(ŸäÇ¢8êšŒ¡Ğ,
-lsquid:S1192"PDefine a constant instead of duplicating this literal "pre_client_note" 3 times.(Ü§«à8êšŒ¡Ğ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 3 times.(×Í´8ÜÇ Ğ,
-ksquid:S1192"JDefine a constant instead of duplicating this literal "pre_weeks" 3 times.(‡ıªşûÿÿÿÿ8êšŒ¡Ğ,
-jsquid:S1192"IDefine a constant instead of duplicating this literal "pre_date" 3 times.(‘’„Ùùÿÿÿÿ8êšŒ¡Ğ,
-xsquid:S1192"WDefine a constant instead of duplicating this literal "pre_trainings_per_week" 3 times.(ı±î³üÿÿÿÿ8êšŒ¡Ğ,
-lsquid:S1192"KDefine a constant instead of duplicating this literal "pre_agreed" 3 times.(“û¥şÿÿÿÿ8êšŒ¡Ğ,
 csquid:S2259"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(×Í´8Ó‡¢ƒĞ,
+esquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 3 times.(×Í´8ÜÇ Ğ,
+lsquid:S1192"PDefine a constant instead of duplicating this literal "pre_client_note" 3 times.(Ü§«à8êšŒ¡Ğ,
+msquid:S1192"QDefine a constant instead of duplicating this literal "pre_trainer_note" 3 times.(ŸäÇ¢8êšŒ¡Ğ,
+ksquid:S1192"JDefine a constant instead of duplicating this literal "pre_weeks" 3 times.(‡ıªşûÿÿÿÿ8êšŒ¡Ğ,
+xsquid:S1192"WDefine a constant instead of duplicating this literal "pre_trainings_per_week" 3 times.(ı±î³üÿÿÿÿ8êšŒ¡Ğ,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "pre_date" 3 times.(‘’„Ùùÿÿÿÿ8êšŒ¡Ğ,
+lsquid:S1192"KDefine a constant instead of duplicating this literal "pre_agreed" 3 times.(“û¥şÿÿÿÿ8êšŒ¡Ğ,
+msquid:S2095"QUse try-with-resources or close this "PrescriptionDaoImpl" in a "finally" clause.(û‹Ä‘8Ó‡¢ƒĞ,

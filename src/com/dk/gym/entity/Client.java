@@ -9,13 +9,13 @@ public class Client extends Entity {
     private String email;
     private String personalData;
     private String iconPath;
-    private int idUser;
+    private Integer idUser;
 
     public Client() {
     }
 
-    public Client(int idClient, String name, String lastName, String phone, String email,
-                  String personalData, String iconPath, int idUser) {
+    public Client(int idClient, String name, String lastName, String phone, String email, String personalData,
+                  String iconPath, Integer idUser) {
         this.idClient = idClient;
         this.name = name;
         this.lastName = lastName;
@@ -82,11 +82,11 @@ public class Client extends Entity {
         this.iconPath = iconPath;
     }
 
-    public int getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 
@@ -98,14 +98,14 @@ public class Client extends Entity {
         Client client = (Client) o;
 
         if (idClient != client.idClient) return false;
-        if (idUser != client.idUser) return false;
         if (name != null ? !name.equals(client.name) : client.name != null) return false;
         if (lastName != null ? !lastName.equals(client.lastName) : client.lastName != null) return false;
         if (phone != null ? !phone.equals(client.phone) : client.phone != null) return false;
         if (email != null ? !email.equals(client.email) : client.email != null) return false;
         if (personalData != null ? !personalData.equals(client.personalData) : client.personalData != null)
             return false;
-        return iconPath != null ? iconPath.equals(client.iconPath) : client.iconPath == null;
+        if (iconPath != null ? !iconPath.equals(client.iconPath) : client.iconPath != null) return false;
+        return idUser != null ? idUser.equals(client.idUser) : client.idUser == null;
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Client extends Entity {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (personalData != null ? personalData.hashCode() : 0);
         result = 31 * result + (iconPath != null ? iconPath.hashCode() : 0);
-        result = 31 * result + idUser;
+        result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
         return result;
     }
 

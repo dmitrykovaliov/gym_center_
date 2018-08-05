@@ -1,11 +1,1 @@
-2018-08-03 19:50:02.438 [main] INFO  com.dk.gym.pool.ConnectionPool - PoolSize: 8
-2018-08-03 19:50:02.477 [main] INFO  dk.gym.dao.impl.UserDaoImpl - 2
-2018-08-03 19:50:02.489 [main] INFO  dk.gym.dao.impl.UserDaoImpl - [User{idUser=1, login='root', pass='PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=', role=ADMIN}, User{idUser=12, login='root21', pass='PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=', role=ADMIN}]
-2018-08-03 19:50:02.489 [main] INFO  dk.gym.dao.impl.UserDaoImpl - User{idUser=1, login='root', pass='PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=', role=ADMIN}
-2018-08-03 19:50:26.342 [main] INFO  com.dk.gym.pool.ConnectionPool - PoolSize: 8
-2018-08-03 19:50:26.364 [main] INFO  dk.gym.dao.impl.UserDaoImpl - 2
-2018-08-03 19:50:26.381 [main] INFO  dk.gym.dao.impl.UserDaoImpl - [User{idUser=1, login='root', pass='PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=', role=ADMIN}, User{idUser=12, login='root21', pass='PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=', role=ADMIN}]
-2018-08-03 19:50:26.382 [main] INFO  dk.gym.dao.impl.UserDaoImpl - User{idUser=1, login='root', pass='PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE=', role=ADMIN}
-2018-08-03 19:50:26.399 [main] INFO  dk.gym.dao.impl.UserDaoImpl - 16
-2018-08-03 19:50:26.412 [main] INFO  dk.gym.dao.impl.UserDaoImpl - true
-2018-08-03 19:50:26.413 [main] INFO  dk.gym.dao.impl.UserDaoImpl - null
+2018-08-05 15:23:09.310 [main] DEBUG com.dk.gym.validator.impl.UserValidator - clientTrainer: false

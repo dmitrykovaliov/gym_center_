@@ -1,18 +1,22 @@
-package com.dk.gym.validator;
+package com.dk.gym.validator.impl;
 
 import com.dk.gym.controller.RequestContent;
 import com.dk.gym.entity.Role;
+import com.dk.gym.validator.ChainPassValidator;
+import com.dk.gym.validator.EnumValidator;
+import com.dk.gym.validator.LengthValidator;
+import com.dk.gym.validator.NotEmptyValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.servlet.http.Part;
 
 import static com.dk.gym.constant.ParamConstant.*;
 
 public class UserValidator {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final int MIN_LOGIN_LENGTH = 4;
+    private static final int MAX_LOGIN_LENGTH = 15;
 
     private NotEmptyValidator notEmptyValidator;
 
@@ -36,7 +40,7 @@ public class UserValidator {
         boolean valid = true;
         if(notEmptyValidator.validate(parameter)) {
             lineNotEmpty = true;
-            valid = new LengthValidator(4, 15).validate(parameter);
+            valid = new LengthValidator(MIN_LOGIN_LENGTH, MAX_LOGIN_LENGTH).validate(parameter);
         }
         LOGGER.log(Level.DEBUG, "login: " + valid);
         return valid;

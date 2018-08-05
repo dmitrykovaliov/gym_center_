@@ -272,10 +272,6 @@ N
 web/jsp/admin/jspf/header.jspf,6/c/6c6250cfe9dcb9561d0cba439c45a4bccc527801
 I
 web/jsp/admin/trainer.jsp,5/e/5e892cdf32d86ad49a487c235667c7c09afde665
-Q
-!web/jsp/general/profileUpdate.jsp,5/3/531780d9d0bdc08f94b25a5cd70fd1ea0f8511ee
-Q
-!web/jsp/general/profileCreate.jsp,4/a/4a91f62cdd84a75eb98e984255e5ac0c8b4dd7e7
 o
 ?src/test/com/dk/gym/validator/ContainsCapitalValidatorTest.java,c/e/ced8b4d63ebba3efa1bf9510ff6472c91b84e655
 i
@@ -350,8 +346,6 @@ Y
 -src/com/dk/gym/controller/PictureServlet.java,f/3/f3c13cb8f042343b8678c12e1aa84bf35f438d8a
 ]
 -src/com/dk/gym/controller/RequestContent.java,c/c/cc1ae71830664c71e48d2120e801935986d96f82
-c
-3src/com/dk/gym/listener/TrainerDeletedListener.java,b/5/b599a02ea2104ebcf25d36d62a60ed0804be877a
 R
 "src/com/dk/gym/util/SelectTag.java,c/b/cb0018fd09f5e92d2c76bada20e69142806a7683
 `
@@ -504,3 +498,31 @@ i
 ,src/com/dk/gym/entity/join/JoinTraining.java,e/8/e86c62d1b264b9d442b19164bb2934709074baa9
 e
 5src/com/dk/gym/command/admin/TrainingReadCommand.java,5/2/522c0ab250e5afeb1fff1cd17ee8b991f856aad9
+a
+1src/com/dk/gym/command/admin/UserReadCommand.java,7/a/7ac94d4c85f53a5e64128fc2a8cff7f436da89a1
+\
+,src/com/dk/gym/validator/PriceValidator.java,e/f/eff9092d39a1f9c97fabd6c3488b28745e71b2ad
+\
+,src/com/dk/gym/validator/RangeValidator.java,f/8/f8f0cd41a47bcec0757434bd17028b611fdc3d5a
+[
++src/com/dk/gym/validator/TimeValidator.java,b/e/be154cfd968b085e72d17a53c4f8244dc5ed9f7a
+d
+4src/test/com/dk/gym/validator/DateValidatorTest.java,6/d/6dd3776c12b6051bcca8cdc203bf72ebd246e620
+e
+5src/test/com/dk/gym/validator/EmailValidatorTest.java,8/d/8d89a2fcf5d4d725d7cd004c92601e48a02175ec
+j
+:src/test/com/dk/gym/validator/OnlyDigitsValidatorTest.java,5/1/51f4554dfdb7424bb79c4cbf15e6bc34ea33b92f
+e
+5src/test/com/dk/gym/validator/PriceValidatorTest.java,7/0/700bc6a25476762918df50bb723103ce623504c1
+X
+(src/com/dk/gym/entity/join/JoinUser.java,a/f/afe8617875ea9c051634a75011121751f6ad28de
+J
+web/jsp/trainer/client.jsp,5/8/58ce2a8b8205a38cf855b945791f2aeff2f00500
+P
+ web/jsp/client/profileCreate.jsp,9/0/90156d35e691fb583f98dafcc42e5696b5ad1914
+P
+ web/jsp/client/profileUpdate.jsp,2/8/28bfab170f65e793656744c391efa4638e0c3fdb
+Q
+!web/jsp/trainer/profileCreate.jsp,c/1/c15b3635aa255c592109a654bcc63850a213b9ab
+Q
+!web/jsp/trainer/profileUpdate.jsp,7/f/7f496af4c54d4dedb0ce95c872a2b7333e6c0e34

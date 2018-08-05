@@ -21,4 +21,6 @@ public abstract class ClientDao extends AbstractDao<Client> {
     public abstract boolean update(Client entity) throws DaoException;
 
     public abstract boolean delete(int id) throws DaoException;
+
+    public abstract boolean updateUserId(Integer idUser, int idClient) throws DaoException;
 }

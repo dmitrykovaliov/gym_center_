@@ -20,4 +20,6 @@ public abstract class TrainerDao extends AbstractDao<Trainer> {
     public abstract boolean update(Trainer entity) throws DaoException;
 
     public abstract boolean delete(int id) throws DaoException;
+
+    public abstract boolean updateUserId(Integer  idUser, int idTrainer) throws DaoException;
 }

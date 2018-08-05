@@ -8,13 +8,13 @@ public class Trainer extends Entity {
     private String phone;
     private String personalData;
     private String iconPath;
-    private int idUser;
+    private Integer idUser;
 
     public Trainer() {
     }
 
-    public Trainer(int idTrainer, String name, String lastName, String phone,
-                   String personalData, String iconPath, int idUser) {
+    public Trainer(int idTrainer, String name, String lastName, String phone, String personalData,
+                   String iconPath, Integer idUser) {
         this.idTrainer = idTrainer;
         this.name = name;
         this.lastName = lastName;
@@ -72,11 +72,11 @@ public class Trainer extends Entity {
         this.iconPath = iconPath;
     }
 
-    public int getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 
@@ -88,13 +88,13 @@ public class Trainer extends Entity {
         Trainer trainer = (Trainer) o;
 
         if (idTrainer != trainer.idTrainer) return false;
-        if (idUser != trainer.idUser) return false;
         if (name != null ? !name.equals(trainer.name) : trainer.name != null) return false;
         if (lastName != null ? !lastName.equals(trainer.lastName) : trainer.lastName != null) return false;
         if (phone != null ? !phone.equals(trainer.phone) : trainer.phone != null) return false;
         if (personalData != null ? !personalData.equals(trainer.personalData) : trainer.personalData != null)
             return false;
-        return iconPath != null ? iconPath.equals(trainer.iconPath) : trainer.iconPath == null;
+        if (iconPath != null ? !iconPath.equals(trainer.iconPath) : trainer.iconPath != null) return false;
+        return idUser != null ? idUser.equals(trainer.idUser) : trainer.idUser == null;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Trainer extends Entity {
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (personalData != null ? personalData.hashCode() : 0);
         result = 31 * result + (iconPath != null ? iconPath.hashCode() : 0);
-        result = 31 * result + idUser;
+        result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
         return result;
     }
 

@@ -5,7 +5,8 @@ public enum ReturnMessageType {
     ENTER_ERROR("message.error.enter"),
     USER_NOT_EXIST("message.info.userNotExist"),
     USER_EXIST("message.info.userExist"),
-    INVALID("message.error.invalid");
+    INVALID("message.error.invalid"),
+    DUPLICATED_USER("message.error.duplicated");
 
     private String property;
 

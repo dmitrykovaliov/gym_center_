@@ -1,3 +1,6 @@
 
-isquid:S1192"HDefine a constant instead of duplicating this literal "us_role" 3 times.(Ç®½Êûÿÿÿÿ8Ö‹Š†Ğ,
-jsquid:S2095"IUse try-with-resources or close this "UserDaoImpl" in a "finally" clause.(æ Ä‚ıÿÿÿÿ8¸¾“…Ğ,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "us_login" 3 times.(ïèË‡üÿÿÿÿ8ùêÓÓĞ,
+dsquid:S1192"HDefine a constant instead of duplicating this literal "id_user" 4 times.(åãö™8ùêÓÓĞ,
+jsquid:S2095"IUse try-with-resources or close this "UserDaoImpl" in a "finally" clause.(æ Ä‚ıÿÿÿÿ8ùêÓÓĞ,
+hsquid:S1192"LDefine a constant instead of duplicating this literal "us_password" 3 times.(¨À•ä8ùêÓÓĞ,
+isquid:S1192"HDefine a constant instead of duplicating this literal "us_role" 4 times.(Ç®½Êûÿÿÿÿ8ùêÓÓĞ,

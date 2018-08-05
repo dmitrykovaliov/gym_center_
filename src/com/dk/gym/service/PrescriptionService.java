@@ -10,7 +10,7 @@ import com.dk.gym.entity.builder.PrescriptionDirector;
 import com.dk.gym.entity.join.JoinPrescription;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.validator.PrescriptionValidator;
+import com.dk.gym.validator.impl.PrescriptionValidator;
 import com.dk.gym.validator.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

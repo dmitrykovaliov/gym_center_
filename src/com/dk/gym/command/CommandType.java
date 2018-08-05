@@ -11,7 +11,6 @@ public enum CommandType {
 
     USER_CREATE(new UserCreateCommand()),
     USER_READ(new UserReadCommand()),
-    USER_UPDATE(new UserUpdateCommand()),
     USER_DELETE(new UserDeleteCommand()),
 
     CLIENT_CREATE(new ClientCreateCommand()),

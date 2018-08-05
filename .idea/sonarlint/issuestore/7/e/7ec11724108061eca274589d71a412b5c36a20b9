@@ -1,3 +1,3 @@
 
-^squid:S00107"AConstructor has 8 parameters, which is greater than 7 authorized.(Öºµ¥8ƒ™¼‚Ğ,
-ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(İ¢êÍıÿÿÿÿ8ä¦¾‚Ğ,
+csquid:S00107"AConstructor has 8 parameters, which is greater than 7 authorized.(ÍÂæßıÿÿÿÿ8àÛÑÈĞ,
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(İ¢êÍıÿÿÿÿ8øûÓÈĞ,

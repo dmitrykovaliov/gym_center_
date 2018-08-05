@@ -21,11 +21,13 @@ public class ClientDaoImpl extends ClientDao {
 
     private static final String SQL_INSERT_CLIENT = "INSERT INTO client(id_client, cl_name, cl_lastname, cl_phone, " +
             "cl_email, cl_personal_data, cl_iconpath) " +
-            "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (NULL, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET cl_name = ?, cl_lastname = ?, cl_phone = ?, " +
             "cl_email = ?, cl_personal_data = ?, cl_iconpath = ? " +
             "WHERE id_client = ?";
-    private static final String SQL_SELECT_ALL_ACTIVITIES = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
+    private static final String SQL_UPDATE_USERID_CLIENT = "UPDATE client SET id_user = ? " +
+            "WHERE id_client = ?";
+    private static final String SQL_SELECT_ALL_CLIENTS = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_client = ?";
@@ -85,11 +87,27 @@ public class ClientDaoImpl extends ClientDao {
     }
 
     @Override
+    public boolean updateUserId(Integer idUser, int idClient) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USERID_CLIENT)) {
+
+            statement.setObject(1, idUser);
+            statement.setInt(2, idClient);
+
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            throw new DaoException("Can't update client", e);
+        }
+    }
+
+    @Override
     public List<Client> findAll() throws DaoException {
         List<Client> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ACTIVITIES)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_CLIENTS)) {
 
                 while (resultSet.next()) {
 
@@ -160,11 +178,12 @@ public class ClientDaoImpl extends ClientDao {
 
         Client entity = clientDao.findEntityById(3);
 
-        LOGGER.log(Level.INFO, entities);
+        System.out.println(entities);
         LOGGER.log(Level.INFO, entity);
 
         LOGGER.log(Level.INFO, clientDao.create(entity));
 
         LOGGER.log(Level.INFO, clientDao.update(entity));
+        LOGGER.log(Level.INFO, clientDao.updateUserId(null, 4));
     }
 }

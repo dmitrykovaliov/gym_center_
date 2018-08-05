@@ -46,7 +46,6 @@ public class GymServlet extends HttpServlet {
 
         ContentPage contentPage;
 
-
         RequestContent content = new RequestContent();
 
         content.extractValues(request);
@@ -56,8 +55,8 @@ public class GymServlet extends HttpServlet {
         try {
             contentPage = command.execute(content);
         } catch (CommandException e) {
-            LOGGER.log(Level.ERROR, e);
             e.printStackTrace();
+            LOGGER.log(Level.ERROR, e);
             request.setAttribute(ParamConstant.PARAM_ERROR, e.getMessage());
             contentPage = new ContentPage(RequestMethod.FORWARD, PageConstant.PAGE_ERROR);
         }

@@ -1,7 +1,7 @@
 
+usquid:S00116"XRename this field "USER_PASSWORD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÜÊ¥8‚ÃÆ†Í,
 =squid:S1170"!Make this final field static too.(ñÜÊ¥8‚ÃÆ†Í,
-qsquid:S2068"U'PASSWORD' detected in this expression, review this potentially hardcoded credential.(ñÜÊ¥8‚ÃÆ†Í,
 psquid:S00116"TRename this field "USER_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥â•M8‚ÃÆ†Í,
 Vsquid:S1161":Add the "@Override" annotation above this method signature(‡èú×8‚ÃÆ†Í,
 <squid:S1170"!Make this final field static too.(¥â•M8‚ÃÆ†Í,
-usquid:S00116"XRename this field "USER_PASSWORD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñÜÊ¥8‚ÃÆ†Í,
+qsquid:S2068"U'PASSWORD' detected in this expression, review this potentially hardcoded credential.(ñÜÊ¥8‚ÃÆ†Í,

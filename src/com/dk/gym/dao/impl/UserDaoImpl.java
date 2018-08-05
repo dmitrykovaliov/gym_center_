@@ -3,6 +3,7 @@ package com.dk.gym.dao.impl;
 import com.dk.gym.dao.UserDao;
 import com.dk.gym.entity.Role;
 import com.dk.gym.entity.User;
+import com.dk.gym.entity.join.JoinUser;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.pool.ConnectionPool;
 import org.apache.logging.log4j.Level;
@@ -27,9 +28,14 @@ public class UserDaoImpl extends UserDao {
     private static final String SQL_SELECT_ALL_USERS = "SELECT id_user, us_login, us_password, us_role FROM user";
     private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role" +
             " FROM user WHERE id_user = ?";
-
+    private static final String SQL_JOIN_ALL_USERS = "SELECT user.id_user, us_login, us_password, us_role, " +
+            "id_client, cl_name, cl_lastname, id_trainer, tr_name, tr_lastname " +
+            "FROM user " +
+            "LEFT JOIN client c ON user.id_user = c.id_user " +
+            "LEFT JOIN trainer t ON user.id_user = t.id_user " +
+            "ORDER BY user.id_user ASC;";
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id_user = ?";
-
+    private static final String SQL_LOGIN = "SELECT count(id_user) count FROM user WHERE us_login = ?";
     private static final String SQL_LOGIN_PASS = "SELECT id_user, us_role FROM user WHERE us_login = ? AND us_password = ?";
 
     public UserDaoImpl() {
@@ -110,6 +116,42 @@ public class UserDaoImpl extends UserDao {
         return list;
     }
 
+    @Override
+    public List<JoinUser> findJoinAll() throws DaoException {
+        List<JoinUser> list = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_JOIN_ALL_USERS)) {
+
+                while (resultSet.next()) {
+
+                    JoinUser joinUser = new JoinUser();
+
+                    joinUser.getUser().setIdUser(resultSet.getInt("id_user"));
+                    joinUser.getUser().setLogin(resultSet.getString("us_login"));
+                    joinUser.getUser().setPass(resultSet.getString("us_password"));
+                    String role = resultSet.getString("us_role");
+                    if (role != null && !role.isEmpty()) {
+                        joinUser.getUser().setRole(Role.valueOf(role));
+                    }
+                    joinUser.getClient().setIdClient(resultSet.getInt("id_client"));
+                    joinUser.getClient().setName(resultSet.getString("cl_name"));
+                    joinUser.getClient().setLastName(resultSet.getString("cl_lastname"));
+                    joinUser.getTrainer().setIdTrainer(resultSet.getInt("id_trainer"));
+                    joinUser.getTrainer().setName(resultSet.getString("tr_name"));
+                    joinUser.getTrainer().setLastName(resultSet.getString("tr_lastname"));
+
+                    list.add(joinUser);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Can't findJoinAll", e);
+        }
+
+        LOGGER.log(Level.INFO, list.size());
+
+        return list;
+    }
+
 
     @Override
     public User findEntityById(int id) throws DaoException {
@@ -151,25 +193,50 @@ public class UserDaoImpl extends UserDao {
     }
 
     @Override
-    public Role findUser(String login, String pass) throws DaoException {
+    public boolean findLogin(String login) throws DaoException {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_LOGIN)) {
+            statement.setString(1, login);
+
+            int count = 0;
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if(resultSet != null) {
+                    resultSet.next();
+
+                    count = resultSet.getInt("count");
+                }
+            }
+            return count > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Not foundLogin: ", e);
+        }
+    }
+
+    @Override
+    public User findUser(String login, String pass) throws DaoException {
+        User user = new User();
+
         try (PreparedStatement statement = connection.prepareStatement(SQL_LOGIN_PASS)) {
             statement.setString(1, login);
             statement.setString(2, pass);
 
 
             try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet != null) {
+                    resultSet.next();
 
-                if (resultSet != null && resultSet.next()) {
+                    user.setIdUser(resultSet.getInt("id_user"));
                     String role = resultSet.getString("us_role");
                     if (role != null && !role.isEmpty()) {
-                        return Role.valueOf(role);
+                        user.setRole(Role.valueOf(role));
                     }
                 }
             }
-            return null;
         } catch (SQLException e) {
             throw new DaoException("Not checked: ", e);
         }
+
+        return user;
     }
 
     public static void main(String[] args) throws DaoException {
@@ -181,15 +248,8 @@ public class UserDaoImpl extends UserDao {
         LOGGER.log(Level.INFO, entities);
         LOGGER.log(Level.INFO, entity);
 
-        entity.setLogin("root25");
-
-        LOGGER.log(Level.INFO, userDao.create(entity));
-
-        entity.setLogin("root27");
-
-        LOGGER.log(Level.INFO, userDao.update(entity));
-
         LOGGER.log(Level.INFO, userDao.findUser("root", "PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE="));
+        LOGGER.log(Level.INFO, "+++" + userDao.findLogin("rot"));
 
     }
 }

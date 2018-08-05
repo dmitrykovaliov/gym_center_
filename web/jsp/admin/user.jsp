@@ -53,7 +53,9 @@
                     <th><fmt:message key="table.user.login"/></th>
                     <th><fmt:message key="table.user.pass"/></th>
                     <th><fmt:message key="table.user.role"/></th>
-                    <th colspan="2"></th>
+                    <th><fmt:message key="table.user.client"/></th>
+                    <th><fmt:message key="table.user.trainer"/></th>
+                    <th colspan="1"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,42 +63,76 @@
                 <c:forEach var="elem" items="${readAll}" varStatus="status">
                     <tr>
                         <td>
-                            <c:out value="${elem.idUser}"/>
+                            <c:out value="${elem.user.idUser}"/>
                         </td>
                         <td id="login${status.count}">
-                            <c:out value="${elem.login}"/>
-                            <ctg:select tagId="login${status.count}" elem="${elem.login}"/>
+                            <c:out value="${elem.user.login}"/>
+                            <ctg:select tagId="login${status.count}" elem="${elem.user.login}"/>
                         </td>
                         <td id="pass${status.count}">
-                            <c:out value="${elem.pass}"/>
-                            <ctg:select tagId="pass${status.count}" elem="${elem.pass}"/>
+                            <c:out value="${elem.user.pass}"/>
+                            <ctg:select tagId="pass${status.count}" elem="${elem.user.pass}"/>
                         </td>
                         <td id="role${status.count}">
-                            <c:out value="${elem.role}"/>
-                            <ctg:select tagId="role${status.count}" elem="${elem.role}"/>
+                            <c:out value="${elem.user.role}"/>
+                            <ctg:select tagId="role${status.count}" elem="${elem.user.role}"/>
                         </td>
-                        <td>
-                            <a onclick="addIdToFieldUser('idAct', 'idHid', 'idSubm', ${elem.idUser},
-                                    '<fmt:message key="body.create"/>',
-                                    '<fmt:message key="body.update"/>')">
-                                U
-                            </a>
+                        <td id="client${status.count}">
+                            <c:set value="${elem.client.name}" var="name"/>
+                            <c:set value="${elem.client.lastName}" var="lastName"/>
+
+                            <c:out value="${name} ${lastName}"/>
+
+                            <ctg:select tagId="client${status.count}" elem="${elem.client.name}"/>
+                        </td>
+                        <td id="trainer${status.count}">
+                            <c:set value="${elem.trainer.name}" var="name"/>
+                            <c:set value="${elem.trainer.lastName}" var="lastName"/>
+
+                            <c:out value="${name} ${lastName}"/>
+
+                            <ctg:select tagId="trainer${status.count}" elem="${elem.trainer.name}"/>
                         </td>
                         <td>
                             <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=user_delete&id=${elem.idUser}">
+                            /controller?command=user_delete&id=${elem.user.idUser}&clientId=${elem.client.idClient}&trainerId=${elem.trainer.idTrainer}">
                                 D
                             </a>
                         </td>
                     </tr>
                 </c:forEach>
 
+                <jsp:useBean id="readAllClient" scope="request" type="java.util.List"/>
+                <jsp:useBean id="readAllTrainer" scope="request" type="java.util.List"/>
+                <jsp:useBean id="readAllRole" scope="request" type="java.util.List"/>
                 <tr>
                     <td><input form="createForm" type="text" id="idAct" name="id" readonly></td>
                     <td><input form="createForm" type="text" name="login"></td>
                     <td><input form="createForm" type="password" name="pass"></td>
-                    <td><input form="createForm" type="text" name="role"></td>
-                    <td colspan="2"><input form="createForm" id="idSubm" type="submit"
+                    <td>
+                        <select form="createForm" name="role">
+                            <c:forEach var="elem" items="${readAllRole}" varStatus="status">
+                                <option value="${elem}">${elem}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td>
+                        <select form="createForm" name="clientId">
+                            <option id="idCl" value="0"></option>
+                            <c:forEach var="elem" items="${readAllClient}" varStatus="status">
+                                <option value="${elem.idClient}">${elem.name} ${elem.lastName}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td>
+                        <select form="createForm" name="trainerId">
+                            <option id="idTr" value="0"></option>
+                            <c:forEach var="elem" items="${readAllTrainer}" varStatus="status">
+                                <option value="${elem.idTrainer}">${elem.name} ${elem.lastName}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td><input form="createForm" id="idSubm" type="submit"
                                            value="<fmt:message key="body.create"/>"></td>
                 </tr>
                 </tbody>

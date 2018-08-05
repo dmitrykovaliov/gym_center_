@@ -29,9 +29,9 @@ public class UserDeletedListener implements ServletRequestListener {
         if (error != null && command != null) {
 
             if(error.equals(LocaleManager.getProperty(ReturnMessageType.DONE.getProperty()))
-                    && command.equalsIgnoreCase(CommandType.CLIENT_DELETE.toString())) {
+                    && command.equalsIgnoreCase(CommandType.USER_DELETE.toString())) {
 
-                new Thread(() -> EmailSender.sendMail("dmi.kovaliov@gmail.com", "User deleted", "Client: " + id)).start();
+                new Thread(() -> EmailSender.sendMail("dmi.kovaliov@gmail.com", "User deleted", "User: " + id)).start();
             }
         }
     }
