@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -36,10 +36,10 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
@@ -90,7 +90,7 @@
                 </td>
                 <td>
                     <a href="${pageContext.servletContext.contextPath}
-                        /jsp/client/profileUpdate.jsp?id=${elem.idClient}">
+                        /jsp/client/update.jsp?id=${elem.idClient}">
                         U
                     </a>
                 </td>
@@ -103,9 +103,9 @@
             </tr>
         </c:forEach>
         <tr>
-            <td colspan="8"></td>
+            <td colspan="7"></td>
             <td colspan="2">
-                <a href="${pageContext.servletContext.contextPath}/jsp/client/profileCreate.jsp">
+                <a href="${pageContext.servletContext.contextPath}/jsp/admin/createForm.jsp">
                     <fmt:message key="body.create"/>
                 </a>
             </td>

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class PoolManager {
+class PoolManager {
 
     private String url;
     private Properties properties;
@@ -27,11 +27,11 @@ public class PoolManager {
         maxPoolSize = Integer.parseInt(resourceBundle.getString("db.pool.maxsize"));
     }
 
-    public int getInitPoolSize() {
+     int getInitPoolSize() {
         return initPoolSize;
     }
 
-    public int getMaxPoolSize() {
+     int getMaxPoolSize() {
         return maxPoolSize;
     }
 

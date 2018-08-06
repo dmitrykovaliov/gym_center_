@@ -28,7 +28,8 @@ public class TrainerDaoImpl extends TrainerDao {
     private static final String SQL_UPDATE_USERID_TRAINER = "UPDATE trainer SET id_user = ? " +
             "WHERE id_trainer = ?";
     private static final String SQL_SELECT_ALL_TRAINERS = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
-            "tr_personal_data, tr_iconpath FROM trainer";
+            "tr_personal_data, tr_iconpath FROM trainer " +
+            "ORDER BY tr_name";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer WHERE id_trainer = ?";
 

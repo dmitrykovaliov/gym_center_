@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 import java.util.Locale;
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class LocaleCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();

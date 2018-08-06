@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 @WebFilter(urlPatterns = {"/controller"}, servletNames = {"GymServlet"},
         initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})

@@ -7,7 +7,6 @@ import com.dk.gym.controller.RequestContent;
 import com.dk.gym.entity.Activity;
 import com.dk.gym.entity.Client;
 import com.dk.gym.entity.Order;
-import com.dk.gym.entity.join.JoinOrder;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.service.ActivityService;
@@ -18,11 +17,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.PageConstant.*;
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL;
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL_ACTIVITY;
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL_CLIENT;
+import static com.dk.gym.command.PageConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class OrderReadCommand implements ActionCommand {
 
@@ -31,27 +29,36 @@ public class OrderReadCommand implements ActionCommand {
     @Override
     public ContentPage execute(RequestContent content) throws CommandException {
 
-        List<JoinOrder> orderList;
-        List<Client> clientList;
-        List<Activity> activityList;
+        List<Order> orderList;
+        Set<Client> clientList;
+        Set<Activity> activityList;
+
+        List<Client> clientAllList;
+        List<Activity> activityAllList;
 
         try {
-            orderList = OrderService.getInstance().findJoinItems();
-            clientList = ClientService.getInstance().findItems();
-            activityList = ActivityService.getInstance().findItems();
+            orderList = OrderService.getInstance().findItems();
+            clientList = OrderService.getInstance().findClientItems();
+            activityList = OrderService.getInstance().findActivityItems();
+
+            clientAllList = ClientService.getInstance().findItems();
+            activityAllList = ActivityService.getInstance().findItems();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
 
         content.insertAttribute(PARAM_READ_ALL, orderList);
-        content.insertAttribute(PARAM_READ_ALL_CLIENT, clientList);
-        content.insertAttribute(PARAM_READ_ALL_ACTIVITY, activityList);
+        content.insertAttribute(PARAM_READ_CLIENT, clientList);
+        content.insertAttribute(PARAM_READ_ACTIVITY, activityList);
+        content.insertAttribute(PARAM_READ_ALL_CLIENT, clientAllList);
+        content.insertAttribute(PARAM_READ_ALL_ACTIVITY, activityAllList);
+
 
         LOGGER.log(Level.DEBUG, orderList);
         LOGGER.log(Level.DEBUG, clientList);
         LOGGER.log(Level.DEBUG, activityList);
 
-        String pageUrl = PAGE_ORDER;
+        String pageUrl = PAGE_ADMIN_ORDER;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

@@ -36,10 +36,10 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
@@ -65,44 +65,49 @@
                 </thead>
                 <tbody>
                 <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
+                <jsp:useBean id="readTrainer" scope="request" type="java.util.Set"/>
                 <c:forEach var="elem" items="${readAll}" varStatus="status">
                     <tr>
                         <td>
-                            <c:out value="${elem.prescription.idOrder}"/>
+                            <c:out value="${elem.idOrder}"/>
                         </td>
-                        <td>
-                            <c:set value="${elem.trainer.name}" var="name"/>
-                            <c:set value="${elem.trainer.lastName}" var="lastName"/>
+                        <td id="idTrainer${status.count}">
+                            <c:forEach var="elemTrainer" items="${readTrainer}" varStatus="status">
+                                <c:if test="${elem.idTrainer == elemTrainer.idTrainer}">
+                                    <c:set value="${elemTrainer.name}" var="name"/>
+                                    <c:set value="${elemTrainer.lastName}" var="lastName"/>
+                                </c:if>
+                            </c:forEach>
                             <c:out value="${name} ${lastName}"/>
+                            <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
                         </td>
-
                         <td id="date${status.count}">
-                            <c:out value="${elem.prescription.date}"/>
-                            <ctg:select tagId="date${status.count}" elem="${elem.prescription.date}"/>
+                            <c:out value="${elem.date}"/>
+                            <ctg:select tagId="date${status.count}" elem="${elem.date}"/>
                         </td>
                         <td id="weekQuantity${status.count}">
-                            <c:out value="${elem.prescription.weekQuantity}"/>
-                            <ctg:select tagId="weekQuantity${status.count}" elem="${elem.prescription.weekQuantity}"/>
+                            <c:out value="${elem.weekQuantity}"/>
+                            <ctg:select tagId="weekQuantity${status.count}" elem="${elem.weekQuantity}"/>
                         </td>
                         <td id="trainingsWeek${status.count}">
-                            <c:out value="${elem.prescription.trainingsWeek}"/>
-                            <ctg:select tagId="trainingsWeek${status.count}" elem="${elem.prescription.trainingsWeek}"/>
+                            <c:out value="${elem.trainingsWeek}"/>
+                            <ctg:select tagId="trainingsWeek${status.count}" elem="${elem.trainingsWeek}"/>
                         </td>
                         <td id="trainerNote${status.count}">
-                            <c:out value="${elem.prescription.trainerNote}"/>
-                            <ctg:select tagId="trainerNote${status.count}" elem="${elem.prescription.trainerNote}"/>
+                            <c:out value="${elem.trainerNote}"/>
+                            <ctg:select tagId="trainerNote${status.count}" elem="${elem.trainerNote}"/>
                         </td>
                         <td id="clientNote${status.count}">
-                            <c:out value="${elem.prescription.clientNote}"/>
-                            <ctg:select tagId="clientNote${status.count}" elem="${elem.prescription.clientNote}"/>
+                            <c:out value="${elem.clientNote}"/>
+                            <ctg:select tagId="clientNote${status.count}" elem="${elem.clientNote}"/>
                         </td>
                         <td id="agreedDate${status.count}">
-                            <c:out value="${elem.prescription.agreedDate}"/>
-                            <ctg:select tagId="agreedDate${status.count}" elem="${elem.prescription.agreedDate}"/>
+                            <c:out value="${elem.agreedDate}"/>
+                            <ctg:select tagId="agreedDate${status.count}" elem="${elem.agreedDate}"/>
                         </td>
                         <td>
                             <a onclick="addIdToFieldPrescription('idAct', 'idAct1', 'idHid', 'idSubm',
-                                ${elem.prescription.idOrder}, ${elem.trainer.idTrainer},
+                                ${elem.idOrder}, ${elem.idTrainer},
                                     '<fmt:message key="body.create"/>',
                                     '<fmt:message key="body.update"/>')">
                                 U
@@ -110,7 +115,7 @@
                         </td>
                         <td>
                             <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=prescription_delete&idOrder=${elem.prescription.idOrder}&idTrainer=${elem.trainer.idTrainer}">
+                            /controller?command=prescription_delete&idOrder=${elem.idOrder}&idTrainer=${elem.idTrainer}">
                                 D
                             </a>
                         </td>
@@ -143,7 +148,6 @@
                     <td colspan="2"><input form="createForm" id="idSubm" type="submit"
                                            value="<fmt:message key="body.create"/>"></td>
                 </tr>
-
                 </tbody>
             </table>
 

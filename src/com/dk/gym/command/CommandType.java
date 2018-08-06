@@ -1,11 +1,12 @@
 package com.dk.gym.command;
 
 import com.dk.gym.command.admin.*;
+import com.dk.gym.command.trainer.ClientReadByTrainerCommand;
 
 public enum CommandType {
 
-    LOGIN (new LoginCommand()),
-    LOGOUT (new LogoutCommand()),
+    LOGIN(new LoginCommand()),
+    LOGOUT(new LogoutCommand()),
 
     LOCALE(new LocaleCommand()),
 
@@ -17,6 +18,7 @@ public enum CommandType {
     CLIENT_READ(new ClientReadCommand()),
     CLIENT_UPDATE(new ClientUpdateCommand()),
     CLIENT_DELETE(new ClientDeleteCommand()),
+    CLIENT_TRAINER_READ(new ClientReadByTrainerCommand()),
 
     TRAINER_CREATE(new TrainerCreateCommand()),
     TRAINER_READ(new TrainerReadCommand()),

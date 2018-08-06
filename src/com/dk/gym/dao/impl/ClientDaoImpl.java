@@ -31,6 +31,25 @@ public class ClientDaoImpl extends ClientDao {
             "cl_email, cl_personal_data, cl_iconpath FROM client";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_client = ?";
+    private static final String SQL_SELECT_CLIENT_BY_TRAINER_ID = "SELECT client.id_client, cl_name, cl_lastname, " +
+            "cl_phone, cl_email, cl_personal_data, cl_iconpath " +
+            "FROM client " +
+            "JOIN order_ o ON client.id_client = o.id_client " +
+            "JOIN prescription p ON o.id_order = p.id_order " +
+            "JOIN trainer t ON p.id_trainer = t.id_trainer " +
+            "JOIN user u ON t.id_user = u.id_user " +
+            "WHERE u.id_user = ? " +
+            "GROUP BY client.id_client " +
+            "UNION " +
+            "SELECT client.id_client, cl_name, cl_lastname, cl_phone, cl_email, cl_personal_data, cl_iconpath " +
+            "FROM client " +
+            "JOIN order_ o ON client.id_client = o.id_client " +
+            "JOIN training t ON o.id_order = t.id_order " +
+            "JOIN trainer t2 ON t.id_trainer = t2.id_trainer " +
+            "JOIN user u ON t2.id_user = u.id_user " +
+            "WHERE u.id_user = ? " +
+            "GROUP BY client.id_client " +
+            "ORDER BY cl_name ASC";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE id_client = ?";
 
 
@@ -133,6 +152,42 @@ public class ClientDaoImpl extends ClientDao {
         return list;
     }
 
+    @Override
+    public List<Client> findTrainerAll(int idUser) throws DaoException {
+        List<Client> list = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_TRAINER_ID)) {
+            statement.setInt(1, idUser);
+            statement.setInt(2, idUser);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet != null) {
+                    while (resultSet.next()) {
+
+                        Client client = new Client();
+
+                        client.setIdClient(resultSet.getInt("id_client"));
+                        client.setName(resultSet.getString("cl_name"));
+                        client.setLastName(resultSet.getString("cl_lastname"));
+                        client.setPhone(resultSet.getString("cl_phone"));
+                        client.setEmail(resultSet.getString("cl_email"));
+                        client.setPersonalData(resultSet.getString("cl_personal_data"));
+                        client.setIconPath(resultSet.getString("cl_iconpath"));
+
+                        list.add(client);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException("Not found: ", e);
+        }
+
+            LOGGER.log(Level.INFO, list.size());
+
+        return list;
+    }
 
     @Override
     public Client findEntityById(int id) throws DaoException {
@@ -178,7 +233,6 @@ public class ClientDaoImpl extends ClientDao {
 
         Client entity = clientDao.findEntityById(3);
 
-        System.out.println(entities);
         LOGGER.log(Level.INFO, entity);
 
         LOGGER.log(Level.INFO, clientDao.create(entity));

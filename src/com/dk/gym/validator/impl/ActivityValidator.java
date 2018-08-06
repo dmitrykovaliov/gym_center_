@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class ActivityValidator {
 

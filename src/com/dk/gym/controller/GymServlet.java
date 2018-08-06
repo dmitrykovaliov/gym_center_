@@ -2,8 +2,8 @@ package com.dk.gym.controller;
 
 import com.dk.gym.command.ActionCommand;
 import com.dk.gym.command.factory.ActionFactory;
-import com.dk.gym.constant.PageConstant;
-import com.dk.gym.constant.ParamConstant;
+import com.dk.gym.command.PageConstant;
+import com.dk.gym.service.ParamConstant;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.RequestMethod;

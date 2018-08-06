@@ -1,6 +1,6 @@
 package com.dk.gym.listener;
 
-import com.dk.gym.constant.ParamConstant;
+import com.dk.gym.service.ParamConstant;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

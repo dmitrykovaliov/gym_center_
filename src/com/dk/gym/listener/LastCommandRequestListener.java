@@ -1,6 +1,6 @@
 package com.dk.gym.listener;
 
-import com.dk.gym.constant.ParamConstant;
+import com.dk.gym.service.ParamConstant;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;

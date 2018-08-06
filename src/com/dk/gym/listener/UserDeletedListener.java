@@ -12,7 +12,7 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 @WebListener
 public class UserDeletedListener implements ServletRequestListener {

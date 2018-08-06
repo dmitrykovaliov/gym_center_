@@ -36,10 +36,10 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
@@ -86,7 +86,7 @@
                 </td>
                 <td>
                     <a href="${pageContext.servletContext.contextPath}
-                        /jsp/trainer/profileUpdate.jsp?id=${elem.idTrainer}">
+                        /jsp/trainer/update.jsp?id=${elem.idTrainer}">
                         U
                     </a>
                 </td>
@@ -99,9 +99,9 @@
             </tr>
         </c:forEach>
         <tr>
-            <td colspan="7"></td>
+            <td colspan="6"></td>
             <td colspan="2">
-                <a href="${pageContext.servletContext.contextPath}/jsp/trainer/profileCreate.jsp">
+                <a href="${pageContext.servletContext.contextPath}/jsp/admin/createForm.jsp">
                     <fmt:message key="body.create"/>
                 </a>
             </td>

@@ -14,9 +14,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.dk.gym.constant.PageConstant.PAGE_ACTIVITY_READ;
-import static com.dk.gym.constant.PageConstant.PAGE_USER_READ;
-import static com.dk.gym.constant.ParamConstant.PARAM_ERROR;
+import static com.dk.gym.command.PageConstant.PAGE_USER_READ;
+import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class UserDeleteCommand implements ActionCommand {
 

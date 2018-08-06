@@ -3,14 +3,12 @@ package com.dk.gym.command.admin;
 import com.dk.gym.command.ActionCommand;
 import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.RequestMethod;
-import com.dk.gym.constant.PageConstant;
+import com.dk.gym.command.PageConstant;
 import com.dk.gym.controller.RequestContent;
-import com.dk.gym.dao.impl.UserDaoImpl;
 import com.dk.gym.entity.Client;
 import com.dk.gym.entity.Role;
 import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.User;
-import com.dk.gym.entity.join.JoinUser;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.service.ClientService;
@@ -21,10 +19,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class UserReadCommand implements ActionCommand {
 
@@ -33,27 +31,41 @@ public class UserReadCommand implements ActionCommand {
     @Override
     public ContentPage execute(RequestContent content) throws CommandException {
 
-        List<JoinUser> userList;
-        List<Client> clientList;
-        List<Trainer> trainerList;
+        List<User> userList;
+        Set<Client> clientList;
+        Set<Trainer> trainerList;
+
+        List<Client> clientAllList;
+        List<Trainer> trainerAllList;
+
         List<Role> roleList = Arrays.asList(Role.class.getEnumConstants());
 
         try {
-            userList = UserService.getInstance().findJoinItems();
-            clientList = ClientService.getInstance().findItems();
-            trainerList = TrainerService.getInstance().findItems();
+            userList = UserService.getInstance().findItems();
+            clientList = UserService.getInstance().findClientItems();
+            trainerList = UserService.getInstance().findTrainerItems();
+
+            clientAllList = ClientService.getInstance().findItems();
+            trainerAllList = TrainerService.getInstance().findItems();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
 
         content.insertAttribute(PARAM_READ_ALL, userList);
-        content.insertAttribute(PARAM_READ_ALL_CLIENT, clientList);
-        content.insertAttribute(PARAM_READ_ALL_TRAINER, trainerList);
+        content.insertAttribute(PARAM_READ_CLIENT, clientList);
+        content.insertAttribute(PARAM_READ_TRAINER, trainerList);
+
+        content.insertAttribute(PARAM_READ_ALL_CLIENT, clientAllList);
+        content.insertAttribute(PARAM_READ_ALL_TRAINER, trainerAllList);
+
         content.insertAttribute(PARAM_READ_ALL_ROLE, roleList);
 
         LOGGER.log(Level.DEBUG, userList);
         LOGGER.log(Level.DEBUG, clientList);
         LOGGER.log(Level.DEBUG, trainerList);
+
+        LOGGER.log(Level.DEBUG, clientAllList);
+        LOGGER.log(Level.DEBUG, trainerAllList);
         LOGGER.log(Level.DEBUG, roleList);
 
         String pageUrl = PageConstant.PAGE_USER;

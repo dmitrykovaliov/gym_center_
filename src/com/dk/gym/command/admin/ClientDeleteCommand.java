@@ -14,8 +14,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
-import static com.dk.gym.constant.PageConstant.PAGE_CLIENT_READ;
-import static com.dk.gym.constant.ParamConstant.PARAM_ERROR;
+import static com.dk.gym.command.PageConstant.PAGE_CLIENT_READ;
+import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class ClientDeleteCommand implements ActionCommand {
 

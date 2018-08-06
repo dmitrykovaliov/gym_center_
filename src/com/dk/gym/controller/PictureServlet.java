@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import static com.dk.gym.constant.ParamConstant.PARAM_DIR_UPLOAD;
+import static com.dk.gym.service.ParamConstant.PARAM_DIR_UPLOAD;
 
 
 @WebServlet(name = "PictureServlet", urlPatterns = {"/picture/*"})

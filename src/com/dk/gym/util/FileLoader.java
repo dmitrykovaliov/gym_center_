@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class FileLoader {
 

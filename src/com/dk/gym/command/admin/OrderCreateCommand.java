@@ -14,8 +14,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
-import static com.dk.gym.constant.PageConstant.PAGE_ORDER_READ;
-import static com.dk.gym.constant.ParamConstant.PARAM_ERROR;
+import static com.dk.gym.command.PageConstant.PAGE_ORDER_READ;
+import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class OrderCreateCommand implements ActionCommand {
 

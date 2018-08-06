@@ -1,6 +1,5 @@
 package com.dk.gym.command;
 
-import com.dk.gym.constant.PageConstant;
 import com.dk.gym.controller.RequestContent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

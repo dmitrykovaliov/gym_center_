@@ -1,7 +1,7 @@
 /*
 package com.dk.gym.filter;
 
-import com.dk.gym.constant.ParamConstant;
+import com.dk.gym.service.ParamConstant;
 import com.dk.gym.entity.Role;
 import com.dk.gym.validator.EnumValidator;
 import javax.servlet.*;

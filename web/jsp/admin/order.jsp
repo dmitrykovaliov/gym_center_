@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -34,10 +34,10 @@
         <%@include file="jspf/header.jspf" %>
     </c:when>
     <c:when test="${role == 'TRAINER'}">
-        <%@include file="jspf/header.jspf" %>
+        <%@include file="../trainer/jspf/header.jspf" %>
     </c:when>
     <c:when test="${role == 'CLIENT'}">
-        <%@include file="jspf/header.jspf" %>
+        <%@include file="../client/jspf/header.jspf" %>
     </c:when>
 </c:choose>
 
@@ -62,44 +62,60 @@
         </tr>
         </thead>
         <tbody>
+
         <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
+        <jsp:useBean id="readClient" scope="request" type="java.util.Set"/>
+        <jsp:useBean id="readActivity" scope="request" type="java.util.Set"/>
+
         <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
                 <td>
-                    <c:out value="${elem.order.idOrder}"/>
+                    <c:out value="${elem.idOrder}"/>
                 </td>
 
                 <td id="date${status.count}">
-                    <c:out value="${elem.order.date}"/>
-                    <ctg:select tagId="date${status.count}" elem="${elem.order.date}"/>
+                    <c:out value="${elem.date}"/>
+                    <ctg:select tagId="date${status.count}" elem="${elem.date}"/>
                 </td>
                 <td id="price${status.count}">
-                    <c:out value="${elem.order.price}"/>
-                    <ctg:select tagId="price${status.count}" elem="${elem.order.price}"/>
+                    <c:out value="${elem.price}"/>
+                    <ctg:select tagId="price${status.count}" elem="${elem.price}"/>
                 </td>
                 <td id="discount${status.count}">
-                    <c:out value="${elem.order.discount}"/>
-                    <ctg:select tagId="discount${status.count}" elem="${elem.order.discount}"/>
+                    <c:out value="${elem.discount}"/>
+                    <ctg:select tagId="discount${status.count}" elem="${elem.discount}"/>
                 </td>
                 <td id="closureDate${status.count}">
-                    <c:out value="${elem.order.closureDate}"/>
-                    <ctg:select tagId="closureDate${status.count}" elem="${elem.order.closureDate}"/>
+                    <c:out value="${elem.closureDate}"/>
+                    <ctg:select tagId="closureDate${status.count}" elem="${elem.closureDate}"/>
                 </td>
                 <td id="feedback${status.count}">
-                    <c:out value="${elem.order.feedback}"/>
-                    <ctg:select tagId="feedback${status.count}" elem="${elem.order.feedback}"/>
+                    <c:out value="${elem.feedback}"/>
+                    <ctg:select tagId="feedback${status.count}" elem="${elem.feedback}"/>
                 </td>
+
                 <td id="idClient${status.count}">
-                    <c:set value="${elem.client.name}" var="name"/>
-                    <c:set value="${elem.client.lastName}" var="lastName"/>
+                    <c:forEach var="elemClient" items="${readClient}" varStatus="status">
+                        <c:if test="${elem.idClient == elemClient.idClient}">
+                            <c:set value="${elemClient.name}" var="name"/>
+                            <c:set value="${elemClient.lastName}" var="lastName"/>
+                        </c:if>
+                    </c:forEach>
                     <c:out value="${name} ${lastName}"/>
+                    <ctg:select tagId="idClient${status.count}" elem="${name} ${lastName}"/>
                 </td>
                 <td id="idActivity${status.count}">
-                    <c:out value="${elem.activity.name}"/>
-                    <ctg:select tagId="idActivity${status.count}" elem="${elem.activity.name}"/>
+                    <c:forEach var="elemActivity" items="${readActivity}" varStatus="status">
+                        <c:if test="${elem.idActivity == elemActivity.idActivity}">
+                            <c:set value="${elemActivity.name}" var="name"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:out value="${name}"/>
+                    <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
+
                 <td>
-                    <a onclick="addIdToFieldOrder('idAct', 'idHid', 'idSubm', ${elem.order.idOrder},
+                    <a onclick="addIdToFieldOrder('idAct', 'idHid', 'idSubm', ${elem.idOrder},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">
                         U
@@ -107,7 +123,7 @@
                 </td>
                 <td>
                     <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=order_delete&id=${elem.order.idOrder}">
+                            /controller?command=order_delete&id=${elem.idOrder}">
                         D
                     </a>
                 </td>

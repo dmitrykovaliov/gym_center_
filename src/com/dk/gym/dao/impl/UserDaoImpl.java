@@ -1,9 +1,10 @@
 package com.dk.gym.dao.impl;
 
 import com.dk.gym.dao.UserDao;
+import com.dk.gym.entity.Client;
 import com.dk.gym.entity.Role;
+import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.User;
-import com.dk.gym.entity.join.JoinUser;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.pool.ConnectionPool;
 import org.apache.logging.log4j.Level;
@@ -15,7 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserDaoImpl extends UserDao {
 
@@ -25,15 +28,14 @@ public class UserDaoImpl extends UserDao {
             "VALUES (NULL, ?, ?, ?)";
     private static final String SQL_UPDATE_USER = "UPDATE user SET us_login = ?, us_password = ?, us_role = ?" +
             "WHERE id_user = ?";
-    private static final String SQL_SELECT_ALL_USERS = "SELECT id_user, us_login, us_password, us_role FROM user";
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role" +
-            " FROM user WHERE id_user = ?";
-    private static final String SQL_JOIN_ALL_USERS = "SELECT user.id_user, us_login, us_password, us_role, " +
+    private static final String SQL_SELECT_ALL_USERS = "SELECT user.id_user, us_login, us_password, us_role, " +
             "id_client, cl_name, cl_lastname, id_trainer, tr_name, tr_lastname " +
             "FROM user " +
             "LEFT JOIN client c ON user.id_user = c.id_user " +
-            "LEFT JOIN trainer t ON user.id_user = t.id_user " +
-            "ORDER BY user.id_user ASC;";
+            "LEFT JOIN trainer t ON user.id_user = t.id_user";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role" +
+            " FROM user WHERE id_user = ?";
+
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id_user = ?";
     private static final String SQL_LOGIN = "SELECT count(id_user) count FROM user WHERE us_login = ?";
     private static final String SQL_LOGIN_PASS = "SELECT id_user, us_role FROM user WHERE us_login = ? AND us_password = ?";
@@ -117,34 +119,26 @@ public class UserDaoImpl extends UserDao {
     }
 
     @Override
-    public List<JoinUser> findJoinAll() throws DaoException {
-        List<JoinUser> list = new ArrayList<>();
+    public Set<Client> findAllClient() throws DaoException {
+        Set<Client> list = new HashSet<>();
+
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_JOIN_ALL_USERS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
 
                 while (resultSet.next()) {
 
-                    JoinUser joinUser = new JoinUser();
+                    Client client = new Client();
 
-                    joinUser.getUser().setIdUser(resultSet.getInt("id_user"));
-                    joinUser.getUser().setLogin(resultSet.getString("us_login"));
-                    joinUser.getUser().setPass(resultSet.getString("us_password"));
-                    String role = resultSet.getString("us_role");
-                    if (role != null && !role.isEmpty()) {
-                        joinUser.getUser().setRole(Role.valueOf(role));
-                    }
-                    joinUser.getClient().setIdClient(resultSet.getInt("id_client"));
-                    joinUser.getClient().setName(resultSet.getString("cl_name"));
-                    joinUser.getClient().setLastName(resultSet.getString("cl_lastname"));
-                    joinUser.getTrainer().setIdTrainer(resultSet.getInt("id_trainer"));
-                    joinUser.getTrainer().setName(resultSet.getString("tr_name"));
-                    joinUser.getTrainer().setLastName(resultSet.getString("tr_lastname"));
+                    client.setIdClient(resultSet.getInt("id_client"));
+                    client.setName(resultSet.getString("cl_name"));
+                    client.setLastName(resultSet.getString("cl_lastname"));
+                    client.setIdUser(resultSet.getInt("id_user"));
 
-                    list.add(joinUser);
+                    list.add(client);
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't findJoinAll", e);
+            throw new DaoException("Can't find allClient", e);
         }
 
         LOGGER.log(Level.INFO, list.size());
@@ -152,6 +146,33 @@ public class UserDaoImpl extends UserDao {
         return list;
     }
 
+    @Override
+    public Set<Trainer> findAllTrainer() throws DaoException {
+        Set<Trainer> list = new HashSet<>();
+
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
+
+                while (resultSet.next()) {
+
+                    Trainer trainer = new Trainer();
+
+                    trainer.setIdTrainer(resultSet.getInt("id_trainer"));
+                    trainer.setName(resultSet.getString("tr_name"));
+                    trainer.setLastName(resultSet.getString("tr_lastname"));
+                    trainer.setIdUser(resultSet.getInt("id_user"));
+
+                    list.add(trainer);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Can't find allTrainer", e);
+        }
+
+        LOGGER.log(Level.INFO, list.size());
+
+        return list;
+    }
 
     @Override
     public User findEntityById(int id) throws DaoException {

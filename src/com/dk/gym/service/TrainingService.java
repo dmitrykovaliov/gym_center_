@@ -5,9 +5,9 @@ import com.dk.gym.controller.RequestContent;
 import com.dk.gym.dao.TrainingDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.TrainingDaoImpl;
+import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.Training;
-import com.dk.gym.entity.builder.TrainingDirector;
-import com.dk.gym.entity.join.JoinTraining;
+import com.dk.gym.builder.TrainingDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.validator.impl.TrainingValidator;
@@ -17,8 +17,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_ID;
 
 
 public class TrainingService {
@@ -79,16 +80,15 @@ public class TrainingService {
         return itemList;
     }
 
-    public List<JoinTraining> findJoinItems() throws ServiceException {
-        List<JoinTraining> itemList;
+    public Set<Trainer> findTrainerItems() throws ServiceException {
+        Set<Trainer> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {
-            itemList = trainingDao.findJoinAll();
+            itemList = trainingDao.findAllTrainer();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+        LOGGER.log(Level.INFO, "Size of TrainerItems: " + itemList.size());
 
         return itemList;
     }

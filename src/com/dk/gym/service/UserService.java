@@ -1,15 +1,15 @@
 package com.dk.gym.service;
 
 import com.dk.gym.command.ReturnMessageType;
-import com.dk.gym.constant.ParamConstant;
 import com.dk.gym.dao.*;
 import com.dk.gym.dao.impl.ClientDaoImpl;
 import com.dk.gym.dao.impl.TrainerDaoImpl;
 import com.dk.gym.dao.impl.UserDaoImpl;
+import com.dk.gym.entity.Client;
+import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.User;
 import com.dk.gym.entity.Role;
-import com.dk.gym.entity.builder.UserDirector;
-import com.dk.gym.entity.join.JoinUser;
+import com.dk.gym.builder.UserDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.controller.RequestContent;
@@ -21,8 +21,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class UserService {
 
@@ -109,16 +110,28 @@ public class UserService {
         return itemList;
     }
 
-    public List<JoinUser> findJoinItems() throws ServiceException {
-        List<JoinUser> itemList;
+    public Set<Client> findClientItems() throws ServiceException {
+        Set<Client> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
-            itemList = userDao.findJoinAll();
+            itemList = userDao.findAllClient();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+        LOGGER.log(Level.INFO, "Size of Client: " + itemList.size());
 
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+        return itemList;
+    }
+
+    public Set<Trainer> findTrainerItems() throws ServiceException {
+        Set<Trainer> itemList;
+
+        try (UserDao userDao = new UserDaoImpl()) {
+            itemList = userDao.findAllTrainer();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Trainer: " + itemList.size());
 
         return itemList;
     }

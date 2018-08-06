@@ -1,8 +1,7 @@
 package com.dk.gym.dao.impl;
 
 import com.dk.gym.dao.TrainingDao;
-import com.dk.gym.entity.join.JoinOrder;
-import com.dk.gym.entity.join.JoinTraining;
+import com.dk.gym.entity.Trainer;
 import com.dk.gym.pool.ConnectionPool;
 import com.dk.gym.entity.Training;
 import com.dk.gym.exception.DaoException;
@@ -12,7 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TrainingDaoImpl extends TrainingDao {
 
@@ -23,12 +24,10 @@ public class TrainingDaoImpl extends TrainingDao {
     private static final String SQL_UPDATE_TRAINING = "UPDATE training SET trg_date = ?, trg_start_time = ?, trg_end_time = ?, " +
             "trg_visited = ?, trg_client_note = ?, trg_trainer_note = ?, id_order = ?, id_trainer = ? WHERE id_training = ?";
 
-    private static final String SQL_SELECT_ALL_TRAININGS = "SELECT id_training, trg_date, trg_start_time, trg_end_time, trg_visited, trg_client_note," +
-            "trg_trainer_note, id_order, id_trainer  FROM training";
-
-    private static final String SQL_JOIN_ALL_TRAININGS = "SELECT id_training, trg_date, trg_start_time, trg_end_time, trg_visited, trg_client_note," +
-            "trg_trainer_note, id_order, tr_name, tr_lastname  FROM training " +
-            "LEFT JOIN trainer tr ON training.id_training = tr.id_trainer";
+    private static final String SQL_SELECT_ALL_TRAININGS = "SELECT id_training, trg_date, trg_start_time, " +
+            "trg_end_time, trg_visited, trg_client_note, trg_trainer_note, id_order, tr.id_trainer, tr_name, tr_lastname  " +
+            "FROM training " +
+            "LEFT JOIN trainer tr ON training.id_training = tr.id_trainer;";
 
     private static final String SQL_SELECT_TRAINING_BY_ID = "SELECT id_training, trg_date, trg_start_time, trg_end_time, trg_visited, trg_client_note," +
             "trg_trainer_note, id_order, id_trainer  FROM training where id_training=?";
@@ -51,7 +50,6 @@ public class TrainingDaoImpl extends TrainingDao {
             statement.setString(5, entity.getClientNote());
             statement.setString(6, entity.getTrainerNote());
             statement.setInt(7, entity.getIdOrder());
-            System.out.println("!!!" + entity.getIdTrainer());
             statement.setObject(8, entity.getIdTrainer());
 
             statement.executeUpdate();
@@ -135,31 +133,25 @@ public class TrainingDaoImpl extends TrainingDao {
     }
 
     @Override
-    public List<JoinTraining> findJoinAll() throws DaoException {
-        List<JoinTraining> list = new ArrayList<>();
+    public Set<Trainer> findAllTrainer() throws DaoException {
+        Set<Trainer> list = new HashSet<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_JOIN_ALL_TRAININGS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_TRAININGS)) {
+
                 while (resultSet.next()) {
 
-                    JoinTraining joinTraining = new JoinTraining();
+                    Trainer trainer = new Trainer();
 
-                    joinTraining.getTraining().setIdTraining(resultSet.getInt("id_training"));
-                    joinTraining.getTraining().setDate(resultSet.getDate("trg_date") != null ?resultSet.getDate("trg_date").toLocalDate():null);
-                    joinTraining.getTraining().setStartTime(resultSet.getTime("trg_start_time")!= null?resultSet.getTime("trg_start_time").toLocalTime():null);
-                    joinTraining.getTraining().setEndTime(resultSet.getTime("trg_end_time")!= null?resultSet.getTime("trg_end_time").toLocalTime():null);
-                    joinTraining.getTraining().setVisited(resultSet.getInt("trg_visited") == 1);
-                    joinTraining.getTraining().setClientNote(resultSet.getString("trg_client_note"));
-                    joinTraining.getTraining().setTrainerNote(resultSet.getString("trg_trainer_note"));
-                    joinTraining.getOrder().setIdOrder(resultSet.getInt("id_order"));
-                    joinTraining.getTrainer().setName(resultSet.getString("tr_name"));
-                    joinTraining.getTrainer().setLastName(resultSet.getString("tr_lastname"));
+                    trainer.setIdTrainer(resultSet.getInt("id_trainer"));
+                    trainer.setName(resultSet.getString("tr_name"));
+                    trainer.setLastName(resultSet.getString("tr_lastname"));
 
-                    list.add(joinTraining);
+                    list.add(trainer);
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find", e);
+            throw new DaoException("Can't find trainerAll", e);
         }
 
         LOGGER.log(Level.INFO, list.size());
@@ -177,8 +169,7 @@ public class TrainingDaoImpl extends TrainingDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet != null) {
-                    resultSet.next();
-                }
+
                 training.setIdTraining(resultSet.getInt("id_training"));
                 training.setDate(resultSet.getDate("trg_date").toLocalDate());
                 training.setStartTime(resultSet.getTime("trg_start_time").toLocalTime());
@@ -188,6 +179,8 @@ public class TrainingDaoImpl extends TrainingDao {
                 training.setTrainerNote(resultSet.getString("trg_trainer_note"));
                 training.setIdOrder(resultSet.getInt("id_order"));
                 training.setIdTrainer(resultSet.getInt("id_trainer"));
+                    resultSet.next();
+                }
             }
         } catch (SQLException e) {
             throw new DaoException("Can't find", e);

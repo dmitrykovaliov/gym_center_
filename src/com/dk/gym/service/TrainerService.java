@@ -6,7 +6,7 @@ import com.dk.gym.dao.TrainerDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.TrainerDaoImpl;
 import com.dk.gym.entity.Trainer;
-import com.dk.gym.entity.builder.TrainerDirector;
+import com.dk.gym.builder.TrainerDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static com.dk.gym.constant.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_ID;
 
 
 public class TrainerService {

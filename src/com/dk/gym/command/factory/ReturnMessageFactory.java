@@ -6,15 +6,10 @@ public class ReturnMessageFactory {
 
     public String defineMessage(ReturnMessageType message) {
 
-        String current = "message.error";
-
-        if (message == null) {
-            return current;
+        if (message != null) {
+            return message.getProperty();
         }
-
-        current = message.getProperty();
-
-        return current;
+        return "message.error";
     }
 }
 

@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <title>Client</title>
+    <title>Trainer</title>
     <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
 
     <meta charset="UTF-8">
@@ -45,24 +45,25 @@
 </header>
 <br>
 <br>
-<h3><fmt:message key="table.client.head"/></h3>
+<h3><fmt:message key="table.trainer.head"/></h3>
+<div>
     <table class="greyGridTable">
         <thead>
         <tr>
-            <th><fmt:message key="table.client.id"/></th>
-            <th><fmt:message key="table.client.name"/></th>
-            <th><fmt:message key="table.client.lastName"/></th>
-            <th><fmt:message key="table.client.phone"/></th>
-            <th><fmt:message key="table.client.email"/></th>
-            <th><fmt:message key="table.client.personalData"/></th>
-            <th><fmt:message key="table.client.iconPath"/></th>
+            <th><fmt:message key="table.trainer.id"/></th>
+            <th><fmt:message key="table.trainer.name"/></th>
+            <th><fmt:message key="table.trainer.lastName"/></th>
+            <th><fmt:message key="table.trainer.phone"/></th>
+            <th><fmt:message key="table.trainer.personalData"/></th>
+            <th><fmt:message key="table.trainer.iconPath"/></th>
+            <th colspan="2"></th>
         </tr>
         </thead>
         <tbody>
         <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
         <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
-                <td><c:out value="${elem.idClient}"/>
+                <td><c:out value="${elem.idTrainer}"/>
                 </td>
 
                 <td id="name${status.count}">
@@ -75,9 +76,6 @@
                 <td id="phone${status.count}"><c:out value="${elem.phone}"/>
                     <ctg:select tagId="phone${status.count}" elem="${elem.phone}"/>
                 </td>
-                <td id="email${status.count}"><c:out value="${elem.email}"/>
-                    <ctg:select tagId="email${status.count}" elem="${elem.email}"/>
-                </td>
                 <td id="personalData${status.count}"><c:out value="${elem.personalData}"/>
                     <ctg:select tagId="personalData${status.count}" elem="${elem.personalData}"/>
                 </td>
@@ -86,14 +84,37 @@
                         <img class="iconBit" src="/picture/${elem.iconPath}"/>
                     </c:if>
                 </td>
+                <td>
+                    <a href="${pageContext.servletContext.contextPath}
+                        /jsp/trainer/update.jsp?id=${elem.idTrainer}">
+                        U
+                    </a>
+                </td>
+                <td>
+                    <a href="${pageContext.servletContext.contextPath}
+                        /controller?command=trainer_delete&id=${elem.idTrainer}">
+                        D
+                    </a>
+                </td>
             </tr>
         </c:forEach>
+        <tr>
+            <td colspan="7"></td>
+            <td colspan="2">
+                <a href="${pageContext.servletContext.contextPath}/jsp/trainer/createForm.jsp">
+                    <fmt:message key="body.create"/>
+                </a>
+            </td>
+        </tr>
         </tbody>
     </table>
     <br>
-
     <div class="leftMessage">${error}</div>
 
+
+    <%--<footer>--%>
+    <%--<c:import url="../general/footer.jsp"/>--%>
+    <%--</footer>--%>
 </body>
 
 </html>

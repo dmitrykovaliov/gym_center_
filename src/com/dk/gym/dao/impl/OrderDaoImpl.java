@@ -1,7 +1,8 @@
 package com.dk.gym.dao.impl;
 
 import com.dk.gym.dao.OrderDao;
-import com.dk.gym.entity.join.JoinOrder;
+import com.dk.gym.entity.Activity;
+import com.dk.gym.entity.Client;
 import com.dk.gym.pool.ConnectionPool;
 import com.dk.gym.entity.Order;
 import com.dk.gym.exception.DaoException;
@@ -12,7 +13,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OrderDaoImpl extends OrderDao {
 
@@ -24,12 +27,12 @@ public class OrderDaoImpl extends OrderDao {
     private static final String SQL_UPDATE_ORDER = "UPDATE order_ SET ord_date = ?, ord_price = ?, " +
             "ord_discount = ?, ord_closure = ?, ord_feedback = ?, id_client = ?, id_activity = ?  " +
             "WHERE id_order = ?";
-    private static final String SQL_SELECT_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount, " +
-            "ord_closure, ord_feedback, id_client, id_activity FROM order_";
-    private static final String SQL_JOIN_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount,ord_closure," +
-            " ord_feedback, cl_name, cl_lastname, act_name FROM order_ " +
+    private static final String SQL_SELECT_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount,ord_closure," +
+            " ord_feedback, c.id_client, cl_name, cl_lastname, a.id_activity, act_name " +
+            "FROM order_ " +
             "JOIN client c ON order_.id_client = c.id_client " +
-            "JOIN activity a ON order_.id_activity = a.id_activity";
+            "JOIN activity a ON order_.id_activity = a.id_activity " +
+            "ORDER BY ord_date DESC;";
     private static final String SQL_SELECT_ORDER_BY_ID = "SELECT id_order, ord_date, ord_price, ord_discount," +
             "ord_closure, ord_feedback, id_client, id_activity FROM order_ " +
             "where id_order=?";
@@ -124,13 +127,17 @@ public class OrderDaoImpl extends OrderDao {
                     Order order = new Order();
 
                     order.setIdOrder(resultSet.getInt("id_order"));
-                    order.setDate(resultSet.getDate("ord_date").toLocalDate());
+
+                    Date orderDate = resultSet.getDate("ord_date");
+                    if(orderDate!=null) {
+                        order.setDate(orderDate.toLocalDate());
+                    }
                     order.setPrice(resultSet.getBigDecimal("ord_price"));
                     order.setDiscount(resultSet.getInt("ord_discount"));
 
-                    Date date = resultSet.getDate("ord_closure");
-                    if(date!=null) {
-                        order.setClosureDate(resultSet.getDate("ord_closure").toLocalDate());
+                    Date closureDate = resultSet.getDate("ord_closure");
+                    if(closureDate!=null) {
+                        order.setClosureDate(closureDate.toLocalDate());
                     }
                     order.setFeedback(resultSet.getString("ord_feedback"));
                     order.setIdClient(resultSet.getInt("id_client"));
@@ -149,38 +156,59 @@ public class OrderDaoImpl extends OrderDao {
     }
 
     @Override
-    public List<JoinOrder> findJoinAll() throws DaoException {
-        List<JoinOrder> list = new ArrayList<>();
+    public Set<Client> findAllClient() throws DaoException {
+        Set<Client> set = new HashSet<>();
+
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_JOIN_ALL_ORDER)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ORDER)) {
 
                 while (resultSet.next()) {
 
-                    JoinOrder joinOrder = new JoinOrder();
+                    Client client = new Client();
 
-                    joinOrder.getOrder().setIdOrder(resultSet.getInt("id_order"));
-                    joinOrder.getOrder().setDate(resultSet.getDate("ord_date").toLocalDate());
-                    joinOrder.getOrder().setPrice(resultSet.getBigDecimal("ord_price"));
-                    joinOrder.getOrder().setDiscount(resultSet.getInt("ord_discount"));
-                    if(resultSet.getDate("ord_closure")!=null) {
-                        joinOrder.getOrder().setClosureDate(resultSet.getDate("ord_closure").toLocalDate());
-                    }
-                    joinOrder.getOrder().setFeedback(resultSet.getString("ord_feedback"));
-                    joinOrder.getClient().setName(resultSet.getString("cl_name"));
-                    joinOrder.getClient().setLastName(resultSet.getString("cl_lastname"));
-                    joinOrder.getActivity().setName(resultSet.getString("act_name"));
+                    client.setIdClient(resultSet.getInt("id_client"));
+                    client.setName(resultSet.getString("cl_name"));
+                    client.setLastName(resultSet.getString("cl_lastname"));
 
-                    list.add(joinOrder);
+                    set.add(client);
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't findJoinAll", e);
+            throw new DaoException("Can't find allClient: ", e);
+        }
+
+        LOGGER.log(Level.INFO, set.size());
+
+        return set;
+    }
+
+    @Override
+    public Set<Activity> findAllActivity() throws DaoException {
+        Set<Activity> list = new HashSet<>();
+
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ORDER)) {
+
+                while (resultSet.next()) {
+
+                    Activity activity = new Activity();
+
+                    activity.setIdActivity(resultSet.getInt("id_activity"));
+                    activity.setName(resultSet.getString("act_name"));
+
+                    list.add(activity);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Can't find allClient: ", e);
         }
 
         LOGGER.log(Level.INFO, list.size());
 
         return list;
     }
+
+
 
     @Override
     public Order findEntityById(int id) throws DaoException {
@@ -193,7 +221,7 @@ public class OrderDaoImpl extends OrderDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet != null) {
                     resultSet.next();
-                }
+
 
                 order.setIdOrder(resultSet.getInt("id_order"));
                 order.setDate(resultSet.getDate("ord_date").toLocalDate());
@@ -206,6 +234,8 @@ public class OrderDaoImpl extends OrderDao {
                 order.setFeedback(resultSet.getString("ord_feedback"));
                 order.setIdClient(resultSet.getInt("id_client"));
                 order.setIdActivity(resultSet.getInt("id_activity"));
+
+                }
 
             }
         } catch (SQLException e) {

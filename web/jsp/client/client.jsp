@@ -36,16 +36,17 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../trainer/jspf/header.jspf" %>
+            <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../client/jspf/header.jspf" %>
+            <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
 <br>
 <br>
 <h3><fmt:message key="table.client.head"/></h3>
+<div>
     <table class="greyGridTable">
         <thead>
         <tr>
@@ -56,6 +57,7 @@
             <th><fmt:message key="table.client.email"/></th>
             <th><fmt:message key="table.client.personalData"/></th>
             <th><fmt:message key="table.client.iconPath"/></th>
+            <th colspan="2"></th>
         </tr>
         </thead>
         <tbody>
@@ -86,14 +88,37 @@
                         <img class="iconBit" src="/picture/${elem.iconPath}"/>
                     </c:if>
                 </td>
+                <td>
+                    <a href="${pageContext.servletContext.contextPath}
+                        /jsp/client/update.jsp?id=${elem.idClient}">
+                        U
+                    </a>
+                </td>
+                <td>
+                    <a href="${pageContext.servletContext.contextPath}
+                        /controller?command=client_delete&id=${elem.idClient}">
+                        D
+                    </a>
+                </td>
             </tr>
         </c:forEach>
+        <tr>
+            <td colspan="8"></td>
+            <td colspan="2">
+                <a href="${pageContext.servletContext.contextPath}/jsp/client/createForm.jsp">
+                    <fmt:message key="body.create"/>
+                </a>
+            </td>
+        </tr>
         </tbody>
     </table>
     <br>
-
     <div class="leftMessage">${error}</div>
 
+
+    <%--<footer>--%>
+    <%--<c:import url="../general/footer.jsp"/>--%>
+    <%--</footer>--%>
 </body>
 
 </html>

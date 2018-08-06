@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -27,23 +27,22 @@
 
     <c:set var="role" value="${sessionScope.role}"/>
 
-
     <c:choose>
         <c:when test="${role == 'ADMIN'}">
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
 <div>
     <form class="ui-form" id="createForm" name="createForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="trainer_update">
+        <input type="hidden" name="command" value="trainer_create">
         <div class="form-row">
             <input id="id" form="createForm" type="text" name="id" readonly autocomplete="off">
             <label for="id"><fmt:message key="table.trainer.id"/></label>
@@ -70,7 +69,7 @@
         </div>
 
         <input form="createForm" id="idSubm" type="submit"
-               value="<fmt:message key="body.update"/>">
+               value="<fmt:message key="body.create"/>">
     </form>
 
 

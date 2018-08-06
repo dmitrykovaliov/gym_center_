@@ -3,12 +3,11 @@ package com.dk.gym.command.admin;
 import com.dk.gym.command.ActionCommand;
 import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.RequestMethod;
-import com.dk.gym.constant.PageConstant;
+import com.dk.gym.command.PageConstant;
 import com.dk.gym.controller.RequestContent;
 import com.dk.gym.entity.Order;
 import com.dk.gym.entity.Prescription;
 import com.dk.gym.entity.Trainer;
-import com.dk.gym.entity.join.JoinPrescription;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.service.OrderService;
@@ -19,10 +18,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL;
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL_ORDER;
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL_TRAINER;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class PrescriptionReadCommand implements ActionCommand {
 
@@ -31,27 +29,34 @@ public class PrescriptionReadCommand implements ActionCommand {
     @Override
     public ContentPage execute(RequestContent content) throws CommandException {
 
-        List<JoinPrescription> prescriptionList;
-        List<Order> orderList;
-        List<Trainer> trainerList;
+        List<Prescription> prescriptionList;
+        Set<Trainer> trainerList;
+
+        List<Order> orderAllList;
+        List<Trainer> trainerAllList;
 
         try {
-            prescriptionList = PrescriptionService.getInstance().findJoinItems();
-            orderList = OrderService.getInstance().findItems();
-            trainerList = TrainerService.getInstance().findItems();
+            prescriptionList = PrescriptionService.getInstance().findItems();
+            trainerList = PrescriptionService.getInstance().findTrainerItems();
+
+            orderAllList = OrderService.getInstance().findItems();
+            trainerAllList = TrainerService.getInstance().findItems();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
 
         content.insertAttribute(PARAM_READ_ALL, prescriptionList);
-        content.insertAttribute(PARAM_READ_ALL_ORDER, orderList);
-        content.insertAttribute(PARAM_READ_ALL_TRAINER, trainerList);
+        content.insertAttribute(PARAM_READ_TRAINER, trainerList);
+
+        content.insertAttribute(PARAM_READ_ALL_ORDER, orderAllList);
+        content.insertAttribute(PARAM_READ_ALL_TRAINER, trainerAllList);
 
         LOGGER.log(Level.DEBUG, prescriptionList);
-        LOGGER.log(Level.DEBUG, orderList);
         LOGGER.log(Level.DEBUG, trainerList);
+        LOGGER.log(Level.DEBUG, orderAllList);
+        LOGGER.log(Level.DEBUG, trainerAllList);
 
-        String pageUrl = PageConstant.PAGE_PRESCRIPTION;
+        String pageUrl = PageConstant.PAGE_ADMIN_PRESCRIPTION;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

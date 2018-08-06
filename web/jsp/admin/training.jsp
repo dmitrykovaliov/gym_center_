@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -36,10 +36,10 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
@@ -66,52 +66,55 @@
                 </thead>
                 <tbody>
                 <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
+                <jsp:useBean id="readTrainer" scope="request" type="java.util.Set"/>
                 <c:forEach var="elem" items="${readAll}" varStatus="status">
                     <tr>
                         <td>
-                            <c:out value="${elem.training.idTraining}"/>
+                            <c:out value="${elem.idTraining}"/>
                         </td>
 
                         <td id="date${status.count}">
-                            <c:out value="${elem.training.date}"/>
-                            <ctg:select tagId="date${status.count}" elem="${elem.training.date}"/>
+                            <c:out value="${elem.date}"/>
+                            <ctg:select tagId="date${status.count}" elem="${elem.date}"/>
                         </td>
                         <td id="startTime${status.count}">
-                            <c:out value="${elem.training.startTime}"/>
-                            <ctg:select tagId="startTime${status.count}" elem="${elem.training.startTime}"/>
+                            <c:out value="${elem.startTime}"/>
+                            <ctg:select tagId="startTime${status.count}" elem="${elem.startTime}"/>
                         </td>
                         <td id="endTime${status.count}">
-                            <c:out value="${elem.training.endTime}"/>
-                            <ctg:select tagId="endTime${status.count}" elem="${elem.training.endTime}"/>
+                            <c:out value="${elem.endTime}"/>
+                            <ctg:select tagId="endTime${status.count}" elem="${elem.endTime}"/>
                         </td>
                         <td id="visited${status.count}">
-                            <c:if test="${elem.training.visited == 'true'}">
+                            <c:if test="${elem.visited == 'true'}">
                                 <c:out value="visited"/>
                             </c:if>
-                            <ctg:select tagId="endTime${status.count}" elem="${elem.training.visited}"/>
+                            <ctg:select tagId="endTime${status.count}" elem="${elem.visited}"/>
                         </td>
                         <td id="clientNote${status.count}">
-                            <c:out value="${elem.training.clientNote}"/>
-                            <ctg:select tagId="clientNote${status.count}" elem="${elem.training.clientNote}"/>
+                            <c:out value="${elem.clientNote}"/>
+                            <ctg:select tagId="clientNote${status.count}" elem="${elem.clientNote}"/>
                         </td>
                         <td id="trainerNote${status.count}">
-                            <c:out value="${elem.training.trainerNote}"/>
-                            <ctg:select tagId="trainerNote${status.count}" elem="${elem.training.trainerNote}"/>
+                            <c:out value="${elem.trainerNote}"/>
+                            <ctg:select tagId="trainerNote${status.count}" elem="${elem.trainerNote}"/>
                         </td>
                         <td id="idOrder${status.count}">
-                            <c:out value="${elem.order.idOrder}"/>
-                            <ctg:select tagId="idOrder${status.count}" elem="${elem.order.idOrder}"/>
+                            <c:out value="${elem.idOrder}"/>
+                            <ctg:select tagId="idOrder${status.count}" elem="${elem.idOrder}"/>
                         </td>
                         <td id="idTrainer${status.count}">
-                            <c:set value="${elem.trainer.name}" var="name"/>
-                            <c:set value="${elem.trainer.lastName}" var="lastName"/>
-
-                                <c:out value="${name} ${lastName}"/>
-
-                            <ctg:select tagId="idTrainer${status.count}" elem="${elem.trainer.idTrainer}"/>
+                            <c:forEach var="elemTrainer" items="${readTrainer}" varStatus="status">
+                                <c:if test="${elem.idTrainer == elemTrainer.idTrainer}">
+                                    <c:set value="${elemTrainer.name}" var="name"/>
+                                    <c:set value="${elemTrainer.lastName}" var="lastName"/>
+                                </c:if>
+                            </c:forEach>
+                            <c:out value="${name} ${lastName}"/>
+                            <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
                         </td>
                         <td>
-                            <a onclick="addIdToFieldTraining('idAct', 'idHid', 'idSubm', ${elem.training.idTraining},
+                            <a onclick="addIdToFieldTraining('idAct', 'idHid', 'idSubm', ${elem.idTraining},
                                     '<fmt:message key="body.create"/>',
                                     '<fmt:message key="body.update"/>')">
                                 U
@@ -119,7 +122,7 @@
                         </td>
                         <td>
                             <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=training_delete&id=${elem.training.idTraining}">
+                            /controller?command=training_delete&id=${elem.idTraining}">
                                 D
                             </a>
                         </td>

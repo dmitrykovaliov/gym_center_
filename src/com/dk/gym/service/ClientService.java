@@ -1,7 +1,7 @@
 package com.dk.gym.service;
 
 import com.dk.gym.dao.TransactionManager;
-import com.dk.gym.entity.builder.ClientDirector;
+import com.dk.gym.builder.ClientDirector;
 import com.dk.gym.command.ReturnMessageType;
 import com.dk.gym.dao.ClientDao;
 import com.dk.gym.dao.impl.ClientDaoImpl;
@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 
 public class ClientService {
@@ -144,5 +144,19 @@ public class ClientService {
         LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
 
         return message;
+    }
+
+    public List<Client> findTrainerItems(RequestContent content) throws ServiceException {
+        List<Client> itemList;
+
+        try (ClientDao clientDao = new ClientDaoImpl()) {
+            itemList = clientDao.findTrainerAll((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        LOGGER.log(Level.INFO, "Size of user collection: " + itemList.size());
+
+        return itemList;
     }
 }

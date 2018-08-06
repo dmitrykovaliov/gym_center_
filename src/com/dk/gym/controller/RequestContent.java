@@ -11,7 +11,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.*;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 public class RequestContent {
 

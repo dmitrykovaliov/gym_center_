@@ -3,7 +3,7 @@ package com.dk.gym.command.admin;
 import com.dk.gym.command.ActionCommand;
 import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.RequestMethod;
-import com.dk.gym.constant.PageConstant;
+import com.dk.gym.command.PageConstant;
 import com.dk.gym.entity.Activity;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static com.dk.gym.constant.ParamConstant.PARAM_READ_ALL;
+import static com.dk.gym.service.ParamConstant.PARAM_READ_ALL;
 
 public class ActivityReadCommand implements ActionCommand {
 

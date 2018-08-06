@@ -6,8 +6,8 @@ import com.dk.gym.dao.PrescriptionDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.PrescriptionDaoImpl;
 import com.dk.gym.entity.Prescription;
-import com.dk.gym.entity.builder.PrescriptionDirector;
-import com.dk.gym.entity.join.JoinPrescription;
+import com.dk.gym.builder.PrescriptionDirector;
+import com.dk.gym.entity.Trainer;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.validator.impl.PrescriptionValidator;
@@ -17,10 +17,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.ParamConstant.PARAM_ID;
-import static com.dk.gym.constant.ParamConstant.PARAM_ORDER_ID;
-import static com.dk.gym.constant.ParamConstant.PARAM_TRAINER_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_ORDER_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_TRAINER_ID;
 
 
 public class PrescriptionService {
@@ -81,16 +82,15 @@ public class PrescriptionService {
         return itemList;
     }
 
-    public List<JoinPrescription> findJoinItems() throws ServiceException {
-        List<JoinPrescription> itemList;
+    public Set<Trainer> findTrainerItems() throws ServiceException {
+        Set<Trainer> itemList;
 
         try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
-            itemList = prescriptionDao.findJoinAll();
+            itemList = prescriptionDao.findAllTrainer();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+        LOGGER.log(Level.INFO, "Size of TrainerItems: " + itemList.size());
 
         return itemList;
     }

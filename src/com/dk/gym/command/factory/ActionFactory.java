@@ -13,23 +13,21 @@ public class ActionFactory {
 
     public ActionCommand defineCommand(RequestContent content) {
 
-        ActionCommand current = new EmptyCommand();
         String action = content.findParameter("command");
-
         LOGGER.log(Level.DEBUG, "Command: " + action);
 
-        if (action == null || action.isEmpty()) {
-            return current;
-        }
-        try {
-            CommandType currentEnum = CommandType.valueOf(action.toUpperCase());
-            current = currentEnum.getCommand();
+        if (action != null && !action.isEmpty()) {
+            try {
+                CommandType currentEnum = CommandType.valueOf(action.toUpperCase());
+                LOGGER.log(Level.DEBUG, "enum: " + currentEnum);
 
-            LOGGER.log(Level.DEBUG, "enum: " + currentEnum);
-        } catch (IllegalArgumentException e) {
-            LOGGER.log(Level.ERROR, "Can't define command: " + e);
+                return currentEnum.getCommand();
+
+            } catch (IllegalArgumentException e) {
+                LOGGER.log(Level.ERROR, "Can't define command: " + e);
+            }
         }
-        return current;
+        return new EmptyCommand();
     }
 }
 

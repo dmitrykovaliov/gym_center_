@@ -33,10 +33,10 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 
@@ -60,42 +60,50 @@
                 </thead>
                 <tbody>
                 <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
+                <jsp:useBean id="readClient" scope="request" type="java.util.Set"/>
+                <jsp:useBean id="readTrainer" scope="request" type="java.util.Set"/>
                 <c:forEach var="elem" items="${readAll}" varStatus="status">
                     <tr>
                         <td>
-                            <c:out value="${elem.user.idUser}"/>
+                            <c:out value="${elem.idUser}"/>
                         </td>
                         <td id="login${status.count}">
-                            <c:out value="${elem.user.login}"/>
-                            <ctg:select tagId="login${status.count}" elem="${elem.user.login}"/>
+                            <c:out value="${elem.login}"/>
+                            <ctg:select tagId="login${status.count}" elem="${elem.login}"/>
                         </td>
                         <td id="pass${status.count}">
-                            <c:out value="${elem.user.pass}"/>
-                            <ctg:select tagId="pass${status.count}" elem="${elem.user.pass}"/>
+                            <c:out value="${elem.pass}"/>
+                            <ctg:select tagId="pass${status.count}" elem="${elem.pass}"/>
                         </td>
                         <td id="role${status.count}">
-                            <c:out value="${elem.user.role}"/>
-                            <ctg:select tagId="role${status.count}" elem="${elem.user.role}"/>
+                            <c:out value="${elem.role}"/>
+                            <ctg:select tagId="role${status.count}" elem="${elem.role}"/>
                         </td>
-                        <td id="client${status.count}">
-                            <c:set value="${elem.client.name}" var="name"/>
-                            <c:set value="${elem.client.lastName}" var="lastName"/>
-
+                        <td id="idClient${status.count}">
+                            <c:forEach var="elemClient" items="${readClient}" varStatus="status">
+                                <c:if test="${elem.idUser == elemClient.idUser}">
+                                    <%--<c:set value="${elemClient.idClient}" var="idClient" scope="page"/>--%>
+                                    <c:set value="${elemClient.name}" var="name"/>
+                                    <c:set value="${elemClient.lastName}" var="lastName"/>
+                                </c:if>
+                            </c:forEach>
                             <c:out value="${name} ${lastName}"/>
-
-                            <ctg:select tagId="client${status.count}" elem="${elem.client.name}"/>
+                            <ctg:select tagId="idClient${status.count}" elem="${name} ${lastName} ${idClient}"/>
                         </td>
-                        <td id="trainer${status.count}">
-                            <c:set value="${elem.trainer.name}" var="name"/>
-                            <c:set value="${elem.trainer.lastName}" var="lastName"/>
-
+                        <td id="idTrainer${status.count}">
+                            <c:forEach var="elemTrainer" items="${readTrainer}" varStatus="status">
+                                <c:if test="${elem.idUser == elemTrainer.idUser}">
+                                    <c:set value="${elemTrainer.idTrainer}" var="idTrainer" scope="page"/>
+                                    <c:set value="${elemTrainer.name}" var="name"/>
+                                    <c:set value="${elemTrainer.lastName}" var="lastName"/>
+                                </c:if>
+                            </c:forEach>
                             <c:out value="${name} ${lastName}"/>
-
-                            <ctg:select tagId="trainer${status.count}" elem="${elem.trainer.name}"/>
+                            <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName} ${idTrainer}"/>
                         </td>
                         <td>
                             <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=user_delete&id=${elem.user.idUser}&clientId=${elem.client.idClient}&trainerId=${elem.trainer.idTrainer}">
+                            /controller?command=user_delete&id=${elem.idUser}&clientId=${idClient}&trainerId=${idTrainer}">
                                 D
                             </a>
                         </td>

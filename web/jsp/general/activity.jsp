@@ -33,10 +33,10 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 
@@ -52,7 +52,7 @@
                     <th><fmt:message key="table.activity.name"/></th>
                     <th><fmt:message key="table.activity.price"/></th>
                     <th><fmt:message key="table.activity.note"/></th>
-                    <th colspan="3"></th>
+                    <th colspan="2"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,12 +87,6 @@
                                 D
                             </a>
                         </td>
-                        <td>
-                            <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=order_read&id=${elem.idActivity}">
-                        <th><fmt:message key="table.order.head"/></th>
-                        </a>
-                        </td>
                     </tr>
                 </c:forEach>
 
@@ -103,7 +97,6 @@
                     <td><input form="createForm" type="text" name="note"></td>
                     <td colspan="2"><input form="createForm" id="idSubm" type="submit"
                                            value="<fmt:message key="body.create"/>"></td>
-                    <td></td>
                 </tr>
 
                 <%--<tr>--%>

@@ -5,9 +5,10 @@ import com.dk.gym.controller.RequestContent;
 import com.dk.gym.dao.OrderDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.OrderDaoImpl;
+import com.dk.gym.entity.Activity;
+import com.dk.gym.entity.Client;
 import com.dk.gym.entity.Order;
-import com.dk.gym.entity.builder.OrderDirector;
-import com.dk.gym.entity.join.JoinOrder;
+import com.dk.gym.builder.OrderDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.validator.OrderValidator;
@@ -17,8 +18,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.dk.gym.constant.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_ID;
 
 
 public class OrderService {
@@ -73,22 +75,33 @@ public class OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+        LOGGER.log(Level.INFO, "Size of Order: " + itemList.size());
 
         return itemList;
     }
 
-    public List<JoinOrder> findJoinItems() throws ServiceException {
-        List<JoinOrder> itemList;
+    public Set<Client> findClientItems() throws ServiceException {
+        Set<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findJoinAll();
+            itemList = orderDao.findAllClient();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+        LOGGER.log(Level.INFO, "Size of Client: " + itemList.size());
 
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+        return itemList;
+    }
+
+    public Set<Activity> findActivityItems() throws ServiceException {
+        Set<Activity> itemList;
+
+        try (OrderDao orderDao = new OrderDaoImpl()) {
+            itemList = orderDao.findAllActivity();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Activity: " + itemList.size());
 
         return itemList;
     }

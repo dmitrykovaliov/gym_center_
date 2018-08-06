@@ -1,7 +1,7 @@
 package com.dk.gym.service;
 
 import com.dk.gym.dao.TransactionManager;
-import com.dk.gym.entity.builder.ActivityDirector;
+import com.dk.gym.builder.ActivityDirector;
 import com.dk.gym.command.ReturnMessageType;
 import com.dk.gym.dao.ActivityDao;
 import com.dk.gym.dao.impl.ActivityDaoImpl;
@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static com.dk.gym.constant.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.*;
 
 
 public class ActivityService {

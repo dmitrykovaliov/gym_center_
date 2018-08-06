@@ -33,17 +33,17 @@
             <%@include file="../admin/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'TRAINER'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../trainer/jspf/header.jspf" %>
         </c:when>
         <c:when test="${role == 'CLIENT'}">
-            <%@include file="../admin/jspf/header.jspf" %>
+            <%@include file="../client/jspf/header.jspf" %>
         </c:when>
     </c:choose>
 </header>
 <div>
     <form class="ui-form" id="createForm" name="createForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="trainer_create">
+        <input type="hidden" name="command" value="trainer_update">
         <div class="form-row">
             <input id="id" form="createForm" type="text" name="id" readonly autocomplete="off">
             <label for="id"><fmt:message key="table.trainer.id"/></label>
@@ -70,7 +70,7 @@
         </div>
 
         <input form="createForm" id="idSubm" type="submit"
-               value="<fmt:message key="body.create"/>">
+               value="<fmt:message key="body.update"/>">
     </form>
 
 

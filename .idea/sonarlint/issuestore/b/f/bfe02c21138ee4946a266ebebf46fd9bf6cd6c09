@@ -1,5 +1,12 @@
 
-gsquid:S2095"KUse try-with-resources or close this "ClientDaoImpl" in a "finally" clause.(»™“Ë8µÏÔÔĞ,
 Y
-squid:S106"9Replace this use of System.out or System.err by a logger.(—è¸Çüÿÿÿÿ8µÏÔÔĞ,
-Nsquid:S1135"2Complete the task associated to this TODO comment.(ôÂÂµ8µÏÔÔĞ,
+squid:S106"9Replace this use of System.out or System.err by a logger.(—è¸Çüÿÿÿÿ8ğúÉìĞ,
+gsquid:S2095"KUse try-with-resources or close this "ClientDaoImpl" in a "finally" clause.(»™“Ë8ğúÉìĞ,
+rsquid:S1192"QDefine a constant instead of duplicating this literal "cl_personal_data" 3 times.(¯’²Èşÿÿÿÿ8ğúÉìĞ,
+ksquid:S1192"JDefine a constant instead of duplicating this literal "id_client" 3 times.(ú’Ó±øÿÿÿÿ8ğúÉìĞ,
+esquid:S1192"IDefine a constant instead of duplicating this literal "cl_email" 3 times.(Ã¸ìÜ8ğúÉìĞ,
+isquid:S1192"HDefine a constant instead of duplicating this literal "cl_name" 3 times.(ÑÛ¾Àÿÿÿÿÿ8ğúÉìĞ,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "cl_phone" 3 times.(æöäùÿÿÿÿ8ğúÉìĞ,
+hsquid:S1192"LDefine a constant instead of duplicating this literal "cl_iconpath" 3 times.(¸íÖ8ğúÉìĞ,
+msquid:S1192"LDefine a constant instead of duplicating this literal "cl_lastname" 3 times.(Ğ«ÚÉüÿÿÿÿ8ğúÉìĞ,
+Nsquid:S1135"2Complete the task associated to this TODO comment.(ôÂÂµ8ğúÉìĞ,
