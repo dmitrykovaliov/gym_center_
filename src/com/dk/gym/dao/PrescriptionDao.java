@@ -12,8 +12,7 @@ public abstract class PrescriptionDao extends AbstractDao<Prescription> {
     @Override
     public abstract List<Prescription> findAll() throws DaoException;
 
-    @Override
-    public abstract Prescription findEntityById(int id) throws DaoException;
+    public abstract Prescription findEntityById(int idOrder, int idTrainer) throws DaoException;
 
     @Override
     public abstract int create(Prescription entity) throws DaoException;
@@ -23,5 +22,9 @@ public abstract class PrescriptionDao extends AbstractDao<Prescription> {
 
     public abstract boolean delete(int idTrainer, int idOrder) throws DaoException;
 
-    public abstract Set<Trainer> findAllTrainer() throws DaoException;
+    public abstract List<Trainer> findAllTrainer() throws DaoException;
+
+    public abstract List<Prescription> findTrainerPrescriptions(int idUser) throws DaoException;
+
+    public abstract List<Prescription> findClientPrescriptions(int idUser) throws DaoException;
 }

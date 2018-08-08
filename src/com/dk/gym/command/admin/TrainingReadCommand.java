@@ -18,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Set;
 
 import static com.dk.gym.service.ParamConstant.*;
 
@@ -30,7 +29,7 @@ public class TrainingReadCommand implements ActionCommand {
     public ContentPage execute(RequestContent content) throws CommandException {
 
         List<Training> trainingList;
-        Set<Trainer> trainerList;
+        List<Trainer> trainerList;
 
         List<Order> orderAllList;
         List<Trainer> trainerAllList;
@@ -55,7 +54,7 @@ public class TrainingReadCommand implements ActionCommand {
         LOGGER.log(Level.DEBUG, orderAllList);
         LOGGER.log(Level.DEBUG, trainerAllList);
 
-        String pageUrl = PageConstant.PAGE_ADMIN_TRAINING;
+        String pageUrl = PageConstant.PAGE_TRAINING;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

@@ -11,17 +11,13 @@ import com.dk.gym.entity.Trainer;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.validator.impl.PrescriptionValidator;
-import com.dk.gym.validator.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Set;
 
-import static com.dk.gym.service.ParamConstant.PARAM_ID;
-import static com.dk.gym.service.ParamConstant.PARAM_ORDER_ID;
-import static com.dk.gym.service.ParamConstant.PARAM_TRAINER_ID;
+import static com.dk.gym.service.ParamConstant.*;
 
 
 public class PrescriptionService {
@@ -82,8 +78,8 @@ public class PrescriptionService {
         return itemList;
     }
 
-    public Set<Trainer> findTrainerItems() throws ServiceException {
-        Set<Trainer> itemList;
+    public List<Trainer> findTrainerItems() throws ServiceException {
+        List<Trainer> itemList;
 
         try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
             itemList = prescriptionDao.findAllTrainer();
@@ -105,7 +101,8 @@ public class PrescriptionService {
 
                     transactionManager.startTransaction(prescriptionDao);
 
-                    Prescription prescription = prescriptionDao.findEntityById(Integer.parseInt(content.findParameter(PARAM_ID)));
+                    Prescription prescription = prescriptionDao.findEntityById(Integer.parseInt(content.findParameter(PARAM_ORDER_ID)),
+                            Integer.parseInt(content.findParameter(PARAM_TRAINER_ID)));
 
                     new PrescriptionDirector().buildPrescription(prescription, content);
 
@@ -132,26 +129,50 @@ public class PrescriptionService {
 
         ReturnMessageType message;
 
-        if (new ChainIdValidator().validate(content.findParameter(PARAM_TRAINER_ID))
-                && new ChainIdValidator().validate(content.findParameter(PARAM_ORDER_ID))) {
-            try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
-                int parsedTrainerId = Integer.parseInt(content.findParameter(PARAM_TRAINER_ID));
-                int parsedOrderId = Integer.parseInt(content.findParameter(PARAM_ORDER_ID));
+        try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
+            int parsedOrderId = Integer.parseInt(content.findParameter(PARAM_ORDER_ID));
+            int parsedTrainerId = Integer.parseInt(content.findParameter(PARAM_TRAINER_ID));
 
-                LOGGER.log(Level.DEBUG, "trainerId: " + parsedTrainerId);
-                LOGGER.log(Level.DEBUG, "orderId: " + parsedOrderId);
+            LOGGER.log(Level.DEBUG, "orderId: " + parsedOrderId);
+            LOGGER.log(Level.DEBUG, "trainerId: " + parsedTrainerId);
 
-                prescriptionDao.delete(parsedTrainerId, parsedOrderId);
+            prescriptionDao.delete(parsedOrderId, parsedTrainerId);
 
-                message = ReturnMessageType.DONE;
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-        } else {
-            message = ReturnMessageType.INVALID;
+            message = ReturnMessageType.DONE;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
+
         LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
 
         return message;
+    }
+
+    public List<Prescription> findItemsByTrainer(RequestContent content) throws ServiceException {
+        List<Prescription> itemList;
+
+        try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
+            itemList = prescriptionDao.findTrainerPrescriptions((int) content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+
+        return itemList;
+    }
+
+    public List<Prescription> findClientPrescriptions(RequestContent content) throws ServiceException {
+        List<Prescription> itemList;
+
+        try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
+            itemList = prescriptionDao.findClientPrescriptions((int) content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+
+        return itemList;
     }
 }

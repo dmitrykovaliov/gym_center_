@@ -1,1 +1,2 @@
-2018-08-05 15:23:09.310 [main] DEBUG com.dk.gym.validator.impl.UserValidator - clientTrainer: false
+2018-08-08 07:59:23.126 [main] INFO  com.dk.gym.pool.ConnectionPool - PoolSize: 8
+2018-08-08 07:59:34.077 [main] INFO  com.dk.gym.pool.ConnectionPool - PoolSize: 8

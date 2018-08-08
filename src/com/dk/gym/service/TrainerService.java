@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
 
 public class TrainerService {
@@ -141,5 +142,19 @@ public class TrainerService {
         LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
 
         return message;
+    }
+
+    public Trainer findTrainerItem(RequestContent content) throws ServiceException {
+        Trainer trainer;
+
+        try (TrainerDao trainerDao = new TrainerDaoImpl()) {
+            trainer = trainerDao.findUser((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        LOGGER.log(Level.INFO, "Item: " + trainer);
+
+        return trainer;
     }
 }

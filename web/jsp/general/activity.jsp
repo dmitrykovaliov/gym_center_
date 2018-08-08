@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -42,24 +42,20 @@
 
     <br>
     <br>
-        <form id="createForm" name="createForm" method="get" action="controller">
-            <input id="idHid" type="hidden" name="command" value="activity_create">
-
             <table class="greyGridTable">
                 <thead>
                 <tr>
-                    <th><fmt:message key="table.activity.id"/></th>
+                    <th><fmt:message key="table.activity.number"/></th>
                     <th><fmt:message key="table.activity.name"/></th>
                     <th><fmt:message key="table.activity.price"/></th>
                     <th><fmt:message key="table.activity.note"/></th>
-                    <th colspan="2"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
                 <c:forEach var="elem" items="${readAll}" varStatus="status">
                     <tr>
-                        <td><c:out value="${elem.idActivity}"/>
+                        <td><c:out value="${status.count}"/>
                         </td>
 
                         <td id="name${status.count}">
@@ -74,53 +70,12 @@
                             <c:out value="${elem.note}"/>
                             <ctg:select tagId="note${status.count}" elem="${elem.note}"/>
                         </td>
-                        <td>
-                            <a onclick="addIdToFieldActivity('idAct', 'idHid', 'idSubm', ${elem.idActivity},
-                                    '<fmt:message key="body.create"/>',
-                                    '<fmt:message key="body.update"/>')">
-                                U
-                            </a>
-                        </td>
-                        <td>
-                            <a href="${pageContext.servletContext.contextPath}
-                            /controller?command=activity_delete&id=${elem.idActivity}">
-                                D
-                            </a>
-                        </td>
                     </tr>
                 </c:forEach>
-
-                <tr>
-                    <td><input form="createForm" type="text" id="idAct" name="id" readonly></td>
-                    <td><input form="createForm" type="text" name="name"></td>
-                    <td><input form="createForm" type="text" name="price"></td>
-                    <td><input form="createForm" type="text" name="note"></td>
-                    <td colspan="2"><input form="createForm" id="idSubm" type="submit"
-                                           value="<fmt:message key="body.create"/>"></td>
-                </tr>
-
-                <%--<tr>--%>
-                <%--<td><input form="createForm" type="number" id="idAct" name="id" readonly></td>--%>
-                <%--<td><input form="createForm" type="text" name="name" pattern=".{0,200}" title="enter correct number">--%>
-                <%--</td>--%>
-                <%--<td><input form="createForm" type="text" name="price" pattern="(\d{1,18}[.,]\d{0,2})|(\d{1,20})"--%>
-                <%--title="please check number"></td>--%>
-                <%--<td><input form="createForm" type="text" name="note" pattern=".{0, 1500}" title="Please check length"></td>--%>
-                <%--<td colspan="2"><input form="createForm" id="idSubm" type="submit"--%>
-                <%--value="<fmt:message key="body.create"/>"></td>--%>
-                <%--</tr>--%>
-
                 </tbody>
             </table>
-
-        </form>
         <br>
         <div class="leftMessage">${error}</div>
-
-
-        <%--<footer>--%>
-        <%--<c:import url="../general/footer.jsp"/>--%>
-        <%--</footer>--%>
 </body>
 
 </html>

@@ -36,7 +36,7 @@ public class ActivityReadCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, itemList);
 
-        String pageUrl = PageConstant.PAGE_ACTIVITY;
+        String pageUrl = PageConstant.PAGE_ACTIVITY_ADMIN;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

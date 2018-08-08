@@ -16,46 +16,23 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <fmt:message key="menu.catalog"/>
-                        <span class="caret"></span>
+                <li>
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=activity_read_general">
+                        <fmt:message key="menu.activity"/>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="${pageContext.servletContext.contextPath}/controller?command=activity_read">
-                                <fmt:message key="menu.activity"/>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.servletContext.contextPath}/controller?command=client_read">
-                                <fmt:message key="menu.client"/>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.servletContext.contextPath}/controller?command=trainer_read">
-                                <fmt:message key="menu.trainer"/>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
-                    <a href="${pageContext.servletContext.contextPath}/controller?command=order_read">
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=order_read_client">
                         <fmt:message key="menu.order"/>
                     </a>
                 </li>
-                <li><a href="${pageContext.servletContext.contextPath}/controller?command=prescription_read">
+                <li><a href="${pageContext.servletContext.contextPath}/controller?command=prescription_read_client">
                     <fmt:message key="menu.prescription"/>
                 </a>
                 </li>
                 <li>
-                    <a href="${pageContext.servletContext.contextPath}/controller?command=training_read">
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=training_read_client">
                         <fmt:message key="menu.training"/>
-                    </a>
-                </li>
-                <li>
-                    <a href="${pageContext.servletContext.contextPath}/controller?command=user_read">
-                        <fmt:message key="menu.user"/>
                     </a>
                 </li>
                 <li class="dropdown">
@@ -64,11 +41,12 @@
                             <span class="caret"></span></div>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=logout">LogOut</a></li>
+                        <li><a href="${pageContext.request.contextPath}
+                        /controller?command=client_read_profile">Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}
+                        /controller?command=logout">LogOut</a></li>
                     </ul>
                 </li>
-
             </ul>
         </div>
     </div>

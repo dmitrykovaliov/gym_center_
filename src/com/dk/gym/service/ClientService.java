@@ -159,4 +159,18 @@ public class ClientService {
 
         return itemList;
     }
+
+    public  Client findClientItem(RequestContent content) throws ServiceException {
+            Client client;
+
+            try (ClientDao trainerDao = new ClientDaoImpl()) {
+                client = trainerDao.findUser((int)content.findSessionAttribute(PARAM_USER_ID));
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+
+            LOGGER.log(Level.INFO, "Item: " + client);
+
+            return client;
+    }
 }

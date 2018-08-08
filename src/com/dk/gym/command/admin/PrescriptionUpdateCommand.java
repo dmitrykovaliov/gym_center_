@@ -34,7 +34,7 @@ public class PrescriptionUpdateCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PageConstant.PAGE_PRESCRIPTION_READ;
+        String pageUrl = PageConstant.PAGE_READ_PRESCRIPTION;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

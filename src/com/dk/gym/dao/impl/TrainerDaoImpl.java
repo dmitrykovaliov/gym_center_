@@ -4,10 +4,6 @@ import com.dk.gym.dao.TrainerDao;
 import com.dk.gym.entity.Trainer;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.pool.ConnectionPool;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +13,10 @@ import java.util.List;
 
 public class TrainerDaoImpl extends TrainerDao {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-
-    private static final String SQL_INSERT_CLIENT = "INSERT INTO trainer(id_trainer, tr_name, tr_lastname, tr_phone, " +
+    private static final String SQL_INSERT_TRAINER = "INSERT INTO trainer(id_trainer, tr_name, tr_lastname, tr_phone, " +
             "tr_personal_data, tr_iconpath) " +
             "VALUES (NULL, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_CLIENT = "UPDATE trainer SET tr_name = ?, tr_lastname = ?, tr_phone = ?, " +
+    private static final String SQL_UPDATE_TRAINER = "UPDATE trainer SET tr_name = ?, tr_lastname = ?, tr_phone = ?, " +
             "tr_personal_data = ?, tr_iconpath = ? " +
             "WHERE id_trainer = ?";
     private static final String SQL_UPDATE_USERID_TRAINER = "UPDATE trainer SET id_user = ? " +
@@ -30,10 +24,11 @@ public class TrainerDaoImpl extends TrainerDao {
     private static final String SQL_SELECT_ALL_TRAINERS = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer " +
             "ORDER BY tr_name";
-    private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
+    private static final String SQL_SELECT_TRAINER_BY_ID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer WHERE id_trainer = ?";
-
-    private static final String SQL_DELETE_CLIENT = "DELETE FROM trainer WHERE id_trainer = ?";
+    private static final String SQL_SELECT_TRAINER_BY_USERID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
+            "tr_personal_data, tr_iconpath FROM trainer WHERE id_user = ?";
+    private static final String SQL_DELETE_TRAINER = "DELETE FROM trainer WHERE id_trainer = ?";
 
     public TrainerDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
@@ -42,7 +37,7 @@ public class TrainerDaoImpl extends TrainerDao {
     @Override
     public int create(Trainer entity) throws DaoException {
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_CLIENT,
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_TRAINER,
                 Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, entity.getName());
@@ -62,13 +57,12 @@ public class TrainerDaoImpl extends TrainerDao {
         } catch (SQLException e) {
             throw new DaoException("Not created: ", e);
         }
-
         return -1;
     }
 
     @Override
     public boolean update(Trainer entity) throws DaoException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_TRAINER)) {
 
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getLastName());
@@ -81,7 +75,7 @@ public class TrainerDaoImpl extends TrainerDao {
 
             return true;
         } catch (SQLException e) {
-            throw new DaoException("Can't update trainer", e);
+            throw new DaoException("Not updated: ", e);
         }
     }
 
@@ -97,7 +91,7 @@ public class TrainerDaoImpl extends TrainerDao {
             return true;
 
         } catch (SQLException e) {
-            throw new DaoException("Can't update trainer", e);
+            throw new DaoException("Can't update trainer by userId: ", e);
         }
     }
 
@@ -124,11 +118,8 @@ public class TrainerDaoImpl extends TrainerDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found", e);
+            throw new DaoException("Not found all: ", e);
         }
-
-        LOGGER.log(Level.INFO, list.size());
-
         return list;
     }
 
@@ -138,11 +129,10 @@ public class TrainerDaoImpl extends TrainerDao {
 
         Trainer trainer = new Trainer();
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_ID)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_TRAINER_BY_ID)) {
             statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet != null) {
                     resultSet.next();
 
                     trainer.setIdTrainer(resultSet.getInt("id_trainer"));
@@ -151,18 +141,16 @@ public class TrainerDaoImpl extends TrainerDao {
                     trainer.setPhone(resultSet.getString("tr_phone"));
                     trainer.setPersonalData(resultSet.getString("tr_personal_data"));
                     trainer.setIconPath(resultSet.getString("tr_iconpath"));
-                }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found: ", e);
+            throw new DaoException("Not found entityById: ", e);
         }
-
         return trainer;
     }
 
     @Override
     public boolean delete(int id) throws DaoException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLIENT)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_TRAINER)) {
             statement.setInt(1, id);
             statement.executeUpdate();
             return true;
@@ -171,19 +159,26 @@ public class TrainerDaoImpl extends TrainerDao {
         }
     }
 
-    public static void main(String[] args) throws DaoException {
-        TrainerDao trainerDao = new TrainerDaoImpl();
-        List<Trainer> entities = trainerDao.findAll();
+    @Override
+    public Trainer findUser(int idUser) throws DaoException {
+        Trainer trainer = new Trainer();
 
-        Trainer entity = trainerDao.findEntityById(1);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_TRAINER_BY_USERID)) {
+            statement.setInt(1, idUser);
 
-        LOGGER.log(Level.INFO, entities);
-        LOGGER.log(Level.INFO, entity);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                resultSet.next();
 
-        LOGGER.log(Level.INFO, trainerDao.create(entity));
-
-        LOGGER.log(Level.INFO, trainerDao.update(entity));
-
-        LOGGER.log(Level.INFO, trainerDao.updateUserId(null, 1));
+                trainer.setIdTrainer(resultSet.getInt("id_trainer"));
+                trainer.setName(resultSet.getString("tr_name"));
+                trainer.setLastName(resultSet.getString("tr_lastname"));
+                trainer.setPhone(resultSet.getString("tr_phone"));
+                trainer.setPersonalData(resultSet.getString("tr_personal_data"));
+                trainer.setIconPath(resultSet.getString("tr_iconpath"));
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Not found entityByUserId: ", e);
+        }
+        return trainer;
     }
 }

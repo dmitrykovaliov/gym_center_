@@ -10,7 +10,6 @@ public abstract class ClientDao extends AbstractDao<Client> {
     @Override
     public abstract List<Client> findAll() throws DaoException;
 
-    @Override
     public abstract Client findEntityById(int id) throws DaoException;
 
     @Override
@@ -24,4 +23,6 @@ public abstract class ClientDao extends AbstractDao<Client> {
     public abstract boolean updateUserId(Integer idUser, int idClient) throws DaoException;
 
     public abstract List<Client> findTrainerAll(int idUser) throws DaoException;
+
+    public abstract Client findUser(int idUser) throws DaoException;
 }

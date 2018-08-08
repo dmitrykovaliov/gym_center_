@@ -45,32 +45,32 @@
 <br>
 <h3><fmt:message key="table.order.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
-    <input id="idHid" type="hidden" name="command" value="order_create">
+    <input type="hidden" id="idCommand" name="command" value="order_create">
 
     <table class="greyGridTable">
         <thead>
         <tr>
-            <th><fmt:message key="table.order.id"/></th>
+            <th><fmt:message key="table.order.number"/></th>
             <th><fmt:message key="table.order.date"/></th>
             <th><fmt:message key="table.order.price"/></th>
             <th><fmt:message key="table.order.discount"/></th>
             <th><fmt:message key="table.order.closure"/></th>
             <th><fmt:message key="table.order.feedback"/></th>
-            <th><fmt:message key="table.order.idClient"/></th>
-            <th><fmt:message key="table.order.idActivity"/></th>
+            <th><fmt:message key="table.order.client"/></th>
+            <th><fmt:message key="table.order.activity"/></th>
             <th colspan="2"></th>
         </tr>
         </thead>
         <tbody>
 
         <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
-        <jsp:useBean id="readClient" scope="request" type="java.util.Set"/>
-        <jsp:useBean id="readActivity" scope="request" type="java.util.Set"/>
+        <jsp:useBean id="readClient" scope="request" type="java.util.List"/>
+        <jsp:useBean id="readActivity" scope="request" type="java.util.List"/>
 
         <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
                 <td>
-                    <c:out value="${elem.idOrder}"/>
+                    <c:out value="${status.count}"/>
                 </td>
 
                 <td id="date${status.count}">
@@ -95,27 +95,18 @@
                 </td>
 
                 <td id="idClient${status.count}">
-                    <c:forEach var="elemClient" items="${readClient}" varStatus="status">
-                        <c:if test="${elem.idClient == elemClient.idClient}">
-                            <c:set value="${elemClient.name}" var="name"/>
-                            <c:set value="${elemClient.lastName}" var="lastName"/>
-                        </c:if>
-                    </c:forEach>
+                    <c:set value="${readClient.get(status.count-1).name}" var="name"/>
+                    <c:set value="${readClient.get(status.count-1).lastName}" var="lastName"/>
                     <c:out value="${name} ${lastName}"/>
                     <ctg:select tagId="idClient${status.count}" elem="${name} ${lastName}"/>
                 </td>
                 <td id="idActivity${status.count}">
-                    <c:forEach var="elemActivity" items="${readActivity}" varStatus="status">
-                        <c:if test="${elem.idActivity == elemActivity.idActivity}">
-                            <c:set value="${elemActivity.name}" var="name"/>
-                        </c:if>
-                    </c:forEach>
+                    <c:set value="${readActivity.get(status.count-1).name}" var="name"/>
                     <c:out value="${name}"/>
                     <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
-
                 <td>
-                    <a onclick="addIdToFieldOrder('idAct', 'idHid', 'idSubm', ${elem.idOrder},
+                    <a onclick="fillOrderForm('idCount', ${status.count}, 'idOrder', 'idCommand', 'idSubmit', ${elem.idOrder},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">
                         U
@@ -133,7 +124,8 @@
         <jsp:useBean id="readAllClient" scope="request" type="java.util.List"/>
         <jsp:useBean id="readAllActivity" scope="request" type="java.util.List"/>
         <tr>
-            <td><input form="createForm" type="text" id="idAct" name="id" readonly></td>
+            <input form="createForm" type="text" id="idOrder" name="id" hidden>
+            <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
             <td><input form="createForm" type="date" name="date"></td>
             <td><input form="createForm" type="text" name="price"></td>
             <td><input form="createForm" type="text" name="discount"></td>
@@ -141,6 +133,7 @@
             <td><input form="createForm" type="text" name="feedback"></td>
             <td>
                 <select form="createForm" name="clientId">
+                    <option></option>
                     <c:forEach var="elem" items="${readAllClient}" varStatus="status">
                         <option value="${elem.idClient}">${elem.name} ${elem.lastName}</option>
                     </c:forEach>
@@ -148,12 +141,13 @@
             </td>
             <td>
                 <select form="createForm" name="activityId">
+                    <option></option>
                     <c:forEach var="elem" items="${readAllActivity}" varStatus="status">
                         <option value="${elem.idActivity}">${elem.name}</option>
                     </c:forEach>
                 </select>
             </td>
-            <td colspan="2"><input form="createForm" id="idSubm" type="submit"
+            <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
                                    value="<fmt:message key="body.create"/>"></td>
         </tr>
         </tbody>

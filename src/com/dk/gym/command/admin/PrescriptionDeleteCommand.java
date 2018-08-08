@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
-import static com.dk.gym.command.PageConstant.PAGE_PRESCRIPTION_READ;
+import static com.dk.gym.command.PageConstant.PAGE_READ_PRESCRIPTION;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class PrescriptionDeleteCommand implements ActionCommand {
@@ -35,7 +35,7 @@ public class PrescriptionDeleteCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PAGE_PRESCRIPTION_READ;
+        String pageUrl = PAGE_READ_PRESCRIPTION;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

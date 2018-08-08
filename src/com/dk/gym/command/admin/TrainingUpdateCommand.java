@@ -5,7 +5,6 @@ import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.RequestMethod;
 import com.dk.gym.command.ReturnMessageType;
 import com.dk.gym.command.factory.ReturnMessageFactory;
-import com.dk.gym.command.PageConstant;
 import com.dk.gym.controller.RequestContent;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
@@ -15,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
+import static com.dk.gym.command.PageConstant.*;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class TrainingUpdateCommand implements ActionCommand {
@@ -34,7 +34,7 @@ public class TrainingUpdateCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PageConstant.PAGE_TRAINING_READ;
+        String pageUrl = PAGE_READ_TRAINING;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

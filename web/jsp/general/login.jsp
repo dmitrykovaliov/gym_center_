@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
@@ -24,11 +25,14 @@
 
     <h3>GYM</h3>
     <div class="form-row">
-        <input id="login" type="text" name="login" required autocomplete="off"/><label for="login">Login</label>
+        <input id="login" type="text" name="login" required autocomplete="off"/>
+        <label for="login">Login</label>
     </div>
     <div class="form-row">
-        <input id="pass" type="password" name="pass" required autocomplete="off"/><label for="pass">Password</label>
+        <input id="pass" type="password" name="pass" required autocomplete="off"/>
+        <label for="pass">Password</label>
     </div>
+
     ${error}
     <br>
     <input id="sId" type="submit" value="LogIn"/>

@@ -23,28 +23,28 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="${pageContext.servletContext.contextPath}/controller?command=activity_read">
+                            <a href="${pageContext.servletContext.contextPath}/controller?command=activity_read_general">
                                 <fmt:message key="menu.activity"/>
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.servletContext.contextPath}/controller?command=client_trainer_read">
+                            <a href="${pageContext.servletContext.contextPath}/controller?command=client_read_trainer">
                                 <fmt:message key="menu.client"/>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="${pageContext.servletContext.contextPath}/controller?command=order_filter_read">
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=order_read_trainer">
                         <fmt:message key="menu.order"/>
                     </a>
                 </li>
-                <li><a href="${pageContext.servletContext.contextPath}/controller?command=prescription_filter_read">
+                <li><a href="${pageContext.servletContext.contextPath}/controller?command=prescription_read_trainer">
                     <fmt:message key="menu.prescription"/>
                 </a>
                 </li>
                 <li>
-                    <a href="${pageContext.servletContext.contextPath}/controller?command=training_filter_read">
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=training_read_trainer">
                         <fmt:message key="menu.training"/>
                     </a>
                 </li>
@@ -55,7 +55,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}
-                        /controller?command=profile_trainer_read">Profile</a></li>
+                        /controller?command=trainer_read_profile">Profile</a></li>
                         <li><a href="${pageContext.request.contextPath}
                         /controller?command=logout">LogOut</a></li>
                     </ul>

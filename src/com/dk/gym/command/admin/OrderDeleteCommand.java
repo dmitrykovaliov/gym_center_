@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
-import static com.dk.gym.command.PageConstant.PAGE_ORDER_READ;
+import static com.dk.gym.command.PageConstant.PAGE_READ_ORDER;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class OrderDeleteCommand implements ActionCommand {
@@ -35,7 +35,7 @@ public class OrderDeleteCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PAGE_ORDER_READ;
+        String pageUrl = PAGE_READ_ORDER;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

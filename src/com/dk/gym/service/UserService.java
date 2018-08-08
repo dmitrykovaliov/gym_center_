@@ -110,8 +110,8 @@ public class UserService {
         return itemList;
     }
 
-    public Set<Client> findClientItems() throws ServiceException {
-        Set<Client> itemList;
+    public List<Client> findClientItems() throws ServiceException {
+        List<Client> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
             itemList = userDao.findAllClient();
@@ -123,8 +123,8 @@ public class UserService {
         return itemList;
     }
 
-    public Set<Trainer> findTrainerItems() throws ServiceException {
-        Set<Trainer> itemList;
+    public List<Trainer> findTrainerItems() throws ServiceException {
+        List<Trainer> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
             itemList = userDao.findAllTrainer();

@@ -32,8 +32,8 @@ public class UserReadCommand implements ActionCommand {
     public ContentPage execute(RequestContent content) throws CommandException {
 
         List<User> userList;
-        Set<Client> clientList;
-        Set<Trainer> trainerList;
+        List<Client> clientList;
+        List<Trainer> trainerList;
 
         List<Client> clientAllList;
         List<Trainer> trainerAllList;

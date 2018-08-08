@@ -35,7 +35,7 @@ public class TrainingCreateCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PageConstant.PAGE_TRAINING_READ;
+        String pageUrl = PageConstant.PAGE_READ_TRAINING;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

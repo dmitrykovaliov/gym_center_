@@ -59,7 +59,6 @@ public class UserValidator {
     private boolean validateRole(String parameter) {
 
         boolean valid = true;
-
         if (notEmptyValidator.validate(parameter)) {
             lineNotEmpty = true;
             valid = new EnumValidator().validate(Role.class, parameter);

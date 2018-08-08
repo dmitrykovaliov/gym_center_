@@ -272,7 +272,8 @@ table.greyGridTable tfoot td {
     border-color: #F77A52;
 }
 .form-row input:focus + label,
-.form-row input:valid + label {
+.form-row input:valid + label
+{
     transform: translateY(-60px);
     margin-left: -14px;
     font-size: 14px;

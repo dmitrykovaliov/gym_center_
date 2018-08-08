@@ -34,7 +34,7 @@ public class OrderUpdateCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PAGE_ORDER_READ;
+        String pageUrl = PAGE_READ_ORDER;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

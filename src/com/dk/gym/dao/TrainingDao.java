@@ -5,14 +5,12 @@ import com.dk.gym.entity.Training;
 import com.dk.gym.exception.DaoException;
 
 import java.util.List;
-import java.util.Set;
 
 public abstract class TrainingDao extends AbstractDao<Training> {
 
     @Override
     public abstract List<Training> findAll() throws DaoException;
 
-    @Override
     public abstract Training findEntityById(int id) throws DaoException;
 
     @Override
@@ -23,5 +21,11 @@ public abstract class TrainingDao extends AbstractDao<Training> {
 
     public abstract boolean delete(int id) throws DaoException;
 
-     public abstract Set<Trainer> findAllTrainer() throws DaoException;
+    public abstract List<Trainer> findAllTrainer() throws DaoException;
+
+    public abstract List<Training> findEntitiesByTrainer(int idUser) throws DaoException;
+
+    public abstract List<Training> findClientTrainings(int idUser) throws DaoException;
+
+    public abstract List<Trainer> findClientTrainers() throws DaoException;
 }

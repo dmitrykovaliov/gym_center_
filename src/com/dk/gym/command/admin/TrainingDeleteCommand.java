@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
-import static com.dk.gym.command.PageConstant.PAGE_TRAINING_READ;
+import static com.dk.gym.command.PageConstant.PAGE_READ_TRAINING;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
 public class TrainingDeleteCommand implements ActionCommand {
@@ -35,7 +35,7 @@ public class TrainingDeleteCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PAGE_TRAINING_READ;
+        String pageUrl = PAGE_READ_TRAINING;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

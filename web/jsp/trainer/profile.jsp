@@ -50,62 +50,39 @@
     <table class="greyGridTable">
         <thead>
         <tr>
-            <th><fmt:message key="table.trainer.id"/></th>
+            <th><fmt:message key="table.trainer.number"/></th>
             <th><fmt:message key="table.trainer.name"/></th>
             <th><fmt:message key="table.trainer.lastName"/></th>
             <th><fmt:message key="table.trainer.phone"/></th>
             <th><fmt:message key="table.trainer.personalData"/></th>
             <th><fmt:message key="table.trainer.iconPath"/></th>
-            <th colspan="2"></th>
         </tr>
         </thead>
         <tbody>
-        <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
-        <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
-                <td><c:out value="${elem.idTrainer}"/>
+                <td><jsp:useBean id="read" scope="request" type="com.dk.gym.entity.Trainer"/>
+                <c:out value="${read.idTrainer}"/>
                 </td>
 
-                <td id="name${status.count}">
-                    <c:out value="${elem.name}"/>
-                    <ctg:select tagId="name${status.count}" elem="${elem.name}"/>
+                <td id="name">
+                    <c:out value="${read.name}"/>
+                    <ctg:select tagId="name" elem="${read.name}"/>
                 </td>
-                <td id="lastName${status.count}"><c:out value="${elem.lastName}"/>
-                    <ctg:select tagId="lastName${status.count}" elem="${elem.lastName}"/>
+                <td id="lastName"><c:out value="${read.lastName}"/>
+                    <ctg:select tagId="lastName" elem="${read.lastName}"/>
                 </td>
-                <td id="phone${status.count}"><c:out value="${elem.phone}"/>
-                    <ctg:select tagId="phone${status.count}" elem="${elem.phone}"/>
+                <td id="phone"><c:out value="${read.phone}"/>
+                    <ctg:select tagId="phone" elem="${read.phone}"/>
                 </td>
-                <td id="personalData${status.count}"><c:out value="${elem.personalData}"/>
-                    <ctg:select tagId="personalData${status.count}" elem="${elem.personalData}"/>
+                <td id="personalData"><c:out value="${read.personalData}"/>
+                    <ctg:select tagId="personalData" elem="${read.personalData}"/>
                 </td>
                 <td>
-                    <c:if test="${not empty elem.iconPath}">
-                        <img class="iconBit" src="/picture/${elem.iconPath}"/>
+                    <c:if test="${not empty read.iconPath}">
+                        <img class="iconBit" src="/picture/${read.iconPath}"/>
                     </c:if>
                 </td>
-                <td>
-                    <a href="${pageContext.servletContext.contextPath}
-                        /jsp/trainer/update.jsp?id=${elem.idTrainer}">
-                        U
-                    </a>
-                </td>
-                <td>
-                    <a href="${pageContext.servletContext.contextPath}
-                        /controller?command=trainer_delete&id=${elem.idTrainer}">
-                        D
-                    </a>
-                </td>
             </tr>
-        </c:forEach>
-        <tr>
-            <td colspan="7"></td>
-            <td colspan="2">
-                <a href="${pageContext.servletContext.contextPath}/jsp/trainer/createForm.jsp">
-                    <fmt:message key="body.create"/>
-                </a>
-            </td>
-        </tr>
         </tbody>
     </table>
     <br>

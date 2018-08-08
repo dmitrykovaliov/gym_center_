@@ -36,7 +36,7 @@ public class ClientReadCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, itemList);
 
-        String pageUrl = PageConstant.PAGE_ADMIN_CLIENT;
+        String pageUrl = PageConstant.PAGE_CLIENT_ADMIN;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

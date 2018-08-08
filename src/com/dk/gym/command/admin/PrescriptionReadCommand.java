@@ -30,7 +30,7 @@ public class PrescriptionReadCommand implements ActionCommand {
     public ContentPage execute(RequestContent content) throws CommandException {
 
         List<Prescription> prescriptionList;
-        Set<Trainer> trainerList;
+        List<Trainer> trainerList;
 
         List<Order> orderAllList;
         List<Trainer> trainerAllList;

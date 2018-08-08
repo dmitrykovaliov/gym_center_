@@ -49,7 +49,7 @@
     <table class="greyGridTable">
         <thead>
         <tr>
-            <th><fmt:message key="table.client.id"/></th>
+            <th><fmt:message key="table.client.number"/></th>
             <th><fmt:message key="table.client.name"/></th>
             <th><fmt:message key="table.client.lastName"/></th>
             <th><fmt:message key="table.client.phone"/></th>
@@ -62,7 +62,7 @@
         <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
         <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
-                <td><c:out value="${elem.idClient}"/>
+                <td><c:out value="${status.count}"/>
                 </td>
 
                 <td id="name${status.count}">

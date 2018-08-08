@@ -17,7 +17,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Set;
 
 import static com.dk.gym.command.PageConstant.*;
 import static com.dk.gym.service.ParamConstant.*;
@@ -30,16 +29,16 @@ public class OrderReadCommand implements ActionCommand {
     public ContentPage execute(RequestContent content) throws CommandException {
 
         List<Order> orderList;
-        Set<Client> clientList;
-        Set<Activity> activityList;
+        List<Client> clientList;
+        List<Activity> activityList;
 
         List<Client> clientAllList;
         List<Activity> activityAllList;
 
         try {
             orderList = OrderService.getInstance().findItems();
-            clientList = OrderService.getInstance().findClientItems();
-            activityList = OrderService.getInstance().findActivityItems();
+            clientList = OrderService.getInstance().findClient();
+            activityList = OrderService.getInstance().findActivity();
 
             clientAllList = ClientService.getInstance().findItems();
             activityAllList = ActivityService.getInstance().findItems();
@@ -58,7 +57,7 @@ public class OrderReadCommand implements ActionCommand {
         LOGGER.log(Level.DEBUG, clientList);
         LOGGER.log(Level.DEBUG, activityList);
 
-        String pageUrl = PAGE_ADMIN_ORDER;
+        String pageUrl = PAGE_ORDER;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

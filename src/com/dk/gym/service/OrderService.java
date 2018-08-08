@@ -17,10 +17,12 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
 
 public class OrderService {
@@ -80,8 +82,8 @@ public class OrderService {
         return itemList;
     }
 
-    public Set<Client> findClientItems() throws ServiceException {
-        Set<Client> itemList;
+    public List<Client> findClient() throws ServiceException {
+        List<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
             itemList = orderDao.findAllClient();
@@ -93,8 +95,8 @@ public class OrderService {
         return itemList;
     }
 
-    public Set<Activity> findActivityItems() throws ServiceException {
-        Set<Activity> itemList;
+    public List<Activity> findActivity() throws ServiceException {
+        List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
             itemList = orderDao.findAllActivity();
@@ -161,5 +163,71 @@ public class OrderService {
         LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
 
         return message;
+    }
+
+    public List<Order> findByTrainer(RequestContent content) throws ServiceException {
+        List<Order> itemList;
+
+        try (OrderDao orderDao = new OrderDaoImpl()) {
+            itemList = orderDao.findAllbyTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Orders by Trainer: " + itemList.size());
+
+        return itemList;
+    }
+
+    public List<Client> findByTrainerClient(RequestContent content) throws ServiceException {
+        List<Client> itemList;
+
+        try (OrderDao orderDao = new OrderDaoImpl()) {
+            itemList = orderDao.findAllClientByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Client by Trainer: " + itemList.size());
+
+        return itemList;
+    }
+
+    public List<Activity> findByTrainerActivity(RequestContent content) throws ServiceException {
+        List<Activity> itemList;
+
+        try (OrderDao orderDao = new OrderDaoImpl()) {
+            itemList = orderDao.findAllActivityByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Activity by Trainer: " + itemList.size());
+
+        return itemList;
+    }
+
+
+    public List<Order> findClientOrders(RequestContent content) throws ServiceException {
+        List<Order> itemList;
+
+        try (OrderDao orderDao = new OrderDaoImpl()) {
+            itemList = orderDao.findOrdersByClient((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Orders by Client: " + itemList.size());
+
+        return itemList;
+    }
+
+    public List<Activity> findActivitiesByClient(RequestContent content) throws ServiceException {
+        List<Activity> itemList;
+
+        try (OrderDao orderDao = new OrderDaoImpl()) {
+            itemList = orderDao.findActivitiesByClient((int)content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of Activity by Trainer: " + itemList.size());
+
+        return itemList;
     }
 }

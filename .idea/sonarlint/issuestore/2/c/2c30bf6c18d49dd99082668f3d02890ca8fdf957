@@ -1,16 +1,10 @@
 
-lsquid:S1192"PDefine a constant instead of duplicating this literal "trg_client_note" 3 times.(±ËÇ•8³÷Ü Ğ,
-jsquid:S1192"IDefine a constant instead of duplicating this literal "trg_date" 5 times.(¼Ñ·˜ùÿÿÿÿ8¡œÆ Ğ,
-ksquid:UselessImportCheck"=Remove this unused import 'com.dk.gym.entity.join.JoinOrder'.(…¬£Õÿÿÿÿÿ8ûŞ Ğ,
-gsquid:S1192"KDefine a constant instead of duplicating this literal "Can't find" 3 times.(ù÷‚Â8³÷Ü Ğ,
-nsquid:S1192"MDefine a constant instead of duplicating this literal "trg_end_time" 5 times.(¸şÛ®ûÿÿÿÿ8¡œÆ Ğ,
-bsquid:S2259"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(ìÃÿ8¡œÆ Ğ,
-isquid:S2095"MUse try-with-resources or close this "TrainingDaoImpl" in a "finally" clause.(‘…¹8¡œÆ Ğ,
-msquid:S1192"LDefine a constant instead of duplicating this literal "trg_visited" 3 times.(ÜÆ„ëÿÿÿÿÿ8³÷Ü Ğ,
-¼squid:S1192"šDefine a constant instead of duplicating this literal "SELECT id_training, trg_date, trg_start_time, trg_end_time, trg_visited, trg_client_note," 3 times.(Û¸áÂıÿÿÿÿ8¹ãÍ Ğ,
-rsquid:S1192"QDefine a constant instead of duplicating this literal "trg_trainer_note" 3 times.(Ö±éüşÿÿÿÿ8³÷Ü Ğ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 3 times.(³âªÃ8úºÈ Ğ,
-ksquid:S1192"ODefine a constant instead of duplicating this literal "trg_start_time" 5 times.(¹Â…8¡œÆ Ğ,
-gsquid:S1192"LDefine a constant instead of duplicating this literal "id_training" 3 times.(ìÃÿ8³÷Ü Ğ,
-T
-squid:S106"9Replace this use of System.out or System.err by a logger.(Ü½8¡œÆ Ğ,
+esquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 3 times.(³âªÃ8œô¿ÄÑ,
+nsquid:S1192"MDefine a constant instead of duplicating this literal "trg_end_time" 6 times.(¸şÛ®ûÿÿÿÿ8¡œÆ Ğ,
+lsquid:S1192"PDefine a constant instead of duplicating this literal "trg_client_note" 3 times.(±ËÇ•8œô¿ÄÑ,
+gsquid:S1192"LDefine a constant instead of duplicating this literal "id_training" 3 times.(ìÃÿ8œô¿ÄÑ,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "trg_date" 6 times.(¼Ñ·˜ùÿÿÿÿ8¶Àß©Ñ,
+msquid:S1192"LDefine a constant instead of duplicating this literal "trg_visited" 3 times.(ÜÆ„ëÿÿÿÿÿ8œô¿ÄÑ,
+gsquid:S1192"KDefine a constant instead of duplicating this literal "id_trainer" 4 times.(Œ³Ì»8é“ò…Ñ,
+ksquid:S1192"ODefine a constant instead of duplicating this literal "trg_start_time" 6 times.(¹Â…8¡œÆ Ğ,
+rsquid:S1192"QDefine a constant instead of duplicating this literal "trg_trainer_note" 3 times.(Ö±éüşÿÿÿÿ8œô¿ÄÑ,

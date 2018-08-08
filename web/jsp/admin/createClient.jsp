@@ -39,14 +39,9 @@
         </c:when>
     </c:choose>
 </header>
-<div>
     <form class="ui-form" id="createForm" name="createForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
-        <input type="hidden" name="command" value="trainer_create">
-        <div class="form-row">
-            <input id="id" form="createForm" type="text" name="id" readonly autocomplete="off">
-            <label for="id"><fmt:message key="table.trainer.id"/></label>
-        </div>
+        <input type="hidden" name="command" value="client_create">
         <div class="form-row">
             <input id="name" form="createForm" type="text" name="name" autocomplete="off">
             <label for="name"><fmt:message key="table.trainer.name"/></label>
@@ -71,11 +66,6 @@
         <input form="createForm" id="idSubm" type="submit"
                value="<fmt:message key="body.create"/>">
     </form>
-
-
-    <%--<footer>--%>
-    <%--<c:import url="../general/footer.jsp"/>--%>
-    <%--</footer>--%>
 </body>
 
 </html>

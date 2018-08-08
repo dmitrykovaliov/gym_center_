@@ -43,132 +43,133 @@
         </c:when>
     </c:choose>
 </header>
-    <br>
-    <br>
+<br>
+<br>
 <h3><fmt:message key="table.training.head"/></h3>
-        <form id="createForm" name="createForm" method="get" action="controller">
-            <input id="idHid" type="hidden" name="command" value="training_create">
+<form id="createForm" name="createForm" method="get" action="controller">
+    <input type="hidden" id="idCommand" name="command" value="training_create">
 
-            <table class="greyGridTable">
-                <thead>
-                <tr>
-                    <th><fmt:message key="table.training.id"/></th>
-                    <th><fmt:message key="table.training.date"/></th>
-                    <th><fmt:message key="table.training.startTime"/></th>
-                    <th><fmt:message key="table.training.endTime"/></th>
-                    <th><fmt:message key="table.training.visited"/></th>
-                    <th><fmt:message key="table.training.clientNote"/></th>
-                    <th><fmt:message key="table.training.trainterNote"/></th>
-                    <th><fmt:message key="table.training.idOrder"/></th>
-                    <th><fmt:message key="table.training.idTrainer"/></th>
-                    <th colspan="2"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
-                <jsp:useBean id="readTrainer" scope="request" type="java.util.Set"/>
-                <c:forEach var="elem" items="${readAll}" varStatus="status">
-                    <tr>
-                        <td>
-                            <c:out value="${elem.idTraining}"/>
-                        </td>
+    <table class="greyGridTable">
+        <thead>
+        <tr>
+            <th><fmt:message key="table.training.number"/></th>
+            <th><fmt:message key="table.training.date"/></th>
+            <th><fmt:message key="table.training.startTime"/></th>
+            <th><fmt:message key="table.training.endTime"/></th>
+            <th><fmt:message key="table.training.visited"/></th>
+            <th><fmt:message key="table.training.clientNote"/></th>
+            <th><fmt:message key="table.training.trainterNote"/></th>
+            <th><fmt:message key="table.training.order"/></th>
+            <th><fmt:message key="table.training.trainer"/></th>
+            <th colspan="2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
+        <jsp:useBean id="readTrainer" scope="request" type="java.util.List"/>
+        <c:forEach var="elem" items="${readAll}" varStatus="status">
+            <tr>
+                <td>
+                    <c:out value="${status.count}"/>
+                </td>
 
-                        <td id="date${status.count}">
-                            <c:out value="${elem.date}"/>
-                            <ctg:select tagId="date${status.count}" elem="${elem.date}"/>
-                        </td>
-                        <td id="startTime${status.count}">
-                            <c:out value="${elem.startTime}"/>
-                            <ctg:select tagId="startTime${status.count}" elem="${elem.startTime}"/>
-                        </td>
-                        <td id="endTime${status.count}">
-                            <c:out value="${elem.endTime}"/>
-                            <ctg:select tagId="endTime${status.count}" elem="${elem.endTime}"/>
-                        </td>
-                        <td id="visited${status.count}">
-                            <c:if test="${elem.visited == 'true'}">
-                                <c:out value="visited"/>
-                            </c:if>
-                            <ctg:select tagId="endTime${status.count}" elem="${elem.visited}"/>
-                        </td>
-                        <td id="clientNote${status.count}">
-                            <c:out value="${elem.clientNote}"/>
-                            <ctg:select tagId="clientNote${status.count}" elem="${elem.clientNote}"/>
-                        </td>
-                        <td id="trainerNote${status.count}">
-                            <c:out value="${elem.trainerNote}"/>
-                            <ctg:select tagId="trainerNote${status.count}" elem="${elem.trainerNote}"/>
-                        </td>
-                        <td id="idOrder${status.count}">
-                            <c:out value="${elem.idOrder}"/>
-                            <ctg:select tagId="idOrder${status.count}" elem="${elem.idOrder}"/>
-                        </td>
-                        <td id="idTrainer${status.count}">
-                            <c:forEach var="elemTrainer" items="${readTrainer}" varStatus="status">
-                                <c:if test="${elem.idTrainer == elemTrainer.idTrainer}">
-                                    <c:set value="${elemTrainer.name}" var="name"/>
-                                    <c:set value="${elemTrainer.lastName}" var="lastName"/>
-                                </c:if>
-                            </c:forEach>
-                            <c:out value="${name} ${lastName}"/>
-                            <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
-                        </td>
-                        <td>
-                            <a onclick="addIdToFieldTraining('idAct', 'idHid', 'idSubm', ${elem.idTraining},
-                                    '<fmt:message key="body.create"/>',
-                                    '<fmt:message key="body.update"/>')">
-                                U
-                            </a>
-                        </td>
-                        <td>
-                            <a href="${pageContext.servletContext.contextPath}
+                <td id="date${status.count}">
+                    <c:out value="${elem.date}"/>
+                    <ctg:select tagId="date${status.count}" elem="${elem.date}"/>
+                </td>
+                <td id="startTime${status.count}">
+                    <c:out value="${elem.startTime}"/>
+                    <ctg:select tagId="startTime${status.count}" elem="${elem.startTime}"/>
+                </td>
+                <td id="endTime${status.count}">
+                    <c:out value="${elem.endTime}"/>
+                    <ctg:select tagId="endTime${status.count}" elem="${elem.endTime}"/>
+                </td>
+                <td id="visited${status.count}">
+                    <c:if test="${elem.visited == 'true'}">
+                        <c:out value="visited"/>
+                    </c:if>
+                    <ctg:select tagId="endTime${status.count}" elem="${elem.visited}"/>
+                </td>
+                <td id="clientNote${status.count}">
+                    <c:out value="${elem.clientNote}"/>
+                    <ctg:select tagId="clientNote${status.count}" elem="${elem.clientNote}"/>
+                </td>
+                <td id="trainerNote${status.count}">
+                    <c:out value="${elem.trainerNote}"/>
+                    <ctg:select tagId="trainerNote${status.count}" elem="${elem.trainerNote}"/>
+                </td>
+                <td id="idOrder${status.count}">
+                    <c:out value="${elem.idOrder}"/>
+                    <ctg:select tagId="idOrder${status.count}" elem="${elem.idOrder}"/>
+                </td>
+                <td id="idTrainer${status.count}">
+
+                    <c:set value="${readTrainer.get(status.count-1).name}" var="name"/>
+                    <c:set value="${readTrainer.get(status.count-1).lastName}" var="lastName"/>
+
+                    <c:out value="${name} ${lastName}"/>
+                    <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
+                </td>
+                <td>
+                    <a onclick="fillFormTraining('idCount', ${status.count}, 'idTraining', 'idCommand', 'idSubmit',
+                        ${elem.idTraining},
+                            '<fmt:message key="body.create"/>',
+                            '<fmt:message key="body.update"/>')">
+                        U
+                    </a>
+                </td>
+                <td>
+                    <a href="${pageContext.servletContext.contextPath}
                             /controller?command=training_delete&id=${elem.idTraining}">
-                                D
-                            </a>
-                        </td>
-                    </tr>
-                </c:forEach>
+                        D
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
 
-                <jsp:useBean id="readAllOrder" scope="request" type="java.util.List"/>
-                <jsp:useBean id="readAllTrainer" scope="request" type="java.util.List"/>
-                <tr>
-                    <td><input form="createForm" type="text" id="idAct" name="id" readonly></td>
-                    <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date"></td>
-                    <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime"></td>
-                    <td><input form="createForm" type="text" placeholder="hh:mm" name="endTime"></td>
-                    <td><input form="createForm" type="text" name="visited"></td>
-                    <td><input form="createForm" type="text" name="clientNote"></td>
-                    <td><input form="createForm" type="text" name="trainerNote"></td>
-                    <td>
-                        <select form="createForm" name="orderId">
-                            <c:forEach var="elem" items="${readAllOrder}" varStatus="status">
-                                <option value="${elem.idOrder}">${elem.idOrder}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <select form="createForm" name="trainerId">
-                            <option></option>
-                            <c:forEach var="elem" items="${readAllTrainer}" varStatus="status">
-                                <option value="${elem.idTrainer}">${elem.name} ${elem.lastName}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td colspan="2"><input form="createForm" id="idSubm" type="submit"
-                                           value="<fmt:message key="body.create"/>"></td>
-                </tr>
+        <jsp:useBean id="readAllOrder" scope="request" type="java.util.List"/>
+        <jsp:useBean id="readAllTrainer" scope="request" type="java.util.List"/>
+        <tr>
+            <input form="createForm" type="text" id="idTraining" name="id" hidden>
+            <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
+            <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date"></td>
+            <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime"></td>
+            <td><input form="createForm" type="text" placeholder="hh:mm" name="endTime"></td>
+            <td><input form="createForm" type="text" name="visited"></td>
+            <td><input form="createForm" type="text" name="clientNote"></td>
+            <td><input form="createForm" type="text" name="trainerNote"></td>
+            <td>
+                <select form="createForm" name="orderId">
+                    <option></option>
+                    <c:forEach var="elem" items="${readAllOrder}" varStatus="status">
+                        <option value="${elem.idOrder}">${elem.idOrder}</option>
+                    </c:forEach>
+                </select>
+            </td>
+            <td>
+                <select form="createForm" name="trainerId">
+                    <option></option>
+                    <c:forEach var="elem" items="${readAllTrainer}" varStatus="status">
+                        <option value="${elem.idTrainer}">${elem.name} ${elem.lastName}</option>
+                    </c:forEach>
+                </select>
+            </td>
+            <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
+                                   value="<fmt:message key="body.create"/>"></td>
+        </tr>
 
-                </tbody>
-            </table>
+        </tbody>
+    </table>
 
-        </form>
-        <br>
-        <div class="leftMessage">${error}</div>
+</form>
+<br>
+<div class="leftMessage">${error}</div>
 
 
-        <%--<footer>--%>
-        <%--<c:import url="../general/footer.jsp"/>--%>
-        <%--</footer>--%>
+<%--<footer>--%>
+<%--<c:import url="../general/footer.jsp"/>--%>
+<%--</footer>--%>
 </body>
 
 </html>

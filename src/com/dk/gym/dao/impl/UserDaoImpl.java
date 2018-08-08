@@ -7,22 +7,14 @@ import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.User;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.pool.ConnectionPool;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class UserDaoImpl extends UserDao {
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String SQL_INSERT_USER = "INSERT INTO user(id_user, us_login, us_password, us_role) " +
             "VALUES (NULL, ?, ?, ?)";
@@ -32,7 +24,8 @@ public class UserDaoImpl extends UserDao {
             "id_client, cl_name, cl_lastname, id_trainer, tr_name, tr_lastname " +
             "FROM user " +
             "LEFT JOIN client c ON user.id_user = c.id_user " +
-            "LEFT JOIN trainer t ON user.id_user = t.id_user";
+            "LEFT JOIN trainer t ON user.id_user = t.id_user " +
+            "ORDER BY user.id_user ASC";
     private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role" +
             " FROM user WHERE id_user = ?";
 
@@ -52,7 +45,7 @@ public class UserDaoImpl extends UserDao {
 
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPass());
-            statement.setString(3, entity.getRole() != null ? entity.getRole().toString() : "");
+            statement.setString(3, entity.getRole() != null ? entity.getRole().toString() : null);
 
             statement.executeUpdate();
 
@@ -75,14 +68,14 @@ public class UserDaoImpl extends UserDao {
 
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPass());
-            statement.setString(3, entity.getRole() != null ? entity.getRole().toString() : "");
+            statement.setString(3, entity.getRole() != null ? entity.getRole().toString() : null);
             statement.setInt(4, entity.getIdUser());
 
             statement.executeUpdate();
 
             return true;
         } catch (SQLException e) {
-            throw new DaoException("Can't update user", e);
+            throw new DaoException("Not updated: ", e);
         }
     }
 
@@ -94,33 +87,29 @@ public class UserDaoImpl extends UserDao {
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
 
-                while (resultSet.next()) {
+                    while (resultSet.next()) {
 
-                    User user = new User();
+                        User user = new User();
 
-                    user.setIdUser(resultSet.getInt("id_user"));
-                    user.setLogin(resultSet.getString("us_login"));
-                    user.setPass(resultSet.getString("us_password"));
-                    String role = resultSet.getString("us_role");
-                    if (role != null && !role.isEmpty()) {
-                        user.setRole(Role.valueOf(role));
+                        user.setIdUser(resultSet.getInt("id_user"));
+                        user.setLogin(resultSet.getString("us_login"));
+                        user.setPass(resultSet.getString("us_password"));
+                        String role = resultSet.getString("us_role");
+                        if (role != null && !role.isEmpty()) {
+                            user.setRole(Role.valueOf(role));
+                        }
+                        list.add(user);
                     }
-
-                    list.add(user);
-                }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found", e);
+            throw new DaoException("Not found: ", e);
         }
-
-        LOGGER.log(Level.INFO, list.size());
-
         return list;
     }
 
     @Override
-    public Set<Client> findAllClient() throws DaoException {
-        Set<Client> list = new HashSet<>();
+    public List<Client> findAllClient() throws DaoException {
+        List<Client> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
@@ -138,17 +127,14 @@ public class UserDaoImpl extends UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allClient", e);
+            throw new DaoException("Not found allClient: ", e);
         }
-
-        LOGGER.log(Level.INFO, list.size());
-
         return list;
     }
 
     @Override
-    public Set<Trainer> findAllTrainer() throws DaoException {
-        Set<Trainer> list = new HashSet<>();
+    public List<Trainer> findAllTrainer() throws DaoException {
+        List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
@@ -166,11 +152,8 @@ public class UserDaoImpl extends UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allTrainer", e);
+            throw new DaoException("Not found allTrainer", e);
         }
-
-        LOGGER.log(Level.INFO, list.size());
-
         return list;
     }
 
@@ -183,7 +166,6 @@ public class UserDaoImpl extends UserDao {
             statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet != null) {
                     resultSet.next();
 
                     user.setIdUser(resultSet.getInt("id_user"));
@@ -193,10 +175,9 @@ public class UserDaoImpl extends UserDao {
                     if (role != null && !role.isEmpty()) {
                         user.setRole(Role.valueOf(role));
                     }
-                }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found: ", e);
+            throw new DaoException("Not found entityById: ", e);
         }
 
         return user;
@@ -218,18 +199,16 @@ public class UserDaoImpl extends UserDao {
         try (PreparedStatement statement = connection.prepareStatement(SQL_LOGIN)) {
             statement.setString(1, login);
 
-            int count = 0;
+            int count;
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if(resultSet != null) {
                     resultSet.next();
 
                     count = resultSet.getInt("count");
-                }
             }
             return count > 0;
         } catch (SQLException e) {
-            throw new DaoException("Not foundLogin: ", e);
+            throw new DaoException("Not found login: ", e);
         }
     }
 
@@ -243,7 +222,6 @@ public class UserDaoImpl extends UserDao {
 
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet != null) {
                     resultSet.next();
 
                     user.setIdUser(resultSet.getInt("id_user"));
@@ -251,26 +229,10 @@ public class UserDaoImpl extends UserDao {
                     if (role != null && !role.isEmpty()) {
                         user.setRole(Role.valueOf(role));
                     }
-                }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not checked: ", e);
+            throw new DaoException("Not found user: ", e);
         }
-
         return user;
-    }
-
-    public static void main(String[] args) throws DaoException {
-        UserDao userDao = new UserDaoImpl();
-        List<User> entities = userDao.findAll();
-
-        User entity = userDao.findEntityById(1);
-
-        LOGGER.log(Level.INFO, entities);
-        LOGGER.log(Level.INFO, entity);
-
-        LOGGER.log(Level.INFO, userDao.findUser("root", "PWbzEwjHFZuUqD0agfGETkV7eXKS+mt5GAmYE7nvQeE="));
-        LOGGER.log(Level.INFO, "+++" + userDao.findLogin("rot"));
-
     }
 }

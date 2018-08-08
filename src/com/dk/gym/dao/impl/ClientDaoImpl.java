@@ -4,9 +4,6 @@ import com.dk.gym.pool.ConnectionPool;
 import com.dk.gym.dao.ClientDao;
 import com.dk.gym.entity.Client;
 import com.dk.gym.exception.DaoException;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDaoImpl extends ClientDao {
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String SQL_INSERT_CLIENT = "INSERT INTO client(id_client, cl_name, cl_lastname, cl_phone, " +
             "cl_email, cl_personal_data, cl_iconpath) " +
@@ -31,7 +26,10 @@ public class ClientDaoImpl extends ClientDao {
             "cl_email, cl_personal_data, cl_iconpath FROM client";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_client = ?";
-    private static final String SQL_SELECT_CLIENT_BY_TRAINER_ID = "SELECT client.id_client, cl_name, cl_lastname, " +
+    private static final String SQL_SELECT_CLIENT_BY_USERID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
+            "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_user = ?";
+
+    private static final String SQL_SELECT_CLIENT_BY_TRAINER = "SELECT client.id_client, cl_name, cl_lastname, " +
             "cl_phone, cl_email, cl_personal_data, cl_iconpath " +
             "FROM client " +
             "JOIN order_ o ON client.id_client = o.id_client " +
@@ -51,7 +49,6 @@ public class ClientDaoImpl extends ClientDao {
             "GROUP BY client.id_client " +
             "ORDER BY cl_name ASC";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE id_client = ?";
-
 
     public ClientDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
@@ -80,7 +77,6 @@ public class ClientDaoImpl extends ClientDao {
         } catch (SQLException e) {
             throw new DaoException("Not created: ", e);
         }
-
         return -1;
     }
 
@@ -99,9 +95,8 @@ public class ClientDaoImpl extends ClientDao {
             statement.executeUpdate();
 
             return true;
-
         } catch (SQLException e) {
-            throw new DaoException("Can't update client", e);
+            throw new DaoException("Not updated: ", e);
         }
     }
 
@@ -115,9 +110,8 @@ public class ClientDaoImpl extends ClientDao {
             statement.executeUpdate();
 
             return true;
-
         } catch (SQLException e) {
-            throw new DaoException("Can't update client", e);
+            throw new DaoException("Can't update userId: ", e);
         }
     }
 
@@ -144,11 +138,8 @@ public class ClientDaoImpl extends ClientDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found", e);
+            throw new DaoException("Not found: ", e);
         }
-
-        LOGGER.log(Level.INFO, list.size());
-
         return list;
     }
 
@@ -156,7 +147,7 @@ public class ClientDaoImpl extends ClientDao {
     public List<Client> findTrainerAll(int idUser) throws DaoException {
         List<Client> list = new ArrayList<>();
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_TRAINER_ID)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_TRAINER)) {
             statement.setInt(1, idUser);
             statement.setInt(2, idUser);
 
@@ -183,9 +174,6 @@ public class ClientDaoImpl extends ClientDao {
         } catch (SQLException e) {
             throw new DaoException("Not found: ", e);
         }
-
-            LOGGER.log(Level.INFO, list.size());
-
         return list;
     }
 
@@ -198,21 +186,19 @@ public class ClientDaoImpl extends ClientDao {
             statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet != null && resultSet.next()) {
+                resultSet.next();
 
-                    client.setIdClient(resultSet.getInt("id_client"));
-                    client.setName(resultSet.getString("cl_name"));
-                    client.setLastName(resultSet.getString("cl_lastname"));
-                    client.setPhone(resultSet.getString("cl_phone"));
-                    client.setEmail(resultSet.getString("cl_email"));
-                    client.setPersonalData(resultSet.getString("cl_personal_data"));
-                    client.setIconPath(resultSet.getString("cl_iconpath"));
-                }
+                client.setIdClient(resultSet.getInt("id_client"));
+                client.setName(resultSet.getString("cl_name"));
+                client.setLastName(resultSet.getString("cl_lastname"));
+                client.setPhone(resultSet.getString("cl_phone"));
+                client.setEmail(resultSet.getString("cl_email"));
+                client.setPersonalData(resultSet.getString("cl_personal_data"));
+                client.setIconPath(resultSet.getString("cl_iconpath"));
             }
         } catch (SQLException e) {
             throw new DaoException("Not found: ", e);
         }
-
         return client;
     }
 
@@ -227,17 +213,27 @@ public class ClientDaoImpl extends ClientDao {
         }
     }
 
-    public static void main(String[] args) throws DaoException { //todo delete
-        ClientDao clientDao = new ClientDaoImpl();
-        List<Client> entities = clientDao.findAll();
+    @Override
+    public Client findUser(int idUser) throws DaoException {
+        Client client = new Client();
 
-        Client entity = clientDao.findEntityById(3);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_USERID)) {
+            statement.setInt(1, idUser);
 
-        LOGGER.log(Level.INFO, entity);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                resultSet.next();
 
-        LOGGER.log(Level.INFO, clientDao.create(entity));
-
-        LOGGER.log(Level.INFO, clientDao.update(entity));
-        LOGGER.log(Level.INFO, clientDao.updateUserId(null, 4));
+                client.setIdClient(resultSet.getInt("id_client"));
+                client.setName(resultSet.getString("cl_name"));
+                client.setLastName(resultSet.getString("cl_lastname"));
+                client.setPhone(resultSet.getString("cl_phone"));
+                client.setEmail(resultSet.getString("cl_email"));
+                client.setPersonalData(resultSet.getString("cl_personal_data"));
+                client.setIconPath(resultSet.getString("cl_iconpath"));
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Not found entityByUserId: ", e);
+        }
+        return client;
     }
 }

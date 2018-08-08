@@ -17,9 +17,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Set;
 
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
+import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
 
 public class TrainingService {
@@ -80,8 +80,8 @@ public class TrainingService {
         return itemList;
     }
 
-    public Set<Trainer> findTrainerItems() throws ServiceException {
-        Set<Trainer> itemList;
+    public List<Trainer> findTrainerItems() throws ServiceException {
+        List<Trainer> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {
             itemList = trainingDao.findAllTrainer();
@@ -148,5 +148,46 @@ public class TrainingService {
         LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
 
         return message;
+    }
+
+    public List<Training> findTrainerTrainings(RequestContent content) throws ServiceException {
+        List<Training> itemList;
+
+        try (TrainingDao trainingDao = new TrainingDaoImpl()) {
+            itemList = trainingDao.findEntitiesByTrainer((int) content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+
+        return itemList;
+    }
+
+    public List<Training> findClientTrainings(RequestContent content) throws ServiceException {
+        List<Training> itemList;
+
+        try (TrainingDao trainingDao = new TrainingDaoImpl()) {
+            itemList = trainingDao.findClientTrainings((int) content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+
+        return itemList;
+    }
+
+    public List<Trainer> findClientTrainers() throws ServiceException {
+        List<Trainer> itemList;
+
+        try (TrainingDao trainingDao = new TrainingDaoImpl()) {
+            itemList = trainingDao.findClientTrainers();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        LOGGER.log(Level.INFO, "Size of TrainerItems: " + itemList.size());
+
+        return itemList;
     }
 }

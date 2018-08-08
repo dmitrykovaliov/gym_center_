@@ -50,7 +50,7 @@
     <table class="greyGridTable">
         <thead>
         <tr>
-            <th><fmt:message key="table.trainer.id"/></th>
+            <th><fmt:message key="table.trainer.number"/></th>
             <th><fmt:message key="table.trainer.name"/></th>
             <th><fmt:message key="table.trainer.lastName"/></th>
             <th><fmt:message key="table.trainer.phone"/></th>
@@ -86,7 +86,7 @@
                 </td>
                 <td>
                     <a href="${pageContext.servletContext.contextPath}
-                        /jsp/trainer/update.jsp?id=${elem.idTrainer}">
+                        /jsp/admin/updateTrainer.jsp?id=${elem.idTrainer}&count=${status.count}">
                         U
                     </a>
                 </td>
@@ -101,7 +101,7 @@
         <tr>
             <td colspan="6"></td>
             <td colspan="2">
-                <a href="${pageContext.servletContext.contextPath}/jsp/admin/createForm.jsp">
+                <a href="${pageContext.servletContext.contextPath}/jsp/admin/createTrainer.jsp">
                     <fmt:message key="body.create"/>
                 </a>
             </td>

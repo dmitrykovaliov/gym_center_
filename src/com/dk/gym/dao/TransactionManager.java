@@ -25,7 +25,6 @@ public class TransactionManager implements AutoCloseable {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "Autocommit not changed: " + e);
         }
-
         for (AbstractDao dao : daoList) {
             dao.setConnection(connection);
         }
