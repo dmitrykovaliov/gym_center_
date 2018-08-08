@@ -1,10 +1,10 @@
 
-msquid:S1192"LDefine a constant instead of duplicating this literal "cl_lastname" 4 times.(Ğ«ÚÉüÿÿÿÿ8ğúÉìĞ,
-squid:S1192"rDefine a constant instead of duplicating this literal "SELECT id_client, cl_name, cl_lastname, cl_phone," 3 times.(Œ¢¼½8€ªè­Ñ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "cl_email" 4 times.(Ã¸ìÜ8ğúÉìĞ,
-rsquid:S1192"QDefine a constant instead of duplicating this literal "cl_personal_data" 4 times.(¯’²Èşÿÿÿÿ8ğúÉìĞ,
-jsquid:S1192"IDefine a constant instead of duplicating this literal "cl_phone" 4 times.(æöäùÿÿÿÿ8ğúÉìĞ,
 isquid:S1192"HDefine a constant instead of duplicating this literal "cl_name" 4 times.(ÑÛ¾Àÿÿÿÿÿ8ğúÉìĞ,
-hsquid:S1192"LDefine a constant instead of duplicating this literal "cl_iconpath" 4 times.(¸íÖ8ğúÉìĞ,
 ksquid:S1192"JDefine a constant instead of duplicating this literal "id_client" 4 times.(ú’Ó±øÿÿÿÿ8ğúÉìĞ,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "cl_phone" 4 times.(æöäùÿÿÿÿ8ğúÉìĞ,
+squid:S1192"rDefine a constant instead of duplicating this literal "SELECT id_client, cl_name, cl_lastname, cl_phone," 3 times.(Œ¢¼½8€ªè­Ñ,
+hsquid:S1192"LDefine a constant instead of duplicating this literal "cl_iconpath" 4 times.(¸íÖ8ğúÉìĞ,
+esquid:S1192"IDefine a constant instead of duplicating this literal "cl_email" 4 times.(Ã¸ìÜ8ğúÉìĞ,
+msquid:S1192"LDefine a constant instead of duplicating this literal "cl_lastname" 4 times.(Ğ«ÚÉüÿÿÿÿ8ğúÉìĞ,
 hsquid:S1192"LDefine a constant instead of duplicating this literal "Not found: " 3 times.(Ôí8ËËô”Ñ,
+rsquid:S1192"QDefine a constant instead of duplicating this literal "cl_personal_data" 4 times.(¯’²Èşÿÿÿÿ8ğúÉìĞ,

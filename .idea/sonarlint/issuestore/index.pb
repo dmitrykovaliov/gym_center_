@@ -468,14 +468,8 @@ d
 4src/com/dk/gym/validator/impl/ActivityValidator.java,a/3/a36ab70573f183f31787e7aab50d48ef203ce753
 `
 0src/com/dk/gym/validator/impl/UserValidator.java,6/6/66cd488df259c2ae0cc20c073d41e55893732a4c
-I
-web/jsp/admin/profile.jsp,c/1/c1090d47d0483fb9d3f7e23efe0f7ff23d6ec8df
 O
 web/jsp/client/jspf/header.jspf,d/c/dc50d361f1e9ad83b872693daf78bf2d201c217c
-L
-web/jsp/admin/createForm.jsp,6/8/688ef292ad3cd637c0049abe3ed649ff995fe02f
-L
-web/jsp/admin/updateForm.jsp,2/8/28e27760a5c877a7416a9512c893b34fabac9357
 G
 web/jsp/admin/order.jsp,6/b/6bde33a305616e5835d086ddef8f3d69acc958c0
 J
@@ -512,8 +506,6 @@ l
 <src/com/dk/gym/command/trainer/ClientReadTrainerCommand.java,f/2/f2d5539ed088f93ce41b1972b72820080fdfa181
 m
 =src/com/dk/gym/command/trainer/TrainerReadProfileCommand.java,b/8/b88993a0439ad87170b07a2d3b808c8ebcd6f891
-k
-;src/com/dk/gym/command/client/ClientReadProfileCommand.java,9/1/9100b87ef051fe10a70019dc451bcbae9ff55387
 K
 web/jsp/trainer/profile.jsp,b/8/b8329a5b6c8de63f17650e7ed52e12e667b1be89
 J
@@ -548,3 +540,23 @@ H
 web/jsp/client/order.jsp,c/d/cdeb508e21b1eb95b420cff8f0491101dbdff545
 _
 /src/com/dk/gym/command/trainer/CommandType.java,8/c/8cdd142b9e1441790e7412298c0affc0f932e78e
+p
+@src/com/dk/gym/command/client/PrescriptionReadClientCommand.java,a/c/ac54c84d5ae576b63f7e125f57492614a2943d5e
+r
+Bsrc/com/dk/gym/command/client/PrescriptionUpdateClientCommand.java,c/3/c3a4ed569a403edf270ea408e6510e03d409bf75
+k
+;src/com/dk/gym/command/client/ProfileReadClientCommand.java,8/4/84f50e3234950626934ecc8395401bdd9a60bc91
+l
+<src/com/dk/gym/command/client/TrainingReadClientCommand.java,d/d/dd263fe95b83bad52ee11e61fd11f12ad5a85d98
+n
+>src/com/dk/gym/command/client/TrainingUpdateClientCommand.java,c/4/c41d55c25dd64ad8fee0ebdcc0857eb32feeed89
+N
+web/jsp/admin/createClient.jsp,2/4/24f9e9eb1dda4a2bf421bc75a35ad09dceef9cc2
+O
+web/jsp/admin/createTrainer.jsp,b/8/b8bcceeb7f4dfa82ad1f1e8138c0e38d586e61b8
+O
+web/jsp/admin/updateTrainer.jsp,2/b/2b9d3e114f05c87f4b5ce68ea9363b7cf842b00b
+K
+web/jsp/client/training.jsp,e/9/e9f61e2d5f5ed7f63b8d5e8a5f99c208029c013b
+N
+web/jsp/admin/updateClient.jsp,f/c/fc8cea398c793061941ff04fb6ba18b7b2f45587

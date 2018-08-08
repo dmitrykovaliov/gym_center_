@@ -1,14 +1,14 @@
 
-fsquid:S1192"JDefine a constant instead of duplicating this literal "id_client" 6 times.(£ÌĞû8÷Ö´¾Ñ,
-isquid:S1192"MDefine a constant instead of duplicating this literal "ord_discount" 4 times.(ƒ”‘Ö8÷Ö´¾Ñ,
-isquid:S1192"MDefine a constant instead of duplicating this literal "FROM order_ " 6 times.(é­Â8»Ç™¿Ñ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "ord_date" 8 times.(¸¬é¥8÷Ö´¾Ñ,
-“squid:S1192"wDefine a constant instead of duplicating this literal "JOIN activity a ON order_.id_activity = a.id_activity " 4 times.(©ÿ¼8¼›š¿Ñ,
-gsquid:S1192"LDefine a constant instead of duplicating this literal "ord_closure" 8 times.(ÓÉú'8÷Ö´¾Ñ,
 tsquid:S1192"XDefine a constant instead of duplicating this literal "ORDER BY ord_date DESC;" 3 times.(ôÒª¿8° áÆÑ,
-jsquid:S1192"IDefine a constant instead of duplicating this literal "act_name" 3 times.(Ø¡’¥şÿÿÿÿ8°ºÛÆÑ,
-ksquid:S1192"JDefine a constant instead of duplicating this literal "ord_price" 4 times.(ÑúÈàøÿÿÿÿ8÷Ö´¾Ñ,
-nsquid:S1192"MDefine a constant instead of duplicating this literal "ord_feedback" 4 times.(§È¦ëıÿÿÿÿ8÷Ö´¾Ñ,
 squid:S1192"qDefine a constant instead of duplicating this literal "JOIN client c ON order_.id_client = c.id_client " 4 times.(¾«ÑÂ8¼›š¿Ñ,
-hsquid:S1192"LDefine a constant instead of duplicating this literal "id_activity" 7 times.(©”æî8÷Ö´¾Ñ,
+jsquid:S1192"IDefine a constant instead of duplicating this literal "act_name" 3 times.(Ø¡’¥şÿÿÿÿ8°ºÛÆÑ,
 jsquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 4 times.(¯ÃÀ‹ûÿÿÿÿ8÷Ö´¾Ñ,
+gsquid:S1192"LDefine a constant instead of duplicating this literal "ord_closure" 8 times.(ÓÉú'8÷Ö´¾Ñ,
+ksquid:S1192"JDefine a constant instead of duplicating this literal "ord_price" 4 times.(ÑúÈàøÿÿÿÿ8÷Ö´¾Ñ,
+fsquid:S1192"JDefine a constant instead of duplicating this literal "id_client" 6 times.(£ÌĞû8÷Ö´¾Ñ,
+isquid:S1192"MDefine a constant instead of duplicating this literal "FROM order_ " 6 times.(é­Â8»Ç™¿Ñ,
+isquid:S1192"MDefine a constant instead of duplicating this literal "ord_discount" 4 times.(ƒ”‘Ö8÷Ö´¾Ñ,
+“squid:S1192"wDefine a constant instead of duplicating this literal "JOIN activity a ON order_.id_activity = a.id_activity " 4 times.(©ÿ¼8¼›š¿Ñ,
+nsquid:S1192"MDefine a constant instead of duplicating this literal "ord_feedback" 4 times.(§È¦ëıÿÿÿÿ8÷Ö´¾Ñ,
+esquid:S1192"IDefine a constant instead of duplicating this literal "ord_date" 8 times.(¸¬é¥8÷Ö´¾Ñ,
+hsquid:S1192"LDefine a constant instead of duplicating this literal "id_activity" 7 times.(©”æî8÷Ö´¾Ñ,

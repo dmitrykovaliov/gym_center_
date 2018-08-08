@@ -1,8 +1,8 @@
 
 ”squid:S1192"sDefine a constant instead of duplicating this literal "SELECT id_trainer, tr_name, tr_lastname, tr_phone," 3 times.(Ğ´€Ìùÿÿÿÿ8¹Êç¬Ñ,
 jsquid:S1192"IDefine a constant instead of duplicating this literal "tr_phone" 3 times.(ÿ²úÿÿÿÿ8ÆıÚ¬Ñ,
-lsquid:S1192"KDefine a constant instead of duplicating this literal "id_trainer" 3 times.(‘ù½ûüÿÿÿÿ8ÆıÚ¬Ñ,
 dsquid:S1192"HDefine a constant instead of duplicating this literal "tr_name" 3 times.(Ö™”Ö8ÆıÚ¬Ñ,
-msquid:S1192"LDefine a constant instead of duplicating this literal "tr_iconpath" 3 times.(•ÂµÏÿÿÿÿÿ8ÆıÚ¬Ñ,
+lsquid:S1192"KDefine a constant instead of duplicating this literal "id_trainer" 3 times.(‘ù½ûüÿÿÿÿ8ÆıÚ¬Ñ,
 msquid:S1192"QDefine a constant instead of duplicating this literal "tr_personal_data" 3 times.(è‘›8ÆıÚ¬Ñ,
+msquid:S1192"LDefine a constant instead of duplicating this literal "tr_iconpath" 3 times.(•ÂµÏÿÿÿÿÿ8ÆıÚ¬Ñ,
 hsquid:S1192"LDefine a constant instead of duplicating this literal "tr_lastname" 3 times.(Âæâ©8ÆıÚ¬Ñ,
