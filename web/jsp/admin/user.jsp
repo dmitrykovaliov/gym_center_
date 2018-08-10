@@ -15,12 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
@@ -42,7 +39,7 @@
 
 <br>
 <br>
-<h3><fmt:message key="table.user.head"/></h3>
+<h3 style="margin-left: 30px"><fmt:message key="table.user.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input id="idHid" type="hidden" name="command" value="user_create">
 
@@ -72,8 +69,8 @@
                     <ctg:select tagId="login${status.count}" elem="${elem.login}"/>
                 </td>
                 <td id="pass${status.count}">
-                    <c:out value="${elem.pass}"/>
-                    <ctg:select tagId="pass${status.count}" elem="${elem.pass}"/>
+                    <c:out value="********"/>
+                    <ctg:select tagId="pass${status.count}" elem="********"/>
                 </td>
                 <td id="role${status.count}">
                     <c:out value="${elem.role}"/>
@@ -145,10 +142,6 @@
 <br>
 <div class="leftMessage">${error}</div>
 
-
-<%--<footer>--%>
-<%--<c:import url="../general/footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

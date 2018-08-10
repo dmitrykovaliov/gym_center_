@@ -29,8 +29,8 @@ public class TrainingReadClientCommand implements ActionCommand {
         List<Trainer> trainerList;
 
         try {
-            trainingList = TrainingService.getInstance().findClientTrainings(content);
-            trainerList = TrainingService.getInstance().findTrainerItems();
+            trainingList = TrainingService.getInstance().findAllTrainingByClient(content);
+            trainerList = TrainingService.getInstance().findAllTrainerByClient(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

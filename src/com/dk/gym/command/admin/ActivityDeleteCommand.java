@@ -27,7 +27,7 @@ public class ActivityDeleteCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = ActivityService.getInstance().deleteItem(content);
+            message = ActivityService.getInstance().deleteActivity(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

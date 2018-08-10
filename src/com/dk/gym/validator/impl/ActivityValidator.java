@@ -1,7 +1,7 @@
 package com.dk.gym.validator.impl;
 
 import com.dk.gym.controller.RequestContent;
-import com.dk.gym.validator.ChainPriceValidator;
+import com.dk.gym.validator.chain.ChainPriceValidator;
 import com.dk.gym.validator.LengthValidator;
 import com.dk.gym.validator.NotEmptyValidator;
 import org.apache.logging.log4j.Level;

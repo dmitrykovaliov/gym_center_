@@ -36,12 +36,12 @@ public class OrderReadCommand implements ActionCommand {
         List<Activity> activityAllList;
 
         try {
-            orderList = OrderService.getInstance().findItems();
-            clientList = OrderService.getInstance().findClient();
-            activityList = OrderService.getInstance().findActivity();
+            orderList = OrderService.getInstance().findAllOrder();
+            clientList = OrderService.getInstance().findAllClient();
+            activityList = OrderService.getInstance().findAllActivity();
 
-            clientAllList = ClientService.getInstance().findItems();
-            activityAllList = ActivityService.getInstance().findItems();
+            clientAllList = ClientService.getInstance().findAllClient();
+            activityAllList = ActivityService.getInstance().findActivity();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

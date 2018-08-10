@@ -10,7 +10,7 @@ public abstract class TrainerDao extends AbstractDao<Trainer> {
     @Override
     public abstract List<Trainer> findAll() throws DaoException;
 
-    public abstract Trainer findEntityById(int id) throws DaoException;
+    public abstract Trainer findById(int id) throws DaoException;
 
     @Override
     public abstract int create(Trainer entity) throws DaoException;
@@ -22,5 +22,5 @@ public abstract class TrainerDao extends AbstractDao<Trainer> {
 
     public abstract boolean updateUserId(Integer  idUser, int idTrainer) throws DaoException;
 
-    public abstract Trainer findUser(int idUser) throws DaoException;
+    public abstract Trainer findByUserId(int idUser) throws DaoException;
 }

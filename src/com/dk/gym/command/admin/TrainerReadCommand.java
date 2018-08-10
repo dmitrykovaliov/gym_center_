@@ -27,7 +27,7 @@ public class TrainerReadCommand implements ActionCommand {
         List<Trainer> itemList;
 
         try {
-            itemList = TrainerService.getInstance().findItems();
+            itemList = TrainerService.getInstance().findAllTrainer();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

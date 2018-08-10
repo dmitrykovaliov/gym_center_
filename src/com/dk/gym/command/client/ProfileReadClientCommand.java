@@ -24,7 +24,7 @@ public class ProfileReadClientCommand implements ActionCommand {
         Client client;
 
         try {
-            client = ClientService.getInstance().findClientItem(content);
+            client = ClientService.getInstance().findClientByUserId(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

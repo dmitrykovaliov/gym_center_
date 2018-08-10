@@ -11,13 +11,15 @@ import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
 import com.dk.gym.validator.impl.TrainerValidator;
-import com.dk.gym.validator.ChainIdValidator;
+import com.dk.gym.validator.chain.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static com.dk.gym.command.ReturnMessageType.*;
+import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
 import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
@@ -40,9 +42,9 @@ public class TrainerService {
     }
 
 
-    public ReturnMessageType createItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType createTrainer(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new TrainerValidator().validate(content)) {
             try (TrainerDao trainerDao = new TrainerDaoImpl()) {
@@ -53,24 +55,21 @@ public class TrainerService {
 
                 int createdItemId = trainerDao.create(trainer);
 
-                if (createdItemId != -1) {
-                    message = ReturnMessageType.DONE;
+                if (createdItemId != RETURNED_NEGATIVE_RESULT) {
+                    message = DONE;
                 } else {
-                    message = ReturnMessageType.ENTER_ERROR;
+                    message = ENTER_ERROR;
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
-
-        LOGGER.log(Level.DEBUG, "CreateItemMessage: " + message);
+        LOGGER.log(Level.DEBUG, "createTrainerMessage: " + message);
 
         return message;
     }
 
-    public List<Trainer> findItems() throws ServiceException {
+    public List<Trainer> findAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
         try (TrainerDao trainerDao = new TrainerDaoImpl()) {
@@ -78,23 +77,20 @@ public class TrainerService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
-
         return itemList;
     }
 
-    public ReturnMessageType updateItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateTrainer(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new TrainerValidator().validate(content)) {
-            try (TransactionManager transactionManager = new TransactionManager()) {
+            TransactionManager transactionManager = new TransactionManager();
                 try (TrainerDao trainerDao = new TrainerDaoImpl()) {
 
                     transactionManager.startTransaction(trainerDao);
 
-                    Trainer trainer = trainerDao.findEntityById(Integer.parseInt(content.findParameter(PARAM_ID)));
+                    Trainer trainer = trainerDao.findById(Integer.parseInt(content.findParameter(PARAM_ID)));
 
                     new FileLoader().loadFile(Trainer.class.getSimpleName().toLowerCase(), content);
 
@@ -104,25 +100,22 @@ public class TrainerService {
 
                     transactionManager.commit();
 
-                    message = ReturnMessageType.DONE;
+                    message = DONE;
 
                 } catch (DaoException e) {
                     transactionManager.rollback();
                     throw new ServiceException(e);
                 }
-            }
-        } else {
-            message = ReturnMessageType.INVALID;
-        }
 
-        LOGGER.log(Level.DEBUG, "UpdateItemMessage: " + message);
+        }
+        LOGGER.log(Level.DEBUG, "updateTrainerMessage: " + message);
 
         return message;
     }
 
-    public ReturnMessageType deleteItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteTrainer(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             try (TrainerDao trainerDao = new TrainerDaoImpl()) {
@@ -131,29 +124,27 @@ public class TrainerService {
                 LOGGER.log(Level.DEBUG, "ID: " + parsedId);
 
                 trainerDao.delete(parsedId);
-                message = ReturnMessageType.DONE;
+                message = DONE;
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
 
-        LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
+        LOGGER.log(Level.DEBUG, "deleteTrainerMessage: " + message);
 
         return message;
     }
 
-    public Trainer findTrainerItem(RequestContent content) throws ServiceException {
+    public Trainer findTrainerByUserId(RequestContent content) throws ServiceException {
         Trainer trainer;
 
         try (TrainerDao trainerDao = new TrainerDaoImpl()) {
-            trainer = trainerDao.findUser((int)content.findSessionAttribute(PARAM_USER_ID));
+            trainer = trainerDao.findByUserId((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
 
-        LOGGER.log(Level.INFO, "Item: " + trainer);
+        LOGGER.log(Level.INFO, "trainerByUserId: " + trainer);
 
         return trainer;
     }

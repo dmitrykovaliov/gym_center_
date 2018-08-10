@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.dk.gym.command.PageConstant.*;
+
 
 @WebServlet(name = "GymServlet", urlPatterns = {"/controller"})
 @MultipartConfig(location = "/home/dk", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
@@ -55,10 +57,8 @@ public class GymServlet extends HttpServlet {
         try {
             contentPage = command.execute(content);
         } catch (CommandException e) {
-            e.printStackTrace();
             LOGGER.log(Level.ERROR, e);
-            request.setAttribute(ParamConstant.PARAM_ERROR, e.getMessage());
-            contentPage = new ContentPage(RequestMethod.FORWARD, PageConstant.PAGE_ERROR);
+            contentPage = new ContentPage(RequestMethod.FORWARD, PAGE_ERROR);
         }
 
         content.insertValues(request);
@@ -72,10 +72,10 @@ public class GymServlet extends HttpServlet {
                     response.sendRedirect(contentPage.getPageURL());
                     break;
                 default:
-                    getServletContext().getRequestDispatcher(PageConstant.PAGE_BASE_ERROR).forward(request, response);
+                    getServletContext().getRequestDispatcher(PAGE_BASE_ERROR).forward(request, response);
             }
         } else {
-            getServletContext().getRequestDispatcher(PageConstant.PAGE_BASE_ERROR).forward(request, response);
+            getServletContext().getRequestDispatcher(PAGE_BASE_ERROR).forward(request, response);
         }
     }
 

@@ -18,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Set;
 
 import static com.dk.gym.service.ParamConstant.*;
 
@@ -36,11 +35,11 @@ public class PrescriptionReadCommand implements ActionCommand {
         List<Trainer> trainerAllList;
 
         try {
-            prescriptionList = PrescriptionService.getInstance().findItems();
-            trainerList = PrescriptionService.getInstance().findTrainerItems();
+            prescriptionList = PrescriptionService.getInstance().findAllPrescription();
+            trainerList = PrescriptionService.getInstance().findAllTrainer();
 
-            orderAllList = OrderService.getInstance().findItems();
-            trainerAllList = TrainerService.getInstance().findItems();
+            orderAllList = OrderService.getInstance().findAllOrder();
+            trainerAllList = TrainerService.getInstance().findAllTrainer();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
@@ -53,6 +52,7 @@ public class PrescriptionReadCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, prescriptionList);
         LOGGER.log(Level.DEBUG, trainerList);
+
         LOGGER.log(Level.DEBUG, orderAllList);
         LOGGER.log(Level.DEBUG, trainerAllList);
 

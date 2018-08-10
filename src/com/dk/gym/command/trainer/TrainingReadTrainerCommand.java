@@ -5,11 +5,9 @@ import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.PageConstant;
 import com.dk.gym.command.RequestMethod;
 import com.dk.gym.controller.RequestContent;
-import com.dk.gym.entity.Order;
 import com.dk.gym.entity.Training;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.service.OrderService;
 import com.dk.gym.service.TrainingService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +27,7 @@ public class TrainingReadTrainerCommand implements ActionCommand {
         List<Training> trainingList;
 
         try {
-            trainingList = TrainingService.getInstance().findTrainerTrainings(content);
+            trainingList = TrainingService.getInstance().findAllTrainingByTrainer(content);
 
         } catch (ServiceException e) {
             throw new CommandException(e);

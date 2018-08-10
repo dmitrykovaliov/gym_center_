@@ -15,14 +15,14 @@ import com.dk.gym.exception.ServiceException;
 import com.dk.gym.controller.RequestContent;
 import com.dk.gym.util.CryptPass;
 import com.dk.gym.validator.*;
+import com.dk.gym.validator.chain.ChainIdValidator;
 import com.dk.gym.validator.impl.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.List;
-import java.util.Set;
 
+import static com.dk.gym.command.ReturnMessageType.*;
 import static com.dk.gym.service.ParamConstant.*;
 
 public class UserService {
@@ -43,16 +43,16 @@ public class UserService {
         return instance;
     }
 
-    public ReturnMessageType createItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType createUser(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
         String idClient = content.findParameter(ParamConstant.PARAM_CLIENT_ID);
         String idTrainer = content.findParameter(ParamConstant.PARAM_TRAINER_ID);
         boolean validClient = !DEFAULT_ID_VALUE.equals(idClient);
         boolean validTrainer = !DEFAULT_ID_VALUE.equals(idTrainer);
 
         if (!(!new UserValidator().validate(content) || validClient && validTrainer)) {
-            try (TransactionManager transactionManager = new TransactionManager()) {
+            TransactionManager transactionManager = new TransactionManager();
                 try (UserDao userDao = new UserDaoImpl();
                      ClientDao clientDao = new ClientDaoImpl();
                      TrainerDao trainerDao = new TrainerDaoImpl()) {
@@ -73,30 +73,28 @@ public class UserService {
 
                         if (userId != -1) {
                             transactionManager.commit();
-                            message = ReturnMessageType.DONE;
+                            message = DONE;
                         } else {
                             transactionManager.rollback();
-                            message = ReturnMessageType.ENTER_ERROR;
+                            message = ENTER_ERROR;
                         }
                     } else {
                         transactionManager.rollback();
-                        message = ReturnMessageType.USER_EXIST;
+                        message = USER_EXIST;
                     }
                 } catch (DaoException e) {
                     transactionManager.rollback();
                     throw new ServiceException(e);
                 }
-            }
-        } else {
-            message = ReturnMessageType.INVALID;
+
         }
 
-        LOGGER.log(Level.DEBUG, "CreateItemMessage: " + message);
+        LOGGER.log(Level.DEBUG, "createUserMessage: " + message);
 
         return message;
     }
 
-    public List<User> findItems() throws ServiceException {
+    public List<User> findAllUser() throws ServiceException {
         List<User> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
@@ -104,13 +102,10 @@ public class UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
-
         return itemList;
     }
 
-    public List<Client> findClientItems() throws ServiceException {
+    public List<Client> findAllClient() throws ServiceException {
         List<Client> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
@@ -118,12 +113,10 @@ public class UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Client: " + itemList.size());
-
         return itemList;
     }
 
-    public List<Trainer> findTrainerItems() throws ServiceException {
+    public List<Trainer> findAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
@@ -131,17 +124,15 @@ public class UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Trainer: " + itemList.size());
-
         return itemList;
     }
 
-    public ReturnMessageType deleteItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteUser(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
-            try (TransactionManager transactionManager = new TransactionManager()){
+            TransactionManager transactionManager = new TransactionManager();
                 try (UserDao userDao = new UserDaoImpl();
                      ClientDao clientDao = new ClientDaoImpl();
                      TrainerDao trainerDao = new TrainerDaoImpl()) {
@@ -166,23 +157,21 @@ public class UserService {
 
                     transactionManager.commit();
 
-                    message = ReturnMessageType.DONE;
+                    message = DONE;
                 } catch (DaoException e) {
                     transactionManager.rollback();
                     throw new ServiceException(e);
                 }
-            }
-        } else {
-            message = ReturnMessageType.INVALID;
+
         }
-        LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
+        LOGGER.log(Level.DEBUG, "deleteUserMessage: " + message);
 
         return message;
     }
 
     public ReturnMessageType checkUser(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
         Role role;
         int userId;
 
@@ -206,14 +195,12 @@ public class UserService {
             }
 
             if (role == null) {
-                message = ReturnMessageType.USER_NOT_EXIST;
+                message = USER_NOT_EXIST;
             } else {
-                message = ReturnMessageType.DONE;
+                message = DONE;
                 content.insertSessionAttribute(PARAM_ROLE, role.toString());
                 content.insertSessionAttribute(PARAM_USER_ID, userId);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
         return message;
     }

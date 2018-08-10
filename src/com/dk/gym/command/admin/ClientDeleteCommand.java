@@ -27,7 +27,7 @@ public class ClientDeleteCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = ClientService.getInstance().deleteItem(content);
+            message = ClientService.getInstance().deleteClient(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

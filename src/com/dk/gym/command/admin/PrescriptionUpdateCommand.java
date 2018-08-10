@@ -26,7 +26,7 @@ public class PrescriptionUpdateCommand implements ActionCommand {
 
         ReturnMessageType message;
         try {
-            message = PrescriptionService.getInstance().updateItem(content);
+            message = PrescriptionService.getInstance().updatePrescription(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

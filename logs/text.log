@@ -1,2 +1,3 @@
-2018-08-08 07:59:23.126 [main] INFO  com.dk.gym.pool.ConnectionPool - PoolSize: 8
-2018-08-08 07:59:34.077 [main] INFO  com.dk.gym.pool.ConnectionPool - PoolSize: 8
+2018-08-10 00:32:54.762 [main] INFO  com.dk.gym.pool.ConnectionPool - ReceiveConnection_freeConnections: 7
+2018-08-10 00:32:54.779 [main] INFO  com.dk.gym.pool.ConnectionPool - ReceiveConnection_boundConnections: 1
+2018-08-10 00:32:54.779 [main] INFO  com.dk.gym.pool.ConnectionPool - ReceiveConnection_PoolSize: 8

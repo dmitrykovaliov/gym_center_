@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import static com.dk.gym.dao.DatabaseConstant.*;
 
 public class TrainerDaoImpl extends TrainerDao {
 
@@ -19,11 +20,11 @@ public class TrainerDaoImpl extends TrainerDao {
     private static final String SQL_UPDATE_TRAINER = "UPDATE trainer SET tr_name = ?, tr_lastname = ?, tr_phone = ?, " +
             "tr_personal_data = ?, tr_iconpath = ? " +
             "WHERE id_trainer = ?";
-    private static final String SQL_UPDATE_USERID_TRAINER = "UPDATE trainer SET id_user = ? " +
+    private static final String SQL_UPDATE_TRAINER_USERID = "UPDATE trainer SET id_user = ? " +
             "WHERE id_trainer = ?";
-    private static final String SQL_SELECT_ALL_TRAINERS = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
+    private static final String SQL_SELECT_ALL_TRAINER = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer " +
-            "ORDER BY tr_name";
+            "ORDER BY id_trainer";
     private static final String SQL_SELECT_TRAINER_BY_ID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer WHERE id_trainer = ?";
     private static final String SQL_SELECT_TRAINER_BY_USERID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
@@ -57,7 +58,7 @@ public class TrainerDaoImpl extends TrainerDao {
         } catch (SQLException e) {
             throw new DaoException("Not created: ", e);
         }
-        return -1;
+        return RETURNED_NEGATIVE_RESULT;
     }
 
     @Override
@@ -81,7 +82,7 @@ public class TrainerDaoImpl extends TrainerDao {
 
     @Override
     public boolean updateUserId(Integer idUser, int idTrainer) throws DaoException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USERID_TRAINER)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_TRAINER_USERID)) {
 
             statement.setObject(1, idUser);
             statement.setInt(2, idTrainer);
@@ -91,7 +92,7 @@ public class TrainerDaoImpl extends TrainerDao {
             return true;
 
         } catch (SQLException e) {
-            throw new DaoException("Can't update trainer by userId: ", e);
+            throw new DaoException("Not updated trainer by userId: ", e);
         }
     }
 
@@ -101,18 +102,18 @@ public class TrainerDaoImpl extends TrainerDao {
         List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_TRAINERS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_TRAINER)) {
 
                 while (resultSet.next()) {
 
                     Trainer trainer = new Trainer();
 
-                    trainer.setIdTrainer(resultSet.getInt("id_trainer"));
-                    trainer.setName(resultSet.getString("tr_name"));
-                    trainer.setLastName(resultSet.getString("tr_lastname"));
-                    trainer.setPhone(resultSet.getString("tr_phone"));
-                    trainer.setPersonalData(resultSet.getString("tr_personal_data"));
-                    trainer.setIconPath(resultSet.getString("tr_iconpath"));
+                    trainer.setIdTrainer(resultSet.getInt(ID_TRAINER));
+                    trainer.setName(resultSet.getString(TR_NAME));
+                    trainer.setLastName(resultSet.getString(TR_LASTNAME));
+                    trainer.setPhone(resultSet.getString(TR_PHONE));
+                    trainer.setPersonalData(resultSet.getString(TR_PERSONAL_DATA));
+                    trainer.setIconPath(resultSet.getString(TR_ICONPATH));
 
                     list.add(trainer);
                 }
@@ -125,7 +126,7 @@ public class TrainerDaoImpl extends TrainerDao {
 
 
     @Override
-    public Trainer findEntityById(int id) throws DaoException {
+    public Trainer findById(int id) throws DaoException {
 
         Trainer trainer = new Trainer();
 
@@ -135,12 +136,12 @@ public class TrainerDaoImpl extends TrainerDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                     resultSet.next();
 
-                    trainer.setIdTrainer(resultSet.getInt("id_trainer"));
-                    trainer.setName(resultSet.getString("tr_name"));
-                    trainer.setLastName(resultSet.getString("tr_lastname"));
-                    trainer.setPhone(resultSet.getString("tr_phone"));
-                    trainer.setPersonalData(resultSet.getString("tr_personal_data"));
-                    trainer.setIconPath(resultSet.getString("tr_iconpath"));
+                    trainer.setIdTrainer(resultSet.getInt(ID_TRAINER));
+                    trainer.setName(resultSet.getString(TR_NAME));
+                    trainer.setLastName(resultSet.getString(TR_LASTNAME));
+                    trainer.setPhone(resultSet.getString(TR_PHONE));
+                    trainer.setPersonalData(resultSet.getString(TR_PERSONAL_DATA));
+                    trainer.setIconPath(resultSet.getString(TR_ICONPATH));
             }
         } catch (SQLException e) {
             throw new DaoException("Not found entityById: ", e);
@@ -160,7 +161,7 @@ public class TrainerDaoImpl extends TrainerDao {
     }
 
     @Override
-    public Trainer findUser(int idUser) throws DaoException {
+    public Trainer findByUserId(int idUser) throws DaoException {
         Trainer trainer = new Trainer();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_TRAINER_BY_USERID)) {
@@ -169,12 +170,12 @@ public class TrainerDaoImpl extends TrainerDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
 
-                trainer.setIdTrainer(resultSet.getInt("id_trainer"));
-                trainer.setName(resultSet.getString("tr_name"));
-                trainer.setLastName(resultSet.getString("tr_lastname"));
-                trainer.setPhone(resultSet.getString("tr_phone"));
-                trainer.setPersonalData(resultSet.getString("tr_personal_data"));
-                trainer.setIconPath(resultSet.getString("tr_iconpath"));
+                trainer.setIdTrainer(resultSet.getInt(ID_TRAINER));
+                trainer.setName(resultSet.getString(TR_NAME));
+                trainer.setLastName(resultSet.getString(TR_LASTNAME));
+                trainer.setPhone(resultSet.getString(TR_PHONE));
+                trainer.setPersonalData(resultSet.getString(TR_PERSONAL_DATA));
+                trainer.setIconPath(resultSet.getString(TR_ICONPATH));
             }
         } catch (SQLException e) {
             throw new DaoException("Not found entityByUserId: ", e);

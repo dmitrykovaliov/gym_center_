@@ -136,7 +136,9 @@ public final class ConnectionPool {
             Thread.currentThread().interrupt();
         }
 
-        LOGGER.log(Level.INFO, "PoolSize: " + currentPoolSize);
+        LOGGER.log(Level.INFO, "ReceiveConnection_freeConnections: " + freeConnections.size());
+        LOGGER.log(Level.INFO, "ReceiveConnection_boundConnections: " + boundConnections.size());
+        LOGGER.log(Level.INFO, "ReceiveConnection_PoolSize: " + currentPoolSize);
 
         return connection;
     }
@@ -156,8 +158,6 @@ public final class ConnectionPool {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "Connection was not realeased", e);
         }
-
-        LOGGER.log(Level.INFO, "PoolSize: " + currentPoolSize);
 
         monitorPool();
     }

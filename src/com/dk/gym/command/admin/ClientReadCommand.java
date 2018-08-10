@@ -27,7 +27,7 @@ public class ClientReadCommand implements ActionCommand {
         List<Client> itemList;
 
         try {
-            itemList = ClientService.getInstance().findItems();
+            itemList = ClientService.getInstance().findAllClient();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

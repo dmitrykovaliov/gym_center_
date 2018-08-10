@@ -27,7 +27,7 @@ public class UserCreateCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = UserService.getInstance().createItem(content);
+            message = UserService.getInstance().createUser(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

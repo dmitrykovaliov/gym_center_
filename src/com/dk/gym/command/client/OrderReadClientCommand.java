@@ -28,8 +28,8 @@ public class OrderReadClientCommand implements ActionCommand {
         List<Activity> activityList;
 
         try {
-            orderList = OrderService.getInstance().findClientOrders(content);
-            activityList = OrderService.getInstance().findActivitiesByClient(content);
+            orderList = OrderService.getInstance().findAllOrderByClient(content);
+            activityList = OrderService.getInstance().findAllActivityByClient(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

@@ -24,14 +24,13 @@ public class PictureServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        LOGGER.log(Level.INFO, "ENTERED");
         String fileName = req.getPathInfo();
         File filePath = new File(getServletContext().getInitParameter(PARAM_DIR_UPLOAD), fileName);
         resp.setHeader("Content-Type", getServletContext().getMimeType(fileName));
         resp.setHeader("Content-Length", String.valueOf(filePath.length()));
 
-        LOGGER.log(Level.INFO, fileName);
-        LOGGER.log(Level.INFO, filePath);
+        LOGGER.log(Level.INFO, "fileName: " + fileName);
+        LOGGER.log(Level.INFO, "filePath: " + filePath);
 
         Files.copy(filePath.toPath(), resp.getOutputStream());
     }

@@ -1,7 +1,7 @@
 2018-07-17 17:08:36.525 [main] INFO  com.dk.gym.validator.RangeValidator - 2024
 2018-07-17 17:08:36.532 [main] INFO  com.dk.gym.validator.RangeValidator - 2
 2018-07-17 17:08:36.532 [main] INFO  com.dk.gym.validator.RangeValidator - 31
-2018-07-17 17:08:36.620 [main] ERROR com.dk.gym.validator.ChainDateValidator - java.time.DateTimeException: Invalid date 'FEBRUARY 31'
+2018-07-17 17:08:36.620 [main] ERROR com.dk.gym.validator.chain.ChainDateValidator - java.time.DateTimeException: Invalid date 'FEBRUARY 31'
 2018-07-17 17:08:48.804 [main] INFO  com.dk.gym.validator.RangeValidator - 2024
 2018-07-17 17:08:48.807 [main] INFO  com.dk.gym.validator.RangeValidator - 2
 2018-07-17 17:08:48.807 [main] INFO  com.dk.gym.validator.RangeValidator - 28

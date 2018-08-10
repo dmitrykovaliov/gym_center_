@@ -24,7 +24,7 @@ public class TrainerReadProfileCommand implements ActionCommand {
         Trainer trainer;
 
         try {
-            trainer = TrainerService.getInstance().findTrainerItem(content);
+            trainer = TrainerService.getInstance().findTrainerByUserId(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

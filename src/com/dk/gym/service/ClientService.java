@@ -10,7 +10,7 @@ import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
 import com.dk.gym.controller.RequestContent;
-import com.dk.gym.validator.ChainIdValidator;
+import com.dk.gym.validator.chain.ChainIdValidator;
 import com.dk.gym.validator.impl.ClientValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static com.dk.gym.command.ReturnMessageType.*;
+import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
 
@@ -38,9 +40,9 @@ public class ClientService {
         return instance;
     }
 
-    public ReturnMessageType createItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType createClient(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ClientValidator().validate(content)) {
                 try (ClientDao clientDao = new ClientDaoImpl()) {
@@ -51,18 +53,14 @@ public class ClientService {
 
                     int createdItemId = clientDao.create(client);
 
-                        if (createdItemId != -1) {
-                            message = ReturnMessageType.DONE;
+                        if (createdItemId != RETURNED_NEGATIVE_RESULT) {
+                            message = DONE;
                         } else {
-                            message = ReturnMessageType.ENTER_ERROR;
+                            message = ENTER_ERROR;
                         }
-
                 } catch (DaoException e) {
                     throw new ServiceException(e);
                 }
-
-        } else {
-            message = ReturnMessageType.INVALID;
         }
 
         LOGGER.log(Level.DEBUG, "CreateItemMessage: " + message);
@@ -70,7 +68,7 @@ public class ClientService {
         return message;
     }
 
-    public List<Client> findItems() throws ServiceException {
+    public List<Client> findAllClient() throws ServiceException {
         List<Client> itemList;
 
         try (ClientDao clientDao = new ClientDaoImpl()) {
@@ -84,18 +82,17 @@ public class ClientService {
         return itemList;
     }
 
-    public ReturnMessageType updateItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateClient(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ClientValidator().validate(content)) {
-            try (TransactionManager transactionManager = new TransactionManager()) {
+            TransactionManager transactionManager = new TransactionManager();
                 try (ClientDao clientDao = new ClientDaoImpl()) {
 
                     transactionManager.startTransaction(clientDao);
 
-
-                        Client client = clientDao.findEntityById(Integer.parseInt(content.findParameter(PARAM_ID)));
+                        Client client = clientDao.findById(Integer.parseInt(content.findParameter(PARAM_ID)));
 
                         new FileLoader().loadFile(Client.class.getSimpleName().toLowerCase(), content);
 
@@ -105,15 +102,13 @@ public class ClientService {
 
                         transactionManager.commit();
 
-                        message = ReturnMessageType.DONE;
+                        message = DONE;
 
                 } catch (DaoException e) {
                     transactionManager.rollback();
                     throw new ServiceException(e);
                 }
-            }
-        } else {
-            message = ReturnMessageType.INVALID;
+
         }
 
         LOGGER.log(Level.DEBUG, "UpdateItemMessage: " + message);
@@ -121,9 +116,9 @@ public class ClientService {
         return message;
     }
 
-    public ReturnMessageType deleteItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteClient(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             try (ClientDao clientDao = new ClientDaoImpl()) {
@@ -133,12 +128,10 @@ public class ClientService {
 
                 clientDao.delete(parsedId);
 
-                message = ReturnMessageType.DONE;
+                message = DONE;
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
 
         LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
@@ -146,11 +139,11 @@ public class ClientService {
         return message;
     }
 
-    public List<Client> findTrainerItems(RequestContent content) throws ServiceException {
+    public List<Client> findAllClientByTrainer(RequestContent content) throws ServiceException {
         List<Client> itemList;
 
         try (ClientDao clientDao = new ClientDaoImpl()) {
-            itemList = clientDao.findTrainerAll((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = clientDao.findAllByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -160,16 +153,16 @@ public class ClientService {
         return itemList;
     }
 
-    public  Client findClientItem(RequestContent content) throws ServiceException {
+    public  Client findClientByUserId(RequestContent content) throws ServiceException {
             Client client;
 
-            try (ClientDao trainerDao = new ClientDaoImpl()) {
-                client = trainerDao.findUser((int)content.findSessionAttribute(PARAM_USER_ID));
+            try (ClientDao clientDao = new ClientDaoImpl()) {
+                client = clientDao.findByUserId((int)content.findSessionAttribute(PARAM_USER_ID));
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
 
-            LOGGER.log(Level.INFO, "Item: " + client);
+            LOGGER.log(Level.INFO, "clientByUserId: " + client);
 
             return client;
     }

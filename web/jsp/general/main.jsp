@@ -41,21 +41,17 @@
 <br>
 <br>
 <div>
-    <div>
+    <div style="margin-left: 15px">
     <h2><fmt:message key="article.main.head"/></h2>
     </div>
-    <div>
+    <div style="margin-left: 15px">
     <p><fmt:message key="article.main.part1"/></p>
     </div>
-    <div>
+    <div style="margin-left: 15px">
     <p><fmt:message key="article.main.part2"/></p>
     </div>
 </div>
 
-
-<%--<footer>--%>
-<%--<c:import url="footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

@@ -2,7 +2,7 @@ package com.dk.gym.validator.impl;
 
 import com.dk.gym.controller.RequestContent;
 import com.dk.gym.entity.Role;
-import com.dk.gym.validator.ChainPassValidator;
+import com.dk.gym.validator.chain.ChainPassValidator;
 import com.dk.gym.validator.EnumValidator;
 import com.dk.gym.validator.LengthValidator;
 import com.dk.gym.validator.NotEmptyValidator;

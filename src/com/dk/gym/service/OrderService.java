@@ -12,15 +12,15 @@ import com.dk.gym.builder.OrderDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.validator.OrderValidator;
-import com.dk.gym.validator.ChainIdValidator;
+import com.dk.gym.validator.chain.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import static com.dk.gym.command.ReturnMessageType.*;
+import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
 import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
@@ -41,9 +41,9 @@ public class OrderService {
         return instance;
     }
 
-    public ReturnMessageType createItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType createOrder(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new OrderValidator().validate(content)) {
             try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -52,16 +52,14 @@ public class OrderService {
 
                 int createdItemId = orderDao.create(order);
 
-                if (createdItemId != -1) {
-                    message = ReturnMessageType.DONE;
+                if (createdItemId != RETURNED_NEGATIVE_RESULT) {
+                    message = DONE;
                 } else {
-                    message = ReturnMessageType.ENTER_ERROR;
+                    message = ENTER_ERROR;
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
 
         LOGGER.log(Level.DEBUG, "CreateItemMessage: " + message);
@@ -69,7 +67,7 @@ public class OrderService {
         return message;
     }
 
-    public List<Order> findItems() throws ServiceException {
+    public List<Order> findAllOrder() throws ServiceException {
         List<Order> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -77,12 +75,10 @@ public class OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Order: " + itemList.size());
-
         return itemList;
     }
 
-    public List<Client> findClient() throws ServiceException {
+    public List<Client> findAllClient() throws ServiceException {
         List<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -90,12 +86,10 @@ public class OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Client: " + itemList.size());
-
         return itemList;
     }
 
-    public List<Activity> findActivity() throws ServiceException {
+    public List<Activity> findAllActivity() throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -103,22 +97,20 @@ public class OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Activity: " + itemList.size());
-
         return itemList;
     }
 
-    public ReturnMessageType updateItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateOrder(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new OrderValidator().validate(content)) {
-            try (TransactionManager transactionManager = new TransactionManager()) {
+            TransactionManager transactionManager = new TransactionManager();
                 try (OrderDao orderDao = new OrderDaoImpl()) {
 
                     transactionManager.startTransaction(orderDao);
 
-                    Order order = orderDao.findEntityById(Integer.parseInt(content.findParameter(PARAM_ID)));
+                    Order order = orderDao.findById(Integer.parseInt(content.findParameter(PARAM_ID)));
 
                     new OrderDirector().buildOrder(order, content);
 
@@ -126,24 +118,22 @@ public class OrderService {
 
                     transactionManager.commit();
 
-                    message = ReturnMessageType.DONE;
+                    message = DONE;
 
                 } catch (DaoException e) {
                     transactionManager.rollback();
                     throw new ServiceException(e);
                 }
             }
-        } else {
-            message = ReturnMessageType.INVALID;
-        }
-        LOGGER.log(Level.DEBUG, "UpdateItemMessage: " + message);
+
+        LOGGER.log(Level.DEBUG, "UpdateOrderMessage: " + message);
 
         return message;
     }
 
-    public ReturnMessageType deleteItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteOrder(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -153,32 +143,28 @@ public class OrderService {
 
                 orderDao.delete(parsedId);
 
-                message = ReturnMessageType.DONE;
+                message = DONE;
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
-        LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
 
         return message;
     }
 
-    public List<Order> findByTrainer(RequestContent content) throws ServiceException {
+    public List<Order> findAllOrderByTrainer(RequestContent content) throws ServiceException {
         List<Order> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findAllbyTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = orderDao.findAllOrderByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Orders by Trainer: " + itemList.size());
 
         return itemList;
     }
 
-    public List<Client> findByTrainerClient(RequestContent content) throws ServiceException {
+    public List<Client> findAllClientByTrainer(RequestContent content) throws ServiceException {
         List<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -186,12 +172,11 @@ public class OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Client by Trainer: " + itemList.size());
 
         return itemList;
     }
 
-    public List<Activity> findByTrainerActivity(RequestContent content) throws ServiceException {
+    public List<Activity> findAllActivityByTrainer(RequestContent content) throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -199,34 +184,31 @@ public class OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Activity by Trainer: " + itemList.size());
 
         return itemList;
     }
 
 
-    public List<Order> findClientOrders(RequestContent content) throws ServiceException {
+    public List<Order> findAllOrderByClient(RequestContent content) throws ServiceException {
         List<Order> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findOrdersByClient((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = orderDao.findAllOrderByClient((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Orders by Client: " + itemList.size());
 
         return itemList;
     }
 
-    public List<Activity> findActivitiesByClient(RequestContent content) throws ServiceException {
+    public List<Activity> findAllActivityByClient(RequestContent content) throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findActivitiesByClient((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = orderDao.findAllActivityByClient((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of Activity by Trainer: " + itemList.size());
 
         return itemList;
     }

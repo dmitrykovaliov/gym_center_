@@ -8,8 +8,6 @@
 <html>
 <head>
     <title>Client</title>
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -53,6 +51,10 @@
         <div class="form-row">
             <input id="phone" form="createForm" type="text" name="phone" autocomplete="off">
             <label for="phone"><fmt:message key="table.trainer.phone"/></label>
+        </div>
+        <div class="form-row">
+            <input id="email" form="createForm" type="text" name="email" autocomplete="off">
+            <label for="email"><fmt:message key="table.trainer.email"/></label>
         </div>
         <div class="form-row">
             <input id="personalData" form="createForm" type="text" name="personalData" autocomplete="off">

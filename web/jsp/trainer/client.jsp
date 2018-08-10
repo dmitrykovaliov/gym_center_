@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Client</title>
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +23,6 @@
     <script>
         <%@include file="../../js/script.js" %>
     </script>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
 </head>
 <body>
 <header>
@@ -45,54 +43,54 @@
 </header>
 <br>
 <br>
-<h3><fmt:message key="table.client.head"/></h3>
-    <table class="greyGridTable">
-        <thead>
+<h3 style="margin-left: 30px"><fmt:message key="table.client.head"/></h3>
+<table class="greyGridTable">
+    <thead>
+    <tr>
+        <th><fmt:message key="table.client.number"/></th>
+        <th><fmt:message key="table.client.name"/></th>
+        <th><fmt:message key="table.client.lastName"/></th>
+        <th><fmt:message key="table.client.phone"/></th>
+        <th><fmt:message key="table.client.email"/></th>
+        <th><fmt:message key="table.client.personalData"/></th>
+        <th><fmt:message key="table.client.iconPath"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
+    <c:forEach var="elem" items="${readAll}" varStatus="status">
         <tr>
-            <th><fmt:message key="table.client.number"/></th>
-            <th><fmt:message key="table.client.name"/></th>
-            <th><fmt:message key="table.client.lastName"/></th>
-            <th><fmt:message key="table.client.phone"/></th>
-            <th><fmt:message key="table.client.email"/></th>
-            <th><fmt:message key="table.client.personalData"/></th>
-            <th><fmt:message key="table.client.iconPath"/></th>
+            <td><c:out value="${status.count}"/>
+            </td>
+
+            <td id="name${status.count}">
+                <c:out value="${elem.name}"/>
+                <ctg:select tagId="name${status.count}" elem="${elem.name}"/>
+            </td>
+            <td id="lastName${status.count}"><c:out value="${elem.lastName}"/>
+                <ctg:select tagId="lastName${status.count}" elem="${elem.lastName}"/>
+            </td>
+            <td id="phone${status.count}"><c:out value="${elem.phone}"/>
+                <ctg:select tagId="phone${status.count}" elem="${elem.phone}"/>
+            </td>
+            <td id="email${status.count}"><c:out value="${elem.email}"/>
+                <ctg:select tagId="email${status.count}" elem="${elem.email}"/>
+            </td>
+            <td id="personalData${status.count}"><c:out value="${elem.personalData}"/>
+                <ctg:select tagId="personalData${status.count}" elem="${elem.personalData}"/>
+            </td>
+            <td>
+                <c:if test="${not empty elem.iconPath}">
+                    <img class="iconBit" src="/picture/${elem.iconPath}"/>
+                </c:if>
+            </td>
         </tr>
-        </thead>
-        <tbody>
-        <jsp:useBean id="readAll" scope="request" type="java.util.List"/>
-        <c:forEach var="elem" items="${readAll}" varStatus="status">
-            <tr>
-                <td><c:out value="${status.count}"/>
-                </td>
+    </c:forEach>
+    </tbody>
+</table>
+<br>
 
-                <td id="name${status.count}">
-                    <c:out value="${elem.name}"/>
-                    <ctg:select tagId="name${status.count}" elem="${elem.name}"/>
-                </td>
-                <td id="lastName${status.count}"><c:out value="${elem.lastName}"/>
-                    <ctg:select tagId="lastName${status.count}" elem="${elem.lastName}"/>
-                </td>
-                <td id="phone${status.count}"><c:out value="${elem.phone}"/>
-                    <ctg:select tagId="phone${status.count}" elem="${elem.phone}"/>
-                </td>
-                <td id="email${status.count}"><c:out value="${elem.email}"/>
-                    <ctg:select tagId="email${status.count}" elem="${elem.email}"/>
-                </td>
-                <td id="personalData${status.count}"><c:out value="${elem.personalData}"/>
-                    <ctg:select tagId="personalData${status.count}" elem="${elem.personalData}"/>
-                </td>
-                <td>
-                    <c:if test="${not empty elem.iconPath}">
-                        <img class="iconBit" src="/picture/${elem.iconPath}"/>
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <br>
-
-    <div class="leftMessage">${error}</div>
+<div class="leftMessage">${error}</div>
 
 </body>
 

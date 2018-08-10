@@ -26,7 +26,7 @@ public class TrainerUpdateCommand implements ActionCommand {
 
         ReturnMessageType message;
         try {
-            message = TrainerService.getInstance().updateItem(content);
+            message = TrainerService.getInstance().updateTrainer(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

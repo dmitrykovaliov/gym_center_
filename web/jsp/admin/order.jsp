@@ -15,18 +15,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
 </head>
 <body>
-<p>Something to TYPE</p>
 
 <c:set var="role" value="${sessionScope.role}"/>
 <c:choose>
@@ -43,7 +39,7 @@
 
 <br>
 <br>
-<h3><fmt:message key="table.order.head"/></h3>
+<h3 style="margin-left: 30px"><fmt:message key="table.order.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="order_create">
 
@@ -70,7 +66,7 @@
         <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
                 <td>
-                    <c:out value="${status.count}"/>
+                    <c:out value="${elem.idOrder}"/>
                 </td>
 
                 <td id="date${status.count}">
@@ -106,7 +102,8 @@
                     <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
                 <td>
-                    <a onclick="fillOrderForm('idCount', ${status.count}, 'idOrder', 'idCommand', 'idSubmit', ${elem.idOrder},
+                    <a onclick="fillOrderForm('idOrder', 'idCommand', 'idSubmit', 'idClient',
+                            'idActivity', ${elem.idOrder}, ${elem.idClient}, ${elem.idActivity},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">
                         U
@@ -124,15 +121,14 @@
         <jsp:useBean id="readAllClient" scope="request" type="java.util.List"/>
         <jsp:useBean id="readAllActivity" scope="request" type="java.util.List"/>
         <tr>
-            <input form="createForm" type="text" id="idOrder" name="id" hidden>
-            <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
-            <td><input form="createForm" type="date" name="date"></td>
+            <td><input form="createForm" type="text" id="idOrder" name="id" readonly></td>
+            <td><input form="createForm" type="text" placeholder="yyyy-mm-dd" name="date"></td>
             <td><input form="createForm" type="text" name="price"></td>
             <td><input form="createForm" type="text" name="discount"></td>
             <td><input form="createForm" type="text" name="closure"></td>
             <td><input form="createForm" type="text" name="feedback"></td>
             <td>
-                <select form="createForm" name="clientId">
+                <select form="createForm" id="idClient" name="clientId" required>
                     <option></option>
                     <c:forEach var="elem" items="${readAllClient}" varStatus="status">
                         <option value="${elem.idClient}">${elem.name} ${elem.lastName}</option>
@@ -140,7 +136,7 @@
                 </select>
             </td>
             <td>
-                <select form="createForm" name="activityId">
+                <select form="createForm" id="idActivity" name="activityId" required>
                     <option></option>
                     <c:forEach var="elem" items="${readAllActivity}" varStatus="status">
                         <option value="${elem.idActivity}">${elem.name}</option>
@@ -157,10 +153,6 @@
 <br>
 <div class="leftMessage">${error}</div>
 
-
-<%--<footer>--%>
-<%--<c:import url="../general/footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

@@ -27,7 +27,7 @@ public class UserDeleteCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = UserService.getInstance().deleteItem(content);
+            message = UserService.getInstance().deleteUser(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

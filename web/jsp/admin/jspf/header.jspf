@@ -64,7 +64,6 @@
                             <span class="caret"></span></div>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
                         <li><a href="${pageContext.request.contextPath}/controller?command=logout">LogOut</a></li>
                     </ul>
                 </li>

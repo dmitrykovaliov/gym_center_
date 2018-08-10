@@ -15,12 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
@@ -45,7 +42,7 @@
 </header>
 <br>
 <br>
-<h3><fmt:message key="table.training.head"/></h3>
+<h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="training_create">
 
@@ -112,8 +109,11 @@
                     <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
                 </td>
                 <td>
-                    <a onclick="fillFormTraining('idCount', ${status.count}, 'idTraining', 'idCommand', 'idSubmit',
+                    <a onclick="fillFormTraining('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
+                            'idCommand', 'idSubmit',
                         ${elem.idTraining},
+                            ${elem.idOrder},
+                            ${elem.idTrainer},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">
                         U
@@ -136,11 +136,14 @@
             <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date"></td>
             <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime"></td>
             <td><input form="createForm" type="text" placeholder="hh:mm" name="endTime"></td>
-            <td><input form="createForm" type="text" name="visited"></td>
+            <td>
+                <input form="createForm" type="radio" value="1" name="visited"/> on | off
+                <input form="createForm" type="radio" value="0" name="visited"/>
+            </td>
             <td><input form="createForm" type="text" name="clientNote"></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>
             <td>
-                <select form="createForm" name="orderId">
+                <select form="createForm" id="idOrder" name="orderId">
                     <option></option>
                     <c:forEach var="elem" items="${readAllOrder}" varStatus="status">
                         <option value="${elem.idOrder}">${elem.idOrder}</option>
@@ -148,8 +151,8 @@
                 </select>
             </td>
             <td>
-                <select form="createForm" name="trainerId">
-                    <option></option>
+                <select form="createForm" id="idTrainer" name="trainerId">
+                    <option value="0"></option>
                     <c:forEach var="elem" items="${readAllTrainer}" varStatus="status">
                         <option value="${elem.idTrainer}">${elem.name} ${elem.lastName}</option>
                     </c:forEach>
@@ -166,10 +169,6 @@
 <br>
 <div class="leftMessage">${error}</div>
 
-
-<%--<footer>--%>
-<%--<c:import url="../general/footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

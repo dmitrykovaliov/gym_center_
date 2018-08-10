@@ -26,7 +26,7 @@ public class ActivityUpdateCommand implements ActionCommand {
 
         ReturnMessageType message;
         try {
-            message = ActivityService.getInstance().updateItem(content);
+            message = ActivityService.getInstance().updateActivity(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

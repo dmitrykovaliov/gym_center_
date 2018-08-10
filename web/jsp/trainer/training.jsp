@@ -15,12 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
@@ -45,7 +42,7 @@
 </header>
 <br>
 <br>
-<h3><fmt:message key="table.training.head"/></h3>
+<h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" name="command" value="training_update_trainer">
 
@@ -102,7 +99,7 @@
                     <ctg:select tagId="idOrder${status.count}" elem="${elem.idOrder}"/>
                 </td>
                 <td>
-                    <a onclick="fillTrainingFormTrainer('idCount', ${status.count}, 'idTraining', 'idOrder',
+                    <a onclick="fillTrainingFormTrainer('idCount', ${status.count}, 'idTraining', 'idOrder', 'idSubmit',
                         ${elem.idTraining},
                             ${elem.idOrder})">
                         U
@@ -114,17 +111,17 @@
         <tr>
             <input form="createForm" type="text" id="idTraining" name="id" hidden>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
-            <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date" hidden></td>
-            <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime" hidden></td>
-            <td><input form="createForm" type="text" placeholder="hh:mm" name="endTime" hidden></td>
+            <td><input form="createForm" type="text" name="date" placeholder="yyyy/mm/dd" hidden></td>
+            <td><input form="createForm" type="text" name="startTime" placeholder="hh:mm" hidden></td>
+            <td><input form="createForm" type="text" name="endTime" placeholder="hh:mm" hidden></td>
             <td><input form="createForm" type="text" name="visited" hidden></td>
             <td><input form="createForm" type="text" name="clientNote" hidden></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>
             <td>
                 <input form="createForm" id="idOrder" name="orderId" hidden>
             </td>
-            <td><input form="createForm" type="submit"
-                                   value="<fmt:message key="body.update"/>"></td>
+            <td><input form="createForm" id="idSubmit" type="submit"
+                                   value="<fmt:message key="body.update"/>" hidden></td>
         </tr>
 
         </tbody>
@@ -133,11 +130,6 @@
 </form>
 <br>
 <div class="leftMessage">${error}</div>
-
-
-<%--<footer>--%>
-<%--<c:import url="../general/footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

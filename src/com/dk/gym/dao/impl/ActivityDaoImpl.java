@@ -8,6 +8,7 @@ import com.dk.gym.exception.DaoException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import static com.dk.gym.dao.DatabaseConstant.*;
 
 public class ActivityDaoImpl extends ActivityDao {
 
@@ -48,7 +49,7 @@ public class ActivityDaoImpl extends ActivityDao {
             throw new DaoException("Not created: ", e);
         }
 
-        return -1;
+        return RETURNED_NEGATIVE_RESULT;
     }
 
     @Override
@@ -87,10 +88,10 @@ public class ActivityDaoImpl extends ActivityDao {
                 while (resultSet.next()) {
                     Activity activity = new Activity();
 
-                    activity.setIdActivity(resultSet.getInt("id_activity"));
-                    activity.setName(resultSet.getString("act_name"));
-                    activity.setPrice(resultSet.getBigDecimal("act_price"));
-                    activity.setNote(resultSet.getString("act_note"));
+                    activity.setIdActivity(resultSet.getInt(ID_ACTIVITY));
+                    activity.setName(resultSet.getString(ACT_NAME));
+                    activity.setPrice(resultSet.getBigDecimal(ACT_PRICE));
+                    activity.setNote(resultSet.getString(ACT_NOTE));
 
                     list.add(activity);
                 }
@@ -103,7 +104,7 @@ public class ActivityDaoImpl extends ActivityDao {
     }
 
     @Override
-    public Activity findEntityById(int id) throws DaoException {
+    public Activity findById(int id) throws DaoException {
 
         Activity activity = new Activity();
 
@@ -113,10 +114,10 @@ public class ActivityDaoImpl extends ActivityDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
 
-                activity.setIdActivity(resultSet.getInt("id_activity"));
-                activity.setName(resultSet.getString("act_name"));
-                activity.setPrice(resultSet.getBigDecimal("act_price"));
-                activity.setNote(resultSet.getString("act_note"));
+                activity.setIdActivity(resultSet.getInt(ID_ACTIVITY));
+                activity.setName(resultSet.getString(ACT_NAME));
+                activity.setPrice(resultSet.getBigDecimal(ACT_PRICE));
+                activity.setNote(resultSet.getString(ACT_NOTE));
             }
         } catch (SQLException e) {
             throw new DaoException("Can't find", e);

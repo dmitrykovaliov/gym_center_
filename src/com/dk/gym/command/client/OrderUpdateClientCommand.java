@@ -25,7 +25,7 @@ public class OrderUpdateClientCommand implements ActionCommand {
 
         ReturnMessageType message;
         try {
-            message = OrderService.getInstance().updateItem(content);
+            message = OrderService.getInstance().updateOrder(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

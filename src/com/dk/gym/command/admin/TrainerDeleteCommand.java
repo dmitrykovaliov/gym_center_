@@ -26,7 +26,7 @@ public class TrainerDeleteCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = TrainerService.getInstance().deleteItem(content);
+            message = TrainerService.getInstance().deleteTrainer(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

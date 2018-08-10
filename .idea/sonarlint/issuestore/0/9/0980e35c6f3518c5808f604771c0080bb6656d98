@@ -1,10 +1,6 @@
 
-ksquid:S1192"JDefine a constant instead of duplicating this literal "pre_weeks" 4 times.(‡ıªşûÿÿÿÿ8Öëä¿Ñ,
-msquid:S1192"QDefine a constant instead of duplicating this literal "pre_trainer_note" 4 times.(ŸäÇ¢8Öëä¿Ñ,
-lsquid:S1192"PDefine a constant instead of duplicating this literal "pre_client_note" 4 times.(Ü§«à8Öëä¿Ñ,
-xsquid:S1192"WDefine a constant instead of duplicating this literal "pre_trainings_per_week" 4 times.(ı±î³üÿÿÿÿ8Öëä¿Ñ,
-·squid:S1192"šDefine a constant instead of duplicating this literal "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " 3 times.(‘Ø¿æ8ÔÙÑÉÑ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "pre_date" 8 times.(ŒÇŠÈ8¨´ã”Ñ,
-gsquid:S1192"KDefine a constant instead of duplicating this literal "pre_agreed" 8 times.(Ÿ­Ø8Çòì”Ñ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 4 times.(×Í´8Öëä¿Ñ,
-gsquid:S1192"KDefine a constant instead of duplicating this literal "id_trainer" 5 times.(ÎÆìÈ8Öëä¿Ñ,
+˜squid:S1192"|Define a constant instead of duplicating this literal "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " 3 times.(Ö¶¯à8á¼¢›Ò,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(¦ìÍş8òà¾šÒ,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(·©å¦8òà¾šÒ,

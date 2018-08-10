@@ -2,8 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
     <title>Error page</title>
+    <style>
+        <%@include file="../../css/style.css" %>
+    </style>
 </head>
 
 <body>

@@ -27,7 +27,7 @@ public class ActivityReadGeneralCommand implements ActionCommand {
         List<Activity> itemList;
 
         try {
-            itemList = ActivityService.getInstance().findItems();
+            itemList = ActivityService.getInstance().findActivity();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

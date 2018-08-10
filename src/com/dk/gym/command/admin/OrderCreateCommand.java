@@ -27,7 +27,7 @@ public class OrderCreateCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = OrderService.getInstance().createItem(content);
+            message = OrderService.getInstance().createOrder(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

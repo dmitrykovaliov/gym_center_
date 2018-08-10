@@ -15,12 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
@@ -45,7 +42,7 @@
 </header>
 <br>
 <br>
-<h3><fmt:message key="table.training.head"/></h3>
+<h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" name="command" value="training_update_client">
 
@@ -113,6 +110,7 @@
                 </td>
                 <td>
                     <a onclick="fillTrainingFormClient('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
+                        'idSubmit',
                         ${elem.idTraining},
                         ${elem.idOrder},
                         ${elem.idTrainer})">
@@ -135,8 +133,8 @@
                 <input form="createForm" type="text" id="idOrder" name="orderId" hidden>
             </td>
             <td><input form="createForm" type="text" id="idTrainer" name="trainerId" hidden></td>
-            <td><input form="createForm" type="submit"
-                       value="<fmt:message key="body.update"/>"></td>
+            <td><input form="createForm" id="idSubmit" type="submit"
+                       value="<fmt:message key="body.update"/>" hidden></td>
         </tr>
 
         </tbody>
@@ -146,10 +144,6 @@
 <br>
 <div class="leftMessage">${error}</div>
 
-
-<%--<footer>--%>
-<%--<c:import url="../general/footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

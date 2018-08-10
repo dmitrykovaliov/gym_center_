@@ -27,7 +27,7 @@ public class OrderDeleteCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = OrderService.getInstance().deleteItem(content);
+            message = OrderService.getInstance().deleteOrder(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

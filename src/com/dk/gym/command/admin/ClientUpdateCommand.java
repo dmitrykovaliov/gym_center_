@@ -26,7 +26,7 @@ public class ClientUpdateCommand implements ActionCommand {
 
         ReturnMessageType message;
         try {
-            message = ClientService.getInstance().updateItem(content);
+            message = ClientService.getInstance().updateClient(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

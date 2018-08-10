@@ -10,7 +10,7 @@ public abstract class OrderDao extends AbstractDao<Order> {
     @Override
     public abstract List<Order> findAll() throws DaoException;
 
-    public abstract Order findEntityById(int id) throws DaoException;
+    public abstract Order findById(int id) throws DaoException;
 
     @Override
     public abstract int create(Order entity) throws DaoException;
@@ -24,13 +24,13 @@ public abstract class OrderDao extends AbstractDao<Order> {
 
     public abstract List<Activity> findAllActivity() throws DaoException;
 
-    public abstract List<Order> findAllbyTrainer(int idUser) throws DaoException;
+    public abstract List<Order> findAllOrderByTrainer(int idUser) throws DaoException;
 
     public abstract List<Client> findAllClientByTrainer(int idUser) throws DaoException;
 
     public abstract List<Activity> findAllActivityByTrainer(int idUser) throws DaoException;
 
-    public abstract List<Order> findOrdersByClient(int idUser) throws DaoException;
+    public abstract List<Order> findAllOrderByClient(int idUser) throws DaoException;
 
-    public abstract List<Activity> findActivitiesByClient(int idUser) throws DaoException;
+    public abstract List<Activity> findAllActivityByClient(int idUser) throws DaoException;
 }

@@ -20,7 +20,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static com.dk.gym.service.ParamConstant.*;
 
@@ -41,12 +40,12 @@ public class UserReadCommand implements ActionCommand {
         List<Role> roleList = Arrays.asList(Role.class.getEnumConstants());
 
         try {
-            userList = UserService.getInstance().findItems();
-            clientList = UserService.getInstance().findClientItems();
-            trainerList = UserService.getInstance().findTrainerItems();
+            userList = UserService.getInstance().findAllUser();
+            clientList = UserService.getInstance().findAllClient();
+            trainerList = UserService.getInstance().findAllTrainer();
 
-            clientAllList = ClientService.getInstance().findItems();
-            trainerAllList = TrainerService.getInstance().findItems();
+            clientAllList = ClientService.getInstance().findAllClient();
+            trainerAllList = TrainerService.getInstance().findAllTrainer();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

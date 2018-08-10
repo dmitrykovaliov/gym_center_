@@ -15,18 +15,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
 </head>
 <body>
-<p>Something to TYPE</p>
 
 <c:set var="role" value="${sessionScope.role}"/>
 <c:choose>
@@ -43,9 +39,9 @@
 
 <br>
 <br>
-<h3><fmt:message key="table.order.head"/></h3>
+<h3 style="margin-left: 30px"><fmt:message key="table.order.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
-    <input type="hidden" name="command" value="order_update_client">
+    <input type="hidden" id="idCommand" name="command" value="order_update_client">
 
     <table class="greyGridTable">
         <thead>
@@ -68,7 +64,7 @@
         <c:forEach var="elem" items="${readAll}" varStatus="status">
             <tr>
                 <td>
-                    <c:out value="${status.count}"/>
+                    <c:out value="${elem.idOrder}"/>
                 </td>
 
                 <td id="date${status.count}">
@@ -97,7 +93,7 @@
                     <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
                 <td>
-                    <a onclick="fillOrderFormClient('idCount', ${status.count}, 'idOrder', 'idClient', 'idActivity',
+                    <a onclick="fillOrderFormClient('idOrder', 'idClient', 'idActivity', 'idSubmit',
                         ${elem.idOrder},
                         ${elem.idClient},
                         ${elem.idActivity})">
@@ -108,9 +104,9 @@
         </c:forEach>
 
         <tr>
-            <input form="createForm" type="text" id="idOrder" name="id" hidden>
-            <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
-            <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date" hidden></td>
+
+            <td><input form="createForm" type="text" id="idOrder" name="id" readonly></td>
+            <td><input form="createForm" type="text" name="date" placeholder="yyyy/mm/dd" hidden></td>
             <td><input form="createForm" type="text" name="price" hidden></td>
             <td><input form="createForm" type="text" name="discount" hidden></td>
             <td><input form="createForm" type="text" name="closure" hidden></td>
@@ -119,8 +115,8 @@
             <td>
                 <input form="createForm" type="text" id="idActivity" name="activityId" hidden>
             </td>
-            <td colspan="2"><input form="createForm" type="submit"
-                                   value="<fmt:message key="body.update"/>"></td>
+            <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
+                                   value="<fmt:message key="body.update"/>" hidden></td>
         </tr>
         </tbody>
     </table>
@@ -129,10 +125,6 @@
 <br>
 <div class="leftMessage">${error}</div>
 
-
-<%--<footer>--%>
-<%--<c:import url="../general/footer.jsp"/>--%>
-<%--</footer>--%>
 </body>
 
 </html>

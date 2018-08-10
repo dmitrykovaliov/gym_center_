@@ -1,6 +1,8 @@
 package com.dk.gym.validator;
 
 import com.dk.gym.controller.RequestContent;
+import com.dk.gym.validator.chain.ChainDateValidator;
+import com.dk.gym.validator.chain.ChainPriceValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

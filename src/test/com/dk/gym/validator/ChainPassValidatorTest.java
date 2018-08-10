@@ -1,6 +1,6 @@
 package test.com.dk.gym.validator;
 
-import com.dk.gym.validator.ChainPassValidator;
+import com.dk.gym.validator.chain.ChainPassValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;

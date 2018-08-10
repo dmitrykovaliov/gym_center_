@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import static com.dk.gym.dao.DatabaseConstant.*;
 
 public class ClientDaoImpl extends ClientDao {
 
@@ -20,10 +21,10 @@ public class ClientDaoImpl extends ClientDao {
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET cl_name = ?, cl_lastname = ?, cl_phone = ?, " +
             "cl_email = ?, cl_personal_data = ?, cl_iconpath = ? " +
             "WHERE id_client = ?";
-    private static final String SQL_UPDATE_USERID_CLIENT = "UPDATE client SET id_user = ? " +
+    private static final String SQL_UPDATE_CLIENT_USERID = "UPDATE client SET id_user = ? " +
             "WHERE id_client = ?";
-    private static final String SQL_SELECT_ALL_CLIENTS = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
-            "cl_email, cl_personal_data, cl_iconpath FROM client";
+    private static final String SQL_SELECT_ALL_CLIENT = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
+            "cl_email, cl_personal_data, cl_iconpath FROM client ORDER BY id_client";
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_client = ?";
     private static final String SQL_SELECT_CLIENT_BY_USERID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
@@ -77,7 +78,7 @@ public class ClientDaoImpl extends ClientDao {
         } catch (SQLException e) {
             throw new DaoException("Not created: ", e);
         }
-        return -1;
+        return RETURNED_NEGATIVE_RESULT;
     }
 
     @Override
@@ -102,7 +103,7 @@ public class ClientDaoImpl extends ClientDao {
 
     @Override
     public boolean updateUserId(Integer idUser, int idClient) throws DaoException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USERID_CLIENT)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT_USERID)) {
 
             statement.setObject(1, idUser);
             statement.setInt(2, idClient);
@@ -120,19 +121,19 @@ public class ClientDaoImpl extends ClientDao {
         List<Client> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_CLIENTS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_CLIENT)) {
 
                 while (resultSet.next()) {
 
                     Client client = new Client();
 
-                    client.setIdClient(resultSet.getInt("id_client"));
-                    client.setName(resultSet.getString("cl_name"));
-                    client.setLastName(resultSet.getString("cl_lastname"));
-                    client.setPhone(resultSet.getString("cl_phone"));
-                    client.setEmail(resultSet.getString("cl_email"));
-                    client.setPersonalData(resultSet.getString("cl_personal_data"));
-                    client.setIconPath(resultSet.getString("cl_iconpath"));
+                    client.setIdClient(resultSet.getInt(ID_CLIENT));
+                    client.setName(resultSet.getString(CL_NAME));
+                    client.setLastName(resultSet.getString(CL_LASTNAME));
+                    client.setPhone(resultSet.getString(CL_PHONE));
+                    client.setEmail(resultSet.getString(CL_EMAIL));
+                    client.setPersonalData(resultSet.getString(CL_PERSONAL_DATA));
+                    client.setIconPath(resultSet.getString(CL_ICONPATH));
 
                     list.add(client);
                 }
@@ -144,7 +145,7 @@ public class ClientDaoImpl extends ClientDao {
     }
 
     @Override
-    public List<Client> findTrainerAll(int idUser) throws DaoException {
+    public List<Client> findAllByTrainer(int idUser) throws DaoException {
         List<Client> list = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_TRAINER)) {
@@ -158,13 +159,13 @@ public class ClientDaoImpl extends ClientDao {
 
                         Client client = new Client();
 
-                        client.setIdClient(resultSet.getInt("id_client"));
-                        client.setName(resultSet.getString("cl_name"));
-                        client.setLastName(resultSet.getString("cl_lastname"));
-                        client.setPhone(resultSet.getString("cl_phone"));
-                        client.setEmail(resultSet.getString("cl_email"));
-                        client.setPersonalData(resultSet.getString("cl_personal_data"));
-                        client.setIconPath(resultSet.getString("cl_iconpath"));
+                        client.setIdClient(resultSet.getInt(ID_CLIENT));
+                        client.setName(resultSet.getString(CL_NAME));
+                        client.setLastName(resultSet.getString(CL_LASTNAME));
+                        client.setPhone(resultSet.getString(CL_PHONE));
+                        client.setEmail(resultSet.getString(CL_EMAIL));
+                        client.setPersonalData(resultSet.getString(CL_PERSONAL_DATA));
+                        client.setIconPath(resultSet.getString(CL_ICONPATH));
 
                         list.add(client);
                     }
@@ -178,7 +179,7 @@ public class ClientDaoImpl extends ClientDao {
     }
 
     @Override
-    public Client findEntityById(int id) throws DaoException {
+    public Client findById(int id) throws DaoException {
 
         Client client = new Client();
 
@@ -188,13 +189,13 @@ public class ClientDaoImpl extends ClientDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
 
-                client.setIdClient(resultSet.getInt("id_client"));
-                client.setName(resultSet.getString("cl_name"));
-                client.setLastName(resultSet.getString("cl_lastname"));
-                client.setPhone(resultSet.getString("cl_phone"));
-                client.setEmail(resultSet.getString("cl_email"));
-                client.setPersonalData(resultSet.getString("cl_personal_data"));
-                client.setIconPath(resultSet.getString("cl_iconpath"));
+                client.setIdClient(resultSet.getInt(ID_CLIENT));
+                client.setName(resultSet.getString(CL_NAME));
+                client.setLastName(resultSet.getString(CL_LASTNAME));
+                client.setPhone(resultSet.getString(CL_PHONE));
+                client.setEmail(resultSet.getString(CL_EMAIL));
+                client.setPersonalData(resultSet.getString(CL_PERSONAL_DATA));
+                client.setIconPath(resultSet.getString(CL_ICONPATH));
             }
         } catch (SQLException e) {
             throw new DaoException("Not found: ", e);
@@ -214,7 +215,7 @@ public class ClientDaoImpl extends ClientDao {
     }
 
     @Override
-    public Client findUser(int idUser) throws DaoException {
+    public Client findByUserId(int idUser) throws DaoException {
         Client client = new Client();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CLIENT_BY_USERID)) {
@@ -223,13 +224,13 @@ public class ClientDaoImpl extends ClientDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
 
-                client.setIdClient(resultSet.getInt("id_client"));
-                client.setName(resultSet.getString("cl_name"));
-                client.setLastName(resultSet.getString("cl_lastname"));
-                client.setPhone(resultSet.getString("cl_phone"));
-                client.setEmail(resultSet.getString("cl_email"));
-                client.setPersonalData(resultSet.getString("cl_personal_data"));
-                client.setIconPath(resultSet.getString("cl_iconpath"));
+                client.setIdClient(resultSet.getInt(ID_CLIENT));
+                client.setName(resultSet.getString(CL_NAME));
+                client.setLastName(resultSet.getString(CL_LASTNAME));
+                client.setPhone(resultSet.getString(CL_PHONE));
+                client.setEmail(resultSet.getString(CL_EMAIL));
+                client.setPersonalData(resultSet.getString(CL_PERSONAL_DATA));
+                client.setIconPath(resultSet.getString(CL_ICONPATH));
             }
         } catch (SQLException e) {
             throw new DaoException("Not found entityByUserId: ", e);

@@ -30,9 +30,9 @@ public class PrescriptionReadTrainerCommand implements ActionCommand {
         List<Order> orderAllList;
 
         try {
-            prescriptionList = PrescriptionService.getInstance().findItemsByTrainer(content);
+            prescriptionList = PrescriptionService.getInstance().findAllPrescriptionByTrainer(content);
 
-            orderAllList = OrderService.getInstance().findItems();
+            orderAllList = OrderService.getInstance().findAllOrder();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

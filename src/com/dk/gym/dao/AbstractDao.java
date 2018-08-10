@@ -3,14 +3,12 @@ package com.dk.gym.dao;
 import com.dk.gym.pool.ProxyConnection;
 import com.dk.gym.entity.Entity;
 import com.dk.gym.exception.DaoException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public abstract class AbstractDao<T extends Entity> implements AutoCloseable {
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final int RETURNED_NEGATIVE_RESULT = -1;
 
     protected ProxyConnection connection;
 
@@ -24,10 +22,11 @@ public abstract class AbstractDao<T extends Entity> implements AutoCloseable {
 
     public abstract boolean update(T entity) throws DaoException;
 
+    @Override
     public void close() {
         if (connection != null) {
+            System.out.println("ABSTRACTDAO - CLOSED CONNECTION" + connection);
             connection.close();
         }
     }
-
 }

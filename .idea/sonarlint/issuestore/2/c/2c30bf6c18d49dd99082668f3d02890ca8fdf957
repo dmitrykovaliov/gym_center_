@@ -1,13 +1,3 @@
 
-msquid:S1192"LDefine a constant instead of duplicating this literal "trg_visited" 4 times.(ÜÆ„ëÿÿÿÿÿ8œô¿ÄÑ,
-rsquid:S1192"QDefine a constant instead of duplicating this literal "Can't find all: " 3 times.(ÈŒ¢úÿÿÿÿ8Œ“ÍÑ,
-lsquid:S1192"PDefine a constant instead of duplicating this literal "trg_client_note" 4 times.(±ËÇ•8œô¿ÄÑ,
-jsquid:S1192"IDefine a constant instead of duplicating this literal "trg_date" 8 times.(¼Ñ·˜ùÿÿÿÿ8¶Àß©Ñ,
-nsquid:S1192"MDefine a constant instead of duplicating this literal "trg_end_time" 8 times.(¸şÛ®ûÿÿÿÿ8¡œÆ Ğ,
-squid:S1192"oDefine a constant instead of duplicating this literal "SELECT id_training, trg_date, trg_start_time, " 3 times.(¸†¸ÿÿÿÿÿ8ÁæÀÌÑ,
-esquid:S1192"IDefine a constant instead of duplicating this literal "id_order" 4 times.(³âªÃ8œô¿ÄÑ,
-ksquid:S1192"ODefine a constant instead of duplicating this literal "trg_start_time" 8 times.(¹Â…8¡œÆ Ğ,
-psquid:S1192"ODefine a constant instead of duplicating this literal "FROM training " 3 times.(âÓ¼Ìüÿÿÿÿ8„ÁÌÑ,
-rsquid:S1192"QDefine a constant instead of duplicating this literal "trg_trainer_note" 4 times.(Ö±éüşÿÿÿÿ8œô¿ÄÑ,
-gsquid:S1192"KDefine a constant instead of duplicating this literal "id_trainer" 6 times.(Œ³Ì»8é“ò…Ñ,
-gsquid:S1192"LDefine a constant instead of duplicating this literal "id_training" 4 times.(ìÃÿ8œô¿ÄÑ,
+psquid:S1192"ODefine a constant instead of duplicating this literal "FROM training " 3 times.(âÓ¼Ìüÿÿÿÿ8¿¦ÙÒ,
+squid:S1192"|Define a constant instead of duplicating this literal "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC" 3 times.(œª·Æşÿÿÿÿ8ü£õ›Ò,

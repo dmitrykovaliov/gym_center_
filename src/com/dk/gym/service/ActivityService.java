@@ -9,7 +9,7 @@ import com.dk.gym.entity.Activity;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.controller.RequestContent;
-import com.dk.gym.validator.ChainIdValidator;
+import com.dk.gym.validator.chain.ChainIdValidator;
 import com.dk.gym.validator.impl.ActivityValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import static com.dk.gym.command.ReturnMessageType.*;
+import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
 
@@ -36,9 +38,9 @@ public class ActivityService {
         return instance;
     }
 
-    public ReturnMessageType createItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType createActivity(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ActivityValidator().validate(content)) {
             try (ActivityDao activityDao = new ActivityDaoImpl()) {
@@ -47,24 +49,22 @@ public class ActivityService {
 
                 int createdItemId = activityDao.create(activity);
 
-                if (createdItemId != -1) {
-                    message = ReturnMessageType.DONE;
+                if (createdItemId != RETURNED_NEGATIVE_RESULT) {
+                    message = DONE;
                 } else {
-                    message = ReturnMessageType.ENTER_ERROR;
+                    message = ENTER_ERROR;
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
 
-        LOGGER.log(Level.DEBUG, "CreateItemMessage: " + message);
+        LOGGER.log(Level.DEBUG, "Message of createActivity: " + message);
 
         return message;
     }
 
-    public List<Activity> findItems() throws ServiceException {
+    public List<Activity> findActivity() throws ServiceException {
         List<Activity> itemList;
 
         try (ActivityDao activityDao = new ActivityDaoImpl()) {
@@ -73,22 +73,22 @@ public class ActivityService {
             throw new ServiceException(e);
         }
 
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
+        LOGGER.log(Level.INFO, "Size of findAllActivity collection: " + itemList.size());
 
         return itemList;
     }
 
-    public ReturnMessageType updateItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateActivity(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message = INVALID;
 
         if (new ActivityValidator().validate(content)) {
-            try (TransactionManager transactionManager = new TransactionManager()) {
+            TransactionManager transactionManager = new TransactionManager();
                 try (ActivityDao activityDao = new ActivityDaoImpl()) {
 
                     transactionManager.startTransaction(activityDao);
 
-                    Activity activity = activityDao.findEntityById(Integer.parseInt(content.findParameter(PARAM_ID)));
+                    Activity activity = activityDao.findById(Integer.parseInt(content.findParameter(PARAM_ID)));
 
                     new ActivityDirector().buildActivity(activity, content);
 
@@ -96,41 +96,36 @@ public class ActivityService {
 
                     transactionManager.commit();
 
-                    message = ReturnMessageType.DONE;
+                    message = DONE;
 
                 } catch (DaoException e) {
                     transactionManager.rollback();
                     throw new ServiceException(e);
                 }
-            }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
-        LOGGER.log(Level.DEBUG, "UpdateItemMessage: " + message);
+
+        LOGGER.log(Level.DEBUG, "Message of updateActivity: " + message);
 
         return message;
     }
 
-    public ReturnMessageType deleteItem(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteActivity(RequestContent content) throws ServiceException {
 
-        ReturnMessageType message;
+        ReturnMessageType message =INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             try (ActivityDao activityDao = new ActivityDaoImpl()) {
                 int parsedId = Integer.parseInt(content.findParameter(PARAM_ID));
 
-                LOGGER.log(Level.DEBUG, "ID: " + parsedId);
-
                 activityDao.delete(parsedId);
 
-                message = ReturnMessageType.DONE;
+                message = DONE;
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        } else {
-            message = ReturnMessageType.INVALID;
         }
-        LOGGER.log(Level.DEBUG, "DeleteItemMessage: " + message);
+
+        LOGGER.log(Level.DEBUG, "Message of deleteActivity: " + message);
 
         return message;
     }

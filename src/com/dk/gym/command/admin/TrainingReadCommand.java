@@ -35,11 +35,11 @@ public class TrainingReadCommand implements ActionCommand {
         List<Trainer> trainerAllList;
 
         try {
-            trainingList = TrainingService.getInstance().findItems();
-            trainerList = TrainingService.getInstance().findTrainerItems();
+            trainingList = TrainingService.getInstance().findAllTraining();
+            trainerList = TrainingService.getInstance().findAllTrainer();
 
-            orderAllList = OrderService.getInstance().findItems();
-            trainerAllList = TrainerService.getInstance().findItems();
+            orderAllList = OrderService.getInstance().findAllOrder();
+            trainerAllList = TrainerService.getInstance().findAllTrainer();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
@@ -51,6 +51,7 @@ public class TrainingReadCommand implements ActionCommand {
         content.insertAttribute(PARAM_READ_ALL_TRAINER, trainerAllList);
 
         LOGGER.log(Level.DEBUG, trainingList);
+        LOGGER.log(Level.DEBUG, trainerList);
         LOGGER.log(Level.DEBUG, orderAllList);
         LOGGER.log(Level.DEBUG, trainerAllList);
 

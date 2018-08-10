@@ -27,7 +27,7 @@ public class ClientCreateCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = ClientService.getInstance().createItem(content);
+            message = ClientService.getInstance().createClient(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

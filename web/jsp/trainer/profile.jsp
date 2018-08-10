@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Trainer</title>
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +23,6 @@
     <script>
         <%@include file="../../js/script.js" %>
     </script>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
 </head>
 <body>
 <header>
@@ -45,53 +43,44 @@
 </header>
 <br>
 <br>
-<h3><fmt:message key="table.trainer.head"/></h3>
-<div>
-    <table class="greyGridTable">
-        <thead>
-        <tr>
-            <th><fmt:message key="table.trainer.number"/></th>
-            <th><fmt:message key="table.trainer.name"/></th>
-            <th><fmt:message key="table.trainer.lastName"/></th>
-            <th><fmt:message key="table.trainer.phone"/></th>
-            <th><fmt:message key="table.trainer.personalData"/></th>
-            <th><fmt:message key="table.trainer.iconPath"/></th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><jsp:useBean id="read" scope="request" type="com.dk.gym.entity.Trainer"/>
-                <c:out value="${read.idTrainer}"/>
-                </td>
+<h3 style="margin-left: 30px"><fmt:message key="table.trainer.head"/></h3>
+<table class="greyGridTable">
+    <thead>
+    <tr>
+        <th><fmt:message key="table.trainer.name"/></th>
+        <th><fmt:message key="table.trainer.lastName"/></th>
+        <th><fmt:message key="table.trainer.phone"/></th>
+        <th><fmt:message key="table.trainer.personalData"/></th>
+        <th><fmt:message key="table.trainer.iconPath"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <jsp:useBean id="read" scope="request" type="com.dk.gym.entity.Trainer"/>
+    <tr>
+        <td id="name">
+            <c:out value="${read.name}"/>
+            <ctg:select tagId="name" elem="${read.name}"/>
+        </td>
+        <td id="lastName"><c:out value="${read.lastName}"/>
+            <ctg:select tagId="lastName" elem="${read.lastName}"/>
+        </td>
+        <td id="phone"><c:out value="${read.phone}"/>
+            <ctg:select tagId="phone" elem="${read.phone}"/>
+        </td>
+        <td id="personalData"><c:out value="${read.personalData}"/>
+            <ctg:select tagId="personalData" elem="${read.personalData}"/>
+        </td>
+        <td>
+            <c:if test="${not empty read.iconPath}">
+                <img class="iconBitLarge" src="/picture/${read.iconPath}"/>
+            </c:if>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
 
-                <td id="name">
-                    <c:out value="${read.name}"/>
-                    <ctg:select tagId="name" elem="${read.name}"/>
-                </td>
-                <td id="lastName"><c:out value="${read.lastName}"/>
-                    <ctg:select tagId="lastName" elem="${read.lastName}"/>
-                </td>
-                <td id="phone"><c:out value="${read.phone}"/>
-                    <ctg:select tagId="phone" elem="${read.phone}"/>
-                </td>
-                <td id="personalData"><c:out value="${read.personalData}"/>
-                    <ctg:select tagId="personalData" elem="${read.personalData}"/>
-                </td>
-                <td>
-                    <c:if test="${not empty read.iconPath}">
-                        <img class="iconBit" src="/picture/${read.iconPath}"/>
-                    </c:if>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <div class="leftMessage">${error}</div>
+<div class="leftMessage">${error}</div>
 
-
-    <%--<footer>--%>
-    <%--<c:import url="../general/footer.jsp"/>--%>
-    <%--</footer>--%>
 </body>
-
 </html>

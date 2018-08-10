@@ -27,7 +27,7 @@ public class ActivityCreateCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = ActivityService.getInstance().createItem(content);
+            message = ActivityService.getInstance().createActivity(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

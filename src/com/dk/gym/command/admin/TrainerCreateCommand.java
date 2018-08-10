@@ -26,7 +26,7 @@ public class TrainerCreateCommand implements ActionCommand {
 
         ReturnMessageType message;
         try {
-            message = TrainerService.getInstance().createItem(content);
+            message = TrainerService.getInstance().createTrainer(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

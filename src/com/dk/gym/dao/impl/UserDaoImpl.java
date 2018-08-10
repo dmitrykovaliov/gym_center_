@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import static com.dk.gym.dao.DatabaseConstant.*;
 
 public class UserDaoImpl extends UserDao {
 
@@ -20,7 +21,7 @@ public class UserDaoImpl extends UserDao {
             "VALUES (NULL, ?, ?, ?)";
     private static final String SQL_UPDATE_USER = "UPDATE user SET us_login = ?, us_password = ?, us_role = ?" +
             "WHERE id_user = ?";
-    private static final String SQL_SELECT_ALL_USERS = "SELECT user.id_user, us_login, us_password, us_role, " +
+    private static final String SQL_SELECT_ALL_USER = "SELECT user.id_user, us_login, us_password, us_role, " +
             "id_client, cl_name, cl_lastname, id_trainer, tr_name, tr_lastname " +
             "FROM user " +
             "LEFT JOIN client c ON user.id_user = c.id_user " +
@@ -59,7 +60,7 @@ public class UserDaoImpl extends UserDao {
             throw new DaoException("Not created: ", e);
         }
 
-        return -1;
+        return RETURNED_NEGATIVE_RESULT;
     }
 
     @Override
@@ -85,16 +86,16 @@ public class UserDaoImpl extends UserDao {
         List<User> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USER)) {
 
                     while (resultSet.next()) {
 
                         User user = new User();
 
-                        user.setIdUser(resultSet.getInt("id_user"));
-                        user.setLogin(resultSet.getString("us_login"));
-                        user.setPass(resultSet.getString("us_password"));
-                        String role = resultSet.getString("us_role");
+                        user.setIdUser(resultSet.getInt(ID_USER));
+                        user.setLogin(resultSet.getString(US_LOGIN));
+                        user.setPass(resultSet.getString(US_PASS));
+                        String role = resultSet.getString(US_ROLE);
                         if (role != null && !role.isEmpty()) {
                             user.setRole(Role.valueOf(role));
                         }
@@ -112,16 +113,16 @@ public class UserDaoImpl extends UserDao {
         List<Client> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USER)) {
 
                 while (resultSet.next()) {
 
                     Client client = new Client();
 
-                    client.setIdClient(resultSet.getInt("id_client"));
-                    client.setName(resultSet.getString("cl_name"));
-                    client.setLastName(resultSet.getString("cl_lastname"));
-                    client.setIdUser(resultSet.getInt("id_user"));
+                    client.setIdClient(resultSet.getInt(ID_CLIENT));
+                    client.setName(resultSet.getString(CL_NAME));
+                    client.setLastName(resultSet.getString(CL_LASTNAME));
+                    client.setIdUser(resultSet.getInt(ID_USER));
 
                     list.add(client);
                 }
@@ -137,16 +138,16 @@ public class UserDaoImpl extends UserDao {
         List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS)) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USER)) {
 
                 while (resultSet.next()) {
 
                     Trainer trainer = new Trainer();
 
-                    trainer.setIdTrainer(resultSet.getInt("id_trainer"));
-                    trainer.setName(resultSet.getString("tr_name"));
-                    trainer.setLastName(resultSet.getString("tr_lastname"));
-                    trainer.setIdUser(resultSet.getInt("id_user"));
+                    trainer.setIdTrainer(resultSet.getInt(ID_TRAINER));
+                    trainer.setName(resultSet.getString(TR_NAME));
+                    trainer.setLastName(resultSet.getString(TR_LASTNAME));
+                    trainer.setIdUser(resultSet.getInt(ID_USER));
 
                     list.add(trainer);
                 }
@@ -158,7 +159,7 @@ public class UserDaoImpl extends UserDao {
     }
 
     @Override
-    public User findEntityById(int id) throws DaoException {
+    public User findById(int id) throws DaoException {
 
         User user = new User();
 
@@ -168,10 +169,10 @@ public class UserDaoImpl extends UserDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                     resultSet.next();
 
-                    user.setIdUser(resultSet.getInt("id_user"));
-                    user.setLogin(resultSet.getString("us_login"));
-                    user.setPass(resultSet.getString("us_password"));
-                    String role = resultSet.getString("us_role");
+                    user.setIdUser(resultSet.getInt(ID_USER));
+                    user.setLogin(resultSet.getString(US_LOGIN));
+                    user.setPass(resultSet.getString(US_PASS));
+                    String role = resultSet.getString(US_ROLE);
                     if (role != null && !role.isEmpty()) {
                         user.setRole(Role.valueOf(role));
                     }
@@ -224,8 +225,8 @@ public class UserDaoImpl extends UserDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                     resultSet.next();
 
-                    user.setIdUser(resultSet.getInt("id_user"));
-                    String role = resultSet.getString("us_role");
+                    user.setIdUser(resultSet.getInt(ID_USER));
+                    String role = resultSet.getString(US_ROLE);
                     if (role != null && !role.isEmpty()) {
                         user.setRole(Role.valueOf(role));
                     }

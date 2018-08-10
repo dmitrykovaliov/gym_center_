@@ -14,13 +14,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
-
     <style>
         <%@include file="/css/style.css" %>
     </style>
-    <%--<script type="text/javascript" src="../../js/script.js"></script>--%>
     <script>
         <%@include file="../../js/script.js" %>
     </script>
@@ -42,6 +38,7 @@
 
 <br>
 <br>
+<h3 style="margin-left: 30px">    <fmt:message key="table.activity.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="activity_create">
 
@@ -99,10 +96,8 @@
             <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
                                    value="<fmt:message key="body.create"/>"></td>
         </tr>
-
         </tbody>
     </table>
-
 </form>
 <br>
 <div class="leftMessage">${error}</div>

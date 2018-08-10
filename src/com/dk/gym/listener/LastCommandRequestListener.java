@@ -19,7 +19,7 @@ public class LastCommandRequestListener implements ServletRequestListener {
 
         String lastCommand = uri + (query != null ? ("?" + query) : "");
 
-        req.getSession().setAttribute(ParamConstant.ATTR_URL_QUERY, lastCommand);
+        req.getSession().setAttribute(ParamConstant.PARAM_URL_QUERY, lastCommand);
     }
 
     @Override

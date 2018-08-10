@@ -27,8 +27,9 @@ public class FileLoader {
         Part part = content.findPart(PARAM_ICONPATH);
         String fileName = null;
 
-        if (part != null && (fileName = part.getSubmittedFileName()) != null) {
+        if (part != null && !part.getSubmittedFileName().isEmpty()) {
 
+            fileName = part.getSubmittedFileName();
             fileName = String.format(PATH_FORMAT, idHex, "_", fileName);
 
             String uploadDirPath = String.format(PATH_FORMAT, content.findParameter(PARAM_UPLOAD), File.separator, saveDirName);
@@ -53,14 +54,14 @@ public class FileLoader {
                     fileName = null;
                 }
             }
-        }
 
-        String filePath = String.format(PATH_FORMAT, saveDirName, File.separator, fileName);
+            String filePath = String.format(PATH_FORMAT, saveDirName, File.separator, fileName);
 
-        LOGGER.log(Level.DEBUG, "filePath: " + filePath);
+            LOGGER.log(Level.DEBUG, "filePath: " + filePath);
 
-        if (filePath != null) {
-            content.insertAttribute(PARAM_ICONPATH, filePath);
+            if (filePath != null) {
+                content.insertAttribute(PARAM_ICONPATH, filePath);
+            }
         }
     }
 }

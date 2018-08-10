@@ -27,7 +27,7 @@ public class PrescriptionDeleteCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = PrescriptionService.getInstance().deleteItem(content);
+            message = PrescriptionService.getInstance().deletePrescription(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

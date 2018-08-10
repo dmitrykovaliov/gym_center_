@@ -23,7 +23,7 @@ public class PrescriptionCreateTrainerCommand implements ActionCommand {
         ReturnMessageType message;
 
         try {
-            message = PrescriptionService.getInstance().createItem(content);
+            message = PrescriptionService.getInstance().createPrescription(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

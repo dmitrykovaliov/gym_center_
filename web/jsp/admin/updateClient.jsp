@@ -8,7 +8,6 @@
 <html>
 <head>
     <title>Client</title>
-    <%--<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">--%>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,7 +60,7 @@
         </div>
         <div class="form-row">
             <input id="email" type="text" name="email" autocomplete="off"/>
-            <label for="email"><fmt:message key="table.trainer.phone"/></label>
+            <label for="email"><fmt:message key="table.trainer.email"/></label>
         </div>
         <div class="form-row">
             <input id="personalData" type="text" name="personalData" autocomplete="off"/>

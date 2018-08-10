@@ -10,7 +10,7 @@ public abstract class ActivityDao extends AbstractDao<Activity> {
     @Override
     public abstract List<Activity> findAll() throws DaoException;
 
-    public abstract Activity findEntityById(int id) throws DaoException;
+    public abstract Activity findById(int id) throws DaoException;
 
     @Override
     public abstract int create(Activity entity) throws DaoException;

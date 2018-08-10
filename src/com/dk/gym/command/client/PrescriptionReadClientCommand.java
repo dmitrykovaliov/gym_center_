@@ -5,14 +5,11 @@ import com.dk.gym.command.ContentPage;
 import com.dk.gym.command.PageConstant;
 import com.dk.gym.command.RequestMethod;
 import com.dk.gym.controller.RequestContent;
-import com.dk.gym.entity.Order;
 import com.dk.gym.entity.Prescription;
 import com.dk.gym.entity.Trainer;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.service.OrderService;
 import com.dk.gym.service.PrescriptionService;
-import com.dk.gym.service.TrainerService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,8 +29,8 @@ public class PrescriptionReadClientCommand implements ActionCommand {
         List<Trainer> trainerList;
 
         try {
-            prescriptionList = PrescriptionService.getInstance().findClientPrescriptions(content);
-            trainerList = PrescriptionService.getInstance().findTrainerItems();
+            prescriptionList = PrescriptionService.getInstance().findAllPrescriptionByClient(content);
+            trainerList = PrescriptionService.getInstance().findAllTrainer();
 
         } catch (ServiceException e) {
             throw new CommandException(e);

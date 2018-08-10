@@ -9,8 +9,13 @@
 
 <body>
 <div>
-    <p>${error}</p>
-    <p>Please contact administrator.</p>
+    <br>
+    <br>
+    <div style="text-align: center">
+    <h2>Unsupported operation</h2>
+    <p>Please check user manual or</p>
+    <p>contact administrator.</p>
+    </div>
 </div>
 </body>
 </html>

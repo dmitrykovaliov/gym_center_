@@ -22,7 +22,7 @@ public class LocaleCommand implements ActionCommand {
             LocaleManager.changeResource(new Locale("ru", "RU"));
         }
 
-        String pageUrl = (String) content.findSessionAttribute(ATTR_URL_QUERY);
+        String pageUrl = (String) content.findSessionAttribute(PARAM_URL_QUERY);
         LOGGER.log(Level.DEBUG, pageUrl);
 
         return new ContentPage(RequestMethod.REDIRECT, pageUrl);
