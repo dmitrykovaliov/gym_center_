@@ -1,6 +1,6 @@
 package com.dk.gym.validator;
 
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.validator.chain.ChainDateValidator;
 import com.dk.gym.validator.chain.ChainPriceValidator;
 import org.apache.logging.log4j.Level;
@@ -12,6 +12,10 @@ import static com.dk.gym.service.ParamConstant.*;
 public class OrderValidator {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final int MIN_DISCOUNT = 0;
+    private static final int MAX_DISCOUNT = 100;
+    private static final int MIN_FEEDBACK_LENGTH = 1;
+    private static final int MAX_FEEDBACK_LENGTH = 5000;
 
     private NotEmptyValidator notEmptyValidator;
 
@@ -21,7 +25,7 @@ public class OrderValidator {
         this.notEmptyValidator = new NotEmptyValidator();
     }
 
-    public boolean validate(RequestContent content) {
+    public boolean validate(SessionRequestContent content) {
         boolean valid;
 
         valid = validateDate(content.findParameter(PARAM_DATE));
@@ -56,7 +60,7 @@ public class OrderValidator {
         boolean valid = true;
         if(notEmptyValidator.validate(parameter)) {
             lineNotEmpty = true;
-            valid = new RangeValidator(0, 100).validate(parameter);
+            valid = new RangeValidator(MIN_DISCOUNT, MAX_DISCOUNT).validate(parameter);
         }
         LOGGER.log(Level.DEBUG, "discount: " + valid);
         return valid;
@@ -74,7 +78,7 @@ public class OrderValidator {
         boolean valid = true;
         if(notEmptyValidator.validate(parameter)) {
             lineNotEmpty = true;
-            valid = new LengthValidator(1, 5000).validate(parameter);
+            valid = new LengthValidator(MIN_FEEDBACK_LENGTH, MAX_FEEDBACK_LENGTH).validate(parameter);
         }
         LOGGER.log(Level.DEBUG, "feedback: " + valid);
         return valid;

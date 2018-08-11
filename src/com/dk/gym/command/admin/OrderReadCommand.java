@@ -1,9 +1,9 @@
 package com.dk.gym.command.admin;
 
 import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.ContentPage;
-import com.dk.gym.command.RequestMethod;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.command.RouterPage;
+import com.dk.gym.command.Router;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.entity.Activity;
 import com.dk.gym.entity.Client;
 import com.dk.gym.entity.Order;
@@ -26,7 +26,7 @@ public class OrderReadCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         List<Order> orderList;
         List<Client> clientList;
@@ -37,11 +37,11 @@ public class OrderReadCommand implements ActionCommand {
 
         try {
             orderList = OrderService.getInstance().findAllOrder();
-            clientList = OrderService.getInstance().findAllClient();
-            activityList = OrderService.getInstance().findAllActivity();
+            clientList = OrderService.getInstance().findRelatedAllClient();
+            activityList = OrderService.getInstance().findRelatedAllActivity();
 
             clientAllList = ClientService.getInstance().findAllClient();
-            activityAllList = ActivityService.getInstance().findActivity();
+            activityAllList = ActivityService.getInstance().findAllActivity();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
@@ -52,7 +52,6 @@ public class OrderReadCommand implements ActionCommand {
         content.insertAttribute(PARAM_READ_ALL_CLIENT, clientAllList);
         content.insertAttribute(PARAM_READ_ALL_ACTIVITY, activityAllList);
 
-
         LOGGER.log(Level.DEBUG, orderList);
         LOGGER.log(Level.DEBUG, clientList);
         LOGGER.log(Level.DEBUG, activityList);
@@ -61,6 +60,6 @@ public class OrderReadCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

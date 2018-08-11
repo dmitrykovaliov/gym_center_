@@ -1,3 +1,3 @@
 
-“squid:S1192"rDefine a constant instead of duplicating this literal "SELECT id_client, cl_name, cl_lastname, cl_phone," 3 times.(º¥¿ùûÿÿÿÿ8Ïó¸Ò,
 hsquid:S1192"LDefine a constant instead of duplicating this literal "Not found: " 3 times.(Ôí8Ïó¸Ò,
+“squid:S1192"rDefine a constant instead of duplicating this literal "SELECT id_client, cl_name, cl_lastname, cl_phone," 3 times.(º¥¿ùûÿÿÿÿ8Ïó¸Ò,

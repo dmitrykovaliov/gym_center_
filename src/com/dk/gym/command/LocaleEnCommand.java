@@ -4,15 +4,23 @@ import com.dk.gym.controller.SessionRequestContent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.dk.gym.resource.LocaleManager;
 
-public class LogoutCommand implements ActionCommand {
+import java.util.Locale;
+
+import static com.dk.gym.service.ParamConstant.*;
+
+public class LocaleEnCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public RouterPage execute(SessionRequestContent content) {
 
-        String pageUrl = PageConstant.PAGE_INDEX;
+        content.insertSessionAttribute(PARAM_LOCALE, "");
+        LocaleManager.changeResource(Locale.getDefault());
 
+
+        String pageUrl = (String) content.findSessionAttribute(PARAM_URL_QUERY);
         LOGGER.log(Level.DEBUG, pageUrl);
 
         return new RouterPage(Router.REDIRECT, pageUrl);

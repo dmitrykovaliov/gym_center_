@@ -14,8 +14,8 @@ import static com.dk.gym.dao.DatabaseConstant.*;
 
 public class TrainerDaoImpl extends TrainerDao {
 
-    private static final String SQL_INSERT_TRAINER = "INSERT INTO trainer(id_trainer, tr_name, tr_lastname, tr_phone, " +
-            "tr_personal_data, tr_iconpath) " +
+    private static final String SQL_INSERT_TRAINER = "INSERT INTO trainer(id_trainer, tr_name, tr_lastname, " +
+            "tr_phone, tr_personal_data, tr_iconpath) " +
             "VALUES (NULL, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_TRAINER = "UPDATE trainer SET tr_name = ?, tr_lastname = ?, tr_phone = ?, " +
             "tr_personal_data = ?, tr_iconpath = ? " +
@@ -92,7 +92,7 @@ public class TrainerDaoImpl extends TrainerDao {
             return true;
 
         } catch (SQLException e) {
-            throw new DaoException("Not updated trainer by userId: ", e);
+            throw new DaoException("Not updated by userId: ", e);
         }
     }
 
@@ -144,7 +144,7 @@ public class TrainerDaoImpl extends TrainerDao {
                     trainer.setIconPath(resultSet.getString(TR_ICONPATH));
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found entityById: ", e);
+            throw new DaoException("Not found by ID: ", e);
         }
         return trainer;
     }

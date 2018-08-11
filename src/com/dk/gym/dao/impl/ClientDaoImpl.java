@@ -112,7 +112,7 @@ public class ClientDaoImpl extends ClientDao {
 
             return true;
         } catch (SQLException e) {
-            throw new DaoException("Can't update userId: ", e);
+            throw new DaoException("Not updated userId: ", e);
         }
     }
 

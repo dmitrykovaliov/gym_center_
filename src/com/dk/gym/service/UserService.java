@@ -1,5 +1,6 @@
 package com.dk.gym.service;
 
+import com.dk.gym.command.PageConstant;
 import com.dk.gym.command.ReturnMessageType;
 import com.dk.gym.dao.*;
 import com.dk.gym.dao.impl.ClientDaoImpl;
@@ -12,17 +13,18 @@ import com.dk.gym.entity.Role;
 import com.dk.gym.builder.UserDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.util.CryptPass;
-import com.dk.gym.validator.*;
 import com.dk.gym.validator.chain.ChainIdValidator;
 import com.dk.gym.validator.impl.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 import static com.dk.gym.command.ReturnMessageType.*;
+import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
 public class UserService {
@@ -43,52 +45,53 @@ public class UserService {
         return instance;
     }
 
-    public ReturnMessageType createUser(RequestContent content) throws ServiceException {
+    public ReturnMessageType createUser(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
+
         String idClient = content.findParameter(ParamConstant.PARAM_CLIENT_ID);
         String idTrainer = content.findParameter(ParamConstant.PARAM_TRAINER_ID);
-        boolean validClient = !DEFAULT_ID_VALUE.equals(idClient);
-        boolean validTrainer = !DEFAULT_ID_VALUE.equals(idTrainer);
+        boolean validIdClient = !DEFAULT_ID_VALUE.equals(idClient);
+        boolean validIdTrainer = !DEFAULT_ID_VALUE.equals(idTrainer);
 
-        if (!(!new UserValidator().validate(content) || validClient && validTrainer)) {
+        if (!(!new UserValidator().validate(content) || validIdClient && validIdTrainer)) {
+
             TransactionManager transactionManager = new TransactionManager();
-                try (UserDao userDao = new UserDaoImpl();
-                     ClientDao clientDao = new ClientDaoImpl();
-                     TrainerDao trainerDao = new TrainerDaoImpl()) {
-                    if(!userDao.findLogin(content.findParameter(PARAM_LOGIN))) {
 
-                        transactionManager.startTransaction(userDao, clientDao, trainerDao);
+            try (UserDao userDao = new UserDaoImpl();
+                 ClientDao clientDao = new ClientDaoImpl();
+                 TrainerDao trainerDao = new TrainerDaoImpl()) {
 
-                        User user = new UserDirector().buildUser(content);
+                if (!userDao.findLogin(content.findParameter(PARAM_LOGIN))) {
 
-                        int userId = userDao.create(user);
+                    transactionManager.startTransaction(userDao, clientDao, trainerDao);
 
-                        if (validClient) {
-                            clientDao.updateUserId(userId, Integer.parseInt(idClient));
+                    User user = new UserDirector().buildUser(content);
+
+                    int createdUserId = userDao.create(user);
+
+                    if (createdUserId != RETURNED_NEGATIVE_RESULT) {
+                        if (validIdClient) {
+                            clientDao.updateUserId(createdUserId, Integer.parseInt(idClient));
                         }
-                        if (validTrainer) {
-                            trainerDao.updateUserId(userId, Integer.parseInt(idTrainer));
+                        if (validIdTrainer) {
+                            trainerDao.updateUserId(createdUserId, Integer.parseInt(idTrainer));
                         }
-
-                        if (userId != -1) {
-                            transactionManager.commit();
-                            message = DONE;
-                        } else {
-                            transactionManager.rollback();
-                            message = ENTER_ERROR;
-                        }
+                        transactionManager.commit();
+                        message = DONE;
                     } else {
                         transactionManager.rollback();
-                        message = USER_EXIST;
+                        message = ENTER_ERROR;
                     }
-                } catch (DaoException e) {
+                } else {
                     transactionManager.rollback();
-                    throw new ServiceException(e);
+                    message = USER_EXIST;
                 }
-
+            } catch (DaoException e) {
+                transactionManager.rollback();
+                throw new ServiceException(e);
+            }
         }
-
         LOGGER.log(Level.DEBUG, "createUserMessage: " + message);
 
         return message;
@@ -105,63 +108,60 @@ public class UserService {
         return itemList;
     }
 
-    public List<Client> findAllClient() throws ServiceException {
+    public List<Client> findRelatedAllClient() throws ServiceException {
         List<Client> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
-            itemList = userDao.findAllClient();
+            itemList = userDao.findRelatedAllClient();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return itemList;
     }
 
-    public List<Trainer> findAllTrainer() throws ServiceException {
+    public List<Trainer> findRelatedAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
         try (UserDao userDao = new UserDaoImpl()) {
-            itemList = userDao.findAllTrainer();
+            itemList = userDao.findRelatedAllTrainer();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return itemList;
     }
 
-    public ReturnMessageType deleteUser(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteUser(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             TransactionManager transactionManager = new TransactionManager();
-                try (UserDao userDao = new UserDaoImpl();
-                     ClientDao clientDao = new ClientDaoImpl();
-                     TrainerDao trainerDao = new TrainerDaoImpl()) {
+            try (UserDao userDao = new UserDaoImpl();
+                 ClientDao clientDao = new ClientDaoImpl();
+                 TrainerDao trainerDao = new TrainerDaoImpl()) {
 
-                    transactionManager.startTransaction(userDao, clientDao, trainerDao);
+                transactionManager.startTransaction(userDao, clientDao, trainerDao);
 
-                    int parsedId = Integer.parseInt(content.findParameter(PARAM_ID));
+                int userId = Integer.parseInt(content.findParameter(PARAM_ID));
 
-                    LOGGER.log(Level.DEBUG, "ID: " + parsedId);
+                String idClient = content.findParameter(ParamConstant.PARAM_CLIENT_ID);
+                String idTrainer = content.findParameter(ParamConstant.PARAM_TRAINER_ID);
 
-                    String idClient = content.findParameter(ParamConstant.PARAM_CLIENT_ID);
-                    String idTrainer = content.findParameter(ParamConstant.PARAM_TRAINER_ID);
-
-                    if(new NotEmptyValidator().validate(idClient)) {
-                        clientDao.updateUserId(null, Integer.parseInt(idClient));
-                    }
-                    if(new NotEmptyValidator().validate(idTrainer)) {
-                        trainerDao.updateUserId(null, Integer.parseInt(idTrainer));
-                    }
-
-                    userDao.delete(parsedId);
-
-                    transactionManager.commit();
-
-                    message = DONE;
-                } catch (DaoException e) {
-                    transactionManager.rollback();
-                    throw new ServiceException(e);
+                if (!DEFAULT_ID_VALUE.equals(idClient)) {
+                    clientDao.updateUserId(null, Integer.parseInt(idClient));
                 }
+                if (!DEFAULT_ID_VALUE.equals(idTrainer)) {
+                    trainerDao.updateUserId(null, Integer.parseInt(idTrainer));
+                }
+                userDao.delete(userId);
+
+                transactionManager.commit();
+
+                message = DONE;
+            } catch (DaoException e) {
+                transactionManager.rollback();
+                throw new ServiceException(e);
+            }
 
         }
         LOGGER.log(Level.DEBUG, "deleteUserMessage: " + message);
@@ -169,7 +169,7 @@ public class UserService {
         return message;
     }
 
-    public ReturnMessageType checkUser(RequestContent content) throws ServiceException {
+    public ReturnMessageType checkUser(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
         Role role;
@@ -200,6 +200,7 @@ public class UserService {
                 message = DONE;
                 content.insertSessionAttribute(PARAM_ROLE, role.toString());
                 content.insertSessionAttribute(PARAM_USER_ID, userId);
+                content.insertSessionAttribute(PARAM_URL_QUERY, PageConstant.PAGE_MAIN);
             }
         }
         return message;

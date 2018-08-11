@@ -1,15 +1,12 @@
 package com.dk.gym.command.admin;
 
-import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.ContentPage;
-import com.dk.gym.command.RequestMethod;
-import com.dk.gym.command.ReturnMessageType;
+import com.dk.gym.command.*;
+import com.dk.gym.command.RouterPage;
 import com.dk.gym.command.factory.ReturnMessageFactory;
-import com.dk.gym.command.PageConstant;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.service.TrainerService;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +19,7 @@ public class TrainerCreateCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         ReturnMessageType message;
         try {
@@ -38,6 +35,6 @@ public class TrainerCreateCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

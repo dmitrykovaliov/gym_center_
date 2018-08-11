@@ -26,7 +26,7 @@ public abstract class UserDao extends AbstractDao<User> {
 
     public abstract boolean findLogin(String login) throws DaoException;
 
-    public abstract List<Client> findAllClient() throws DaoException;
+    public abstract List<Client> findRelatedAllClient() throws DaoException;
 
-    public abstract List<Trainer> findAllTrainer() throws DaoException;
+    public abstract List<Trainer> findRelatedAllTrainer() throws DaoException;
 }

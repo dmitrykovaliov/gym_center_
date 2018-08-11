@@ -8,7 +8,7 @@ import com.dk.gym.dao.impl.ActivityDaoImpl;
 import com.dk.gym.entity.Activity;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.validator.chain.ChainIdValidator;
 import com.dk.gym.validator.impl.ActivityValidator;
 import org.apache.logging.log4j.Level;
@@ -38,7 +38,7 @@ public class ActivityService {
         return instance;
     }
 
-    public ReturnMessageType createActivity(RequestContent content) throws ServiceException {
+    public ReturnMessageType createActivity(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -59,12 +59,12 @@ public class ActivityService {
             }
         }
 
-        LOGGER.log(Level.DEBUG, "Message of createActivity: " + message);
+        LOGGER.log(Level.DEBUG, "CreateActivityMessage: " + message);
 
         return message;
     }
 
-    public List<Activity> findActivity() throws ServiceException {
+    public List<Activity> findAllActivity() throws ServiceException {
         List<Activity> itemList;
 
         try (ActivityDao activityDao = new ActivityDaoImpl()) {
@@ -72,13 +72,10 @@ public class ActivityService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of findAllActivity collection: " + itemList.size());
-
         return itemList;
     }
 
-    public ReturnMessageType updateActivity(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateActivity(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -104,12 +101,12 @@ public class ActivityService {
                 }
         }
 
-        LOGGER.log(Level.DEBUG, "Message of updateActivity: " + message);
+        LOGGER.log(Level.DEBUG, "UpdateActivityMessage: " + message);
 
         return message;
     }
 
-    public ReturnMessageType deleteActivity(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteActivity(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message =INVALID;
 
@@ -125,7 +122,7 @@ public class ActivityService {
             }
         }
 
-        LOGGER.log(Level.DEBUG, "Message of deleteActivity: " + message);
+        LOGGER.log(Level.DEBUG, "DeleteActivityMessage: " + message);
 
         return message;
     }

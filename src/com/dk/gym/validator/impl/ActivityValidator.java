@@ -1,6 +1,6 @@
 package com.dk.gym.validator.impl;
 
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.validator.chain.ChainPriceValidator;
 import com.dk.gym.validator.LengthValidator;
 import com.dk.gym.validator.NotEmptyValidator;
@@ -26,7 +26,7 @@ public class ActivityValidator {
         this.notEmptyValidator = new NotEmptyValidator();
     }
 
-    public boolean validate(RequestContent content) {
+    public boolean validate(SessionRequestContent content) {
         boolean valid;
 
         valid = validateName(content.findParameter(PARAM_NAME));

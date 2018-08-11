@@ -1,10 +1,10 @@
 package com.dk.gym.command.admin;
 
 import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.ContentPage;
-import com.dk.gym.command.RequestMethod;
+import com.dk.gym.command.RouterPage;
+import com.dk.gym.command.Router;
 import com.dk.gym.command.PageConstant;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.entity.Order;
 import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.Training;
@@ -26,7 +26,7 @@ public class TrainingReadCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         List<Training> trainingList;
         List<Trainer> trainerList;
@@ -36,7 +36,7 @@ public class TrainingReadCommand implements ActionCommand {
 
         try {
             trainingList = TrainingService.getInstance().findAllTraining();
-            trainerList = TrainingService.getInstance().findAllTrainer();
+            trainerList = TrainingService.getInstance().findRelatedAllTrainer();
 
             orderAllList = OrderService.getInstance().findAllOrder();
             trainerAllList = TrainerService.getInstance().findAllTrainer();
@@ -52,13 +52,11 @@ public class TrainingReadCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, trainingList);
         LOGGER.log(Level.DEBUG, trainerList);
-        LOGGER.log(Level.DEBUG, orderAllList);
-        LOGGER.log(Level.DEBUG, trainerAllList);
 
         String pageUrl = PageConstant.PAGE_TRAINING;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

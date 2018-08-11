@@ -1,6 +1,6 @@
 package com.dk.gym.util;
 
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,14 +18,13 @@ public class FileLoader {
 
     private static final String PATH_FORMAT = "%s%s%s";
 
-    public void loadFile(String saveDirName, RequestContent content) {
-
+    public void loadFile(String saveDirName, SessionRequestContent content) {
 
         long id = UUID.randomUUID().getLeastSignificantBits();
         String idHex = Long.toHexString(id);
 
         Part part = content.findPart(PARAM_ICONPATH);
-        String fileName = null;
+        String fileName;
 
         if (part != null && !part.getSubmittedFileName().isEmpty()) {
 
@@ -35,32 +34,24 @@ public class FileLoader {
             String uploadDirPath = String.format(PATH_FORMAT, content.findParameter(PARAM_UPLOAD), File.separator, saveDirName);
             String uploadFilePath = String.format(PATH_FORMAT, uploadDirPath, File.separator, fileName);
 
-            LOGGER.log(Level.DEBUG, "uploadDirPath: " + uploadDirPath);
-            LOGGER.log(Level.DEBUG, "uploadFilePath: " + uploadFilePath);
-
-            boolean dirCreated = true;
+            boolean dixExist = true;
 
             File fileSaveDir = new File(uploadDirPath);
             if (!fileSaveDir.exists()) {
-                dirCreated = fileSaveDir.mkdirs();
+                dixExist = fileSaveDir.mkdirs();
             }
-
-            if (dirCreated) {
-
+            if (dixExist) {
                 try {
                     part.write(uploadFilePath);
+
+                    String filePath = String.format(PATH_FORMAT, saveDirName, File.separator, fileName);
+
+                    content.insertAttribute(PARAM_ICONPATH, filePath);
+
+                    LOGGER.log(Level.DEBUG, "filePath: " + filePath);
                 } catch (IOException e) {
-                    LOGGER.log(Level.ERROR, e);
-                    fileName = null;
+                    LOGGER.log(Level.ERROR, "Writing part into file", e);
                 }
-            }
-
-            String filePath = String.format(PATH_FORMAT, saveDirName, File.separator, fileName);
-
-            LOGGER.log(Level.DEBUG, "filePath: " + filePath);
-
-            if (filePath != null) {
-                content.insertAttribute(PARAM_ICONPATH, filePath);
             }
         }
     }

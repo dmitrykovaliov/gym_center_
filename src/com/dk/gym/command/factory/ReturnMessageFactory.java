@@ -9,6 +9,7 @@ public class ReturnMessageFactory {
         if (message != null) {
             return message.getProperty();
         }
+
         return "message.error";
     }
 }

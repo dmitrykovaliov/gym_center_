@@ -1,7 +1,7 @@
 package com.dk.gym.service;
 
 import com.dk.gym.command.ReturnMessageType;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.dao.PrescriptionDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.PrescriptionDaoImpl;
@@ -38,7 +38,7 @@ public class PrescriptionService {
         return instance;
     }
 
-    public ReturnMessageType createPrescription(RequestContent content) throws ServiceException {
+    public ReturnMessageType createPrescription(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -74,54 +74,49 @@ public class PrescriptionService {
         return itemList;
     }
 
-    public List<Trainer> findAllTrainer() throws ServiceException {
+    public List<Trainer> findRelatedAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
         try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
-            itemList = prescriptionDao.findAllTrainer();
+            itemList = prescriptionDao.findRelatedAllTrainer();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        LOGGER.log(Level.INFO, "Size of TrainerItems: " + itemList.size());
-
         return itemList;
     }
 
-    public ReturnMessageType updatePrescription(RequestContent content) throws ServiceException {
+    public ReturnMessageType updatePrescription(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
         if (new PrescriptionValidator().validate(content)) {
 
             TransactionManager transactionManager = new TransactionManager();
-                try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
+            try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
 
-                    transactionManager.startTransaction(prescriptionDao);
+                transactionManager.startTransaction(prescriptionDao);
 
-                    Prescription prescription = prescriptionDao.findById(Integer.parseInt(content.findParameter(PARAM_ORDER_ID)),
-                            Integer.parseInt(content.findParameter(PARAM_TRAINER_ID)));
+                Prescription prescription = prescriptionDao
+                        .findById(Integer.parseInt(content.findParameter(PARAM_ORDER_ID)),
+                                Integer.parseInt(content.findParameter(PARAM_TRAINER_ID)));
 
-                    LOGGER.log(Level.DEBUG, "updatePrescription: " + prescription);
+                new PrescriptionDirector().buildPrescription(prescription, content);
 
-                    new PrescriptionDirector().buildPrescription(prescription, content);
+                prescriptionDao.update(prescription);
 
-                    prescriptionDao.update(prescription);
+                transactionManager.commit();
 
-                    transactionManager.commit();
-
-                    message = DONE;
-
-                } catch (DaoException e) {
-                    transactionManager.rollback();
-                    throw new ServiceException(e);
-                }
-
+                message = DONE;
+            } catch (DaoException e) {
+                transactionManager.rollback();
+                throw new ServiceException(e);
+            }
         }
         LOGGER.log(Level.DEBUG, "updatePrescriptionMessage: " + message);
 
         return message;
     }
 
-    public ReturnMessageType deletePrescription(RequestContent content) throws ServiceException {
+    public ReturnMessageType deletePrescription(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message;
 
@@ -129,12 +124,10 @@ public class PrescriptionService {
             int orderIdInt = Integer.parseInt(content.findParameter(PARAM_ORDER_ID));
             int trainerIdInt = Integer.parseInt(content.findParameter(PARAM_TRAINER_ID));
 
-            LOGGER.log(Level.DEBUG, "orderId: " + orderIdInt);
-            LOGGER.log(Level.DEBUG, "trainerId: " + trainerIdInt);
-
             prescriptionDao.delete(orderIdInt, trainerIdInt);
 
             message = DONE;
+
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -144,7 +137,7 @@ public class PrescriptionService {
         return message;
     }
 
-    public List<Prescription> findAllPrescriptionByTrainer(RequestContent content) throws ServiceException {
+    public List<Prescription> findAllPrescriptionByTrainer(SessionRequestContent content) throws ServiceException {
         List<Prescription> itemList;
 
         try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
@@ -155,7 +148,7 @@ public class PrescriptionService {
         return itemList;
     }
 
-    public List<Prescription> findAllPrescriptionByClient(RequestContent content) throws ServiceException {
+    public List<Prescription> findAllPrescriptionByClient(SessionRequestContent content) throws ServiceException {
         List<Prescription> itemList;
 
         try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {

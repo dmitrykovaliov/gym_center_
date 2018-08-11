@@ -51,7 +51,6 @@ public class UserDaoImpl extends UserDao {
             statement.executeUpdate();
 
             try (ResultSet generatedKey = statement.getGeneratedKeys()) {
-
                 if (generatedKey.next()) {
                     return generatedKey.getInt(1);
                 }
@@ -59,7 +58,6 @@ public class UserDaoImpl extends UserDao {
         } catch (SQLException e) {
             throw new DaoException("Not created: ", e);
         }
-
         return RETURNED_NEGATIVE_RESULT;
     }
 
@@ -95,10 +93,12 @@ public class UserDaoImpl extends UserDao {
                         user.setIdUser(resultSet.getInt(ID_USER));
                         user.setLogin(resultSet.getString(US_LOGIN));
                         user.setPass(resultSet.getString(US_PASS));
+
                         String role = resultSet.getString(US_ROLE);
                         if (role != null && !role.isEmpty()) {
                             user.setRole(Role.valueOf(role));
                         }
+
                         list.add(user);
                     }
             }
@@ -109,7 +109,7 @@ public class UserDaoImpl extends UserDao {
     }
 
     @Override
-    public List<Client> findAllClient() throws DaoException {
+    public List<Client> findRelatedAllClient() throws DaoException {
         List<Client> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
@@ -134,7 +134,7 @@ public class UserDaoImpl extends UserDao {
     }
 
     @Override
-    public List<Trainer> findAllTrainer() throws DaoException {
+    public List<Trainer> findRelatedAllTrainer() throws DaoException {
         List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {

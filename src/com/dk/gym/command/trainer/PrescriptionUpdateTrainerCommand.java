@@ -2,7 +2,7 @@ package com.dk.gym.command.trainer;
 
 import com.dk.gym.command.*;
 import com.dk.gym.command.factory.ReturnMessageFactory;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.resource.LocaleManager;
@@ -18,7 +18,7 @@ public class PrescriptionUpdateTrainerCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         ReturnMessageType message;
         try {
@@ -34,6 +34,6 @@ public class PrescriptionUpdateTrainerCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

@@ -1,7 +1,7 @@
 package com.dk.gym.service;
 
 import com.dk.gym.command.ReturnMessageType;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.dao.OrderDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.OrderDaoImpl;
@@ -41,7 +41,7 @@ public class OrderService {
         return instance;
     }
 
-    public ReturnMessageType createOrder(RequestContent content) throws ServiceException {
+    public ReturnMessageType createOrder(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -61,8 +61,7 @@ public class OrderService {
                 throw new ServiceException(e);
             }
         }
-
-        LOGGER.log(Level.DEBUG, "CreateItemMessage: " + message);
+        LOGGER.log(Level.DEBUG, "CreateOrderMessage: " + message);
 
         return message;
     }
@@ -78,29 +77,29 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Client> findAllClient() throws ServiceException {
+    public List<Client> findRelatedAllClient() throws ServiceException {
         List<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findAllClient();
+            itemList = orderDao.findRelatedAllClient();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return itemList;
     }
 
-    public List<Activity> findAllActivity() throws ServiceException {
+    public List<Activity> findRelatedAllActivity() throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findAllActivity();
+            itemList = orderDao.findRelatedAllActivity();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return itemList;
     }
 
-    public ReturnMessageType updateOrder(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateOrder(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -131,7 +130,7 @@ public class OrderService {
         return message;
     }
 
-    public ReturnMessageType deleteOrder(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteOrder(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -148,11 +147,10 @@ public class OrderService {
                 throw new ServiceException(e);
             }
         }
-
         return message;
     }
 
-    public List<Order> findAllOrderByTrainer(RequestContent content) throws ServiceException {
+    public List<Order> findAllOrderByTrainer(SessionRequestContent content) throws ServiceException {
         List<Order> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -164,7 +162,7 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Client> findAllClientByTrainer(RequestContent content) throws ServiceException {
+    public List<Client> findAllClientByTrainer(SessionRequestContent content) throws ServiceException {
         List<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -176,7 +174,7 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Activity> findAllActivityByTrainer(RequestContent content) throws ServiceException {
+    public List<Activity> findAllActivityByTrainer(SessionRequestContent content) throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -189,7 +187,7 @@ public class OrderService {
     }
 
 
-    public List<Order> findAllOrderByClient(RequestContent content) throws ServiceException {
+    public List<Order> findAllOrderByClient(SessionRequestContent content) throws ServiceException {
         List<Order> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
@@ -201,7 +199,7 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Activity> findAllActivityByClient(RequestContent content) throws ServiceException {
+    public List<Activity> findAllActivityByClient(SessionRequestContent content) throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {

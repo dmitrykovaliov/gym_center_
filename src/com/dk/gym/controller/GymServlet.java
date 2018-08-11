@@ -1,12 +1,10 @@
 package com.dk.gym.controller;
 
 import com.dk.gym.command.ActionCommand;
+import com.dk.gym.command.Router;
 import com.dk.gym.command.factory.ActionFactory;
-import com.dk.gym.command.PageConstant;
-import com.dk.gym.service.ParamConstant;
 import com.dk.gym.exception.CommandException;
-import com.dk.gym.command.ContentPage;
-import com.dk.gym.command.RequestMethod;
+import com.dk.gym.command.RouterPage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.dk.gym.command.PageConstant.*;
+import static com.dk.gym.service.ParamConstant.PARAM_URL_QUERY;
 
 
 @WebServlet(name = "GymServlet", urlPatterns = {"/controller"})
@@ -28,6 +27,7 @@ import static com.dk.gym.command.PageConstant.*;
 public class GymServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    public static final String CONTROLLER_URI = "/controller";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,30 +46,30 @@ public class GymServlet extends HttpServlet {
             throws ServletException, IOException {
 
 
-        ContentPage contentPage;
+        RouterPage routerPage;
 
-        RequestContent content = new RequestContent();
+        SessionRequestContent content = new SessionRequestContent();
 
         content.extractValues(request);
 
         ActionCommand command = new ActionFactory().defineCommand(content);
 
         try {
-            contentPage = command.execute(content);
+            routerPage = command.execute(content);
         } catch (CommandException e) {
             LOGGER.log(Level.ERROR, e);
-            contentPage = new ContentPage(RequestMethod.FORWARD, PAGE_ERROR);
+            routerPage = new RouterPage(Router.FORWARD, PAGE_ERROR);
         }
 
         content.insertValues(request);
 
-        if (contentPage != null) {
-            switch (contentPage.getRequestMethod()) {
+        if (routerPage != null) {
+            switch (routerPage.getRouter()) {
                 case FORWARD:
-                   getServletContext().getRequestDispatcher(contentPage.getPageURL()).forward(request, response);
+                   getServletContext().getRequestDispatcher(routerPage.getPageURL()).forward(request, response);
                     break;
                 case REDIRECT:
-                    response.sendRedirect(contentPage.getPageURL());
+                    response.sendRedirect(routerPage.getPageURL());
                     break;
                 default:
                     getServletContext().getRequestDispatcher(PAGE_BASE_ERROR).forward(request, response);

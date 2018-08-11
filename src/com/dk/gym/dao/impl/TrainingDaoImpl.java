@@ -14,10 +14,14 @@ import static com.dk.gym.dao.DatabaseConstant.*;
 
 public class TrainingDaoImpl extends TrainingDao {
 
-    private static final String SQL_INSERT_TRAINING = "INSERT INTO training(id_training, trg_date, trg_start_time, trg_end_time, trg_visited," +
-            "trg_client_note, trg_trainer_note, id_order, id_trainer) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_TRAINING = "UPDATE training SET trg_date = ?, trg_start_time = ?, trg_end_time = ?, " +
-            "trg_visited = ?, trg_client_note = ?, trg_trainer_note = ?, id_order = ?, id_trainer = ? WHERE id_training = ?";
+    private static final String SQL_INSERT_TRAINING = "INSERT INTO training(id_training, trg_date, trg_start_time, " +
+            "trg_end_time, trg_visited," +
+            "trg_client_note, trg_trainer_note, id_order, id_trainer) " +
+            "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_TRAINING = "UPDATE training " +
+            "SET trg_date = ?, trg_start_time = ?, trg_end_time = ?, " +
+            "trg_visited = ?, trg_client_note = ?, trg_trainer_note = ?, id_order = ?, id_trainer = ? " +
+            "WHERE id_training = ?";
     private static final String SQL_SELECT_ALL_TRAINING = "SELECT id_training, trg_date, trg_start_time, " +
             "trg_end_time, trg_visited, trg_client_note, trg_trainer_note, id_order, t.id_trainer, tr_name, tr_lastname " +
             "FROM training " +
@@ -39,9 +43,12 @@ public class TrainingDaoImpl extends TrainingDao {
             "JOIN user u ON c.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
             "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC";
-    private static final String SQL_SELECT_TRAINING_BY_ID = "SELECT id_training, trg_date, trg_start_time, trg_end_time, trg_visited, trg_client_note," +
+    private static final String SQL_SELECT_TRAINING_BY_ID = "SELECT id_training, trg_date, trg_start_time, " +
+            "trg_end_time, trg_visited, trg_client_note," +
             "trg_trainer_note, id_order, id_trainer  FROM training WHERE id_training=?";
     private static final String SQL_DELETE_TRAINING = "DELETE FROM training WHERE id_training = ?";
+
+    private static final int TRUE_VALUE = 1;
 
 
     public TrainingDaoImpl() {
@@ -51,7 +58,8 @@ public class TrainingDaoImpl extends TrainingDao {
     @Override
     public int create(Training entity) throws DaoException {
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_TRAINING, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection
+                .prepareStatement(SQL_INSERT_TRAINING, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setDate(1, entity.getDate() != null ? Date.valueOf(entity.getDate()) : null);
             statement.setTime(2, entity.getStartTime() != null ? Time.valueOf(entity.getStartTime()) : null);
@@ -65,7 +73,6 @@ public class TrainingDaoImpl extends TrainingDao {
             statement.executeUpdate();
 
             try (ResultSet generatedKey = statement.getGeneratedKeys()) {
-
                 if (generatedKey.next()) {
                     return generatedKey.getInt(1);
                 }
@@ -120,10 +127,13 @@ public class TrainingDaoImpl extends TrainingDao {
                     Training training = new Training();
 
                     training.setIdTraining(resultSet.getInt(ID_TRAINING));
-                    training.setDate(resultSet.getDate(TRG_DATE) != null ? resultSet.getDate(TRG_DATE).toLocalDate() : null);
-                    training.setStartTime(resultSet.getTime(TRG_START_TIME) != null ? resultSet.getTime(TRG_START_TIME).toLocalTime() : null);
-                    training.setEndTime(resultSet.getTime(TRG_END_TIME) != null ? resultSet.getTime(TRG_END_TIME).toLocalTime() : null);
-                    training.setVisited(resultSet.getInt(TRG_VISITED) == 1);
+                    training.setDate(resultSet
+                            .getDate(TRG_DATE) != null ? resultSet.getDate(TRG_DATE).toLocalDate() : null);
+                    training.setStartTime(resultSet
+                            .getTime(TRG_START_TIME) != null ? resultSet.getTime(TRG_START_TIME).toLocalTime() : null);
+                    training.setEndTime(resultSet
+                            .getTime(TRG_END_TIME) != null ? resultSet.getTime(TRG_END_TIME).toLocalTime() : null);
+                    training.setVisited(resultSet.getInt(TRG_VISITED) == TRUE_VALUE);
                     training.setClientNote(resultSet.getString(TRG_CLIENT_NOTE));
                     training.setTrainerNote(resultSet.getString(TRG_TRAINER_NOTE));
                     training.setIdOrder(resultSet.getInt(ID_ORDER));
@@ -139,7 +149,7 @@ public class TrainingDaoImpl extends TrainingDao {
     }
 
     @Override
-    public List<Trainer> findAllTrainer() throws DaoException {
+    public List<Trainer> findRelatedAllTrainer() throws DaoException {
         List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
@@ -157,7 +167,7 @@ public class TrainingDaoImpl extends TrainingDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found allTrainer: ", e);
+            throw new DaoException("Not found relatedAllTrainer: ", e);
         }
         return list;
     }
@@ -173,10 +183,13 @@ public class TrainingDaoImpl extends TrainingDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
                 training.setIdTraining(resultSet.getInt(ID_TRAINING));
-                training.setDate(resultSet.getDate(TRG_DATE) != null ? resultSet.getDate(TRG_DATE).toLocalDate() : null);
-                training.setStartTime(resultSet.getTime(TRG_START_TIME) != null ? resultSet.getTime(TRG_START_TIME).toLocalTime() : null);
-                training.setEndTime(resultSet.getTime(TRG_END_TIME) != null ? resultSet.getTime(TRG_END_TIME).toLocalTime() : null);
-                training.setVisited(resultSet.getInt(TRG_VISITED) == 1);
+                training.setDate(resultSet
+                        .getDate(TRG_DATE) != null ? resultSet.getDate(TRG_DATE).toLocalDate() : null);
+                training.setStartTime(resultSet
+                        .getTime(TRG_START_TIME) != null ? resultSet.getTime(TRG_START_TIME).toLocalTime() : null);
+                training.setEndTime(resultSet
+                        .getTime(TRG_END_TIME) != null ? resultSet.getTime(TRG_END_TIME).toLocalTime() : null);
+                training.setVisited(resultSet.getInt(TRG_VISITED) == TRUE_VALUE);
                 training.setClientNote(resultSet.getString(TRG_CLIENT_NOTE));
                 training.setTrainerNote(resultSet.getString(TRG_TRAINER_NOTE));
                 training.setIdOrder(resultSet.getInt(ID_ORDER));

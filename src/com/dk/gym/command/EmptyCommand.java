@@ -1,14 +1,14 @@
 package com.dk.gym.command;
 
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 
 public class EmptyCommand implements ActionCommand {
 
     @Override
-    public ContentPage execute(RequestContent content) {
+    public RouterPage execute(SessionRequestContent content) {
 
         String pageUrl = PageConstant.PAGE_LOGIN;
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

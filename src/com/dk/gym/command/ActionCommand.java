@@ -1,8 +1,8 @@
 package com.dk.gym.command;
 
 import com.dk.gym.exception.CommandException;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 
 public interface ActionCommand {
-    ContentPage execute(RequestContent content) throws CommandException;
+    RouterPage execute(SessionRequestContent content) throws CommandException;
 }

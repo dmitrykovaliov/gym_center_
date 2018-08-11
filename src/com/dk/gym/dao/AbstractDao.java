@@ -25,7 +25,6 @@ public abstract class AbstractDao<T extends Entity> implements AutoCloseable {
     @Override
     public void close() {
         if (connection != null) {
-            System.out.println("ABSTRACTDAO - CLOSED CONNECTION" + connection);
             connection.close();
         }
     }

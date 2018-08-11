@@ -8,9 +8,9 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath}/jsp/general/main.jsp"><b>GYM24</b></a>
             <div style="float:left">
                 <a class="locale_ref"
-                   href="${pageContext.request.contextPath}${sessionScope.locale == 'ru_RU' ? '/controller?command=locale': ''}">EN</a>/
+                   href="${pageContext.request.contextPath}/controller?command=locale_en">EN</a>/
                 <a class="locale_ref"
-                   href="${pageContext.request.contextPath}${sessionScope.locale != 'ru_RU' ? '/controller?command=locale': ''}">RU</a>
+                   href="${pageContext.request.contextPath}/controller?command=locale_ru">RU</a>
             </div>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">

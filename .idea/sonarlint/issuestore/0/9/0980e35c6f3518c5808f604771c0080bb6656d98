@@ -1,6 +1,6 @@
 
-˜squid:S1192"|Define a constant instead of duplicating this literal "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " 3 times.(Ö¶¯à8á¼¢›Ò,
 T
 squid:S106"9Replace this use of System.out or System.err by a logger.(¦ìÍş8òà¾šÒ,
 T
 squid:S106"9Replace this use of System.out or System.err by a logger.(·©å¦8òà¾šÒ,
+˜squid:S1192"|Define a constant instead of duplicating this literal "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " 3 times.(Ö¶¯à8á¼¢›Ò,

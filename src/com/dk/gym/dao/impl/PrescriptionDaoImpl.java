@@ -14,8 +14,8 @@ import static com.dk.gym.dao.DatabaseConstant.*;
 public class PrescriptionDaoImpl extends PrescriptionDao {
 
 
-    private static final String SQL_INSERT_PRESCRIPTION = "INSERT INTO prescription(id_order, id_trainer, pre_date, pre_weeks, " +
-            "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed) " +
+    private static final String SQL_INSERT_PRESCRIPTION = "INSERT INTO prescription(id_order, id_trainer, pre_date, " +
+            "pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_PRESCRIPTION = "UPDATE prescription SET pre_date = ?," +
             " pre_weeks = ?, pre_trainings_per_week = ?, pre_trainer_note = ?, pre_client_note = ?, pre_agreed = ?" +
@@ -43,7 +43,8 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
             "WHERE u.id_user = ? " +
             "ORDER BY pre_date DESC,  o.id_order ASC, tr.id_trainer ASC";
     private static final String SQL_SELECT_PRESCRIPTION_BY_ID = "SELECT id_order, id_trainer, pre_date, pre_weeks, " +
-            "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription WHERE id_order=? AND id_trainer=?";
+            "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " +
+            "WHERE id_order=? AND id_trainer=?";
     private static final String SQL_DELETE_PRESCRIPTION = "DELETE FROM prescription WHERE id_order = ? AND id_trainer = ?";
 
     private static final int POSITIVE_RESULT = 1;
@@ -79,7 +80,6 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
     @Override
     public boolean update(Prescription entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PRESCRIPTION)) {
-            System.out.println("update connection " + connection);
 
             statement.setDate(1, entity.getDate() != null ? Date.valueOf(entity.getDate()) : null);
             statement.setInt(2, entity.getWeekQuantity());
@@ -137,14 +137,14 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find", e);
+            throw new DaoException("Not found all: ", e);
         }
 
         return list;
     }
 
     @Override
-    public List<Trainer> findAllTrainer() throws DaoException {
+    public List<Trainer> findRelatedAllTrainer() throws DaoException {
         List<Trainer> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
@@ -162,7 +162,7 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found allTrainer", e);
+            throw new DaoException("Not found relatedAllTrainer: ", e);
         }
         return list;
     }

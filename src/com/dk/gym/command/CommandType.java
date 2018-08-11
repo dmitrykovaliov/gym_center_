@@ -9,7 +9,8 @@ public enum CommandType {
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
 
-    LOCALE(new LocaleCommand()),
+    LOCALE_EN(new LocaleEnCommand()),
+    LOCALE_RU(new LocaleRuCommand()),
 
     USER_CREATE(new UserCreateCommand()),
     USER_READ(new UserReadCommand()),

@@ -1,10 +1,10 @@
 package com.dk.gym.command.trainer;
 
 import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.ContentPage;
+import com.dk.gym.command.RouterPage;
 import com.dk.gym.command.PageConstant;
-import com.dk.gym.command.RequestMethod;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.command.Router;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.entity.Activity;
 import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
@@ -22,12 +22,12 @@ public class ActivityReadGeneralCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         List<Activity> itemList;
 
         try {
-            itemList = ActivityService.getInstance().findActivity();
+            itemList = ActivityService.getInstance().findAllActivity();
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
@@ -40,6 +40,6 @@ public class ActivityReadGeneralCommand implements ActionCommand {
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

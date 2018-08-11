@@ -1,7 +1,7 @@
 package com.dk.gym.service;
 
 import com.dk.gym.command.ReturnMessageType;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.dao.TrainingDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.TrainingDaoImpl;
@@ -40,7 +40,7 @@ public class TrainingService {
         return instance;
     }
 
-    public ReturnMessageType createTraining(RequestContent content) throws ServiceException {
+    public ReturnMessageType createTraining(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -76,18 +76,18 @@ public class TrainingService {
         return itemList;
     }
 
-    public List<Trainer> findAllTrainer() throws ServiceException {
+    public List<Trainer> findRelatedAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {
-            itemList = trainingDao.findAllTrainer();
+            itemList = trainingDao.findRelatedAllTrainer();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return itemList;
     }
 
-    public ReturnMessageType updateTraining(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateTraining(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -117,15 +117,15 @@ public class TrainingService {
         return message;
     }
 
-    public ReturnMessageType deleteTraining(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteTraining(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             try (TrainingDao trainingDao = new TrainingDaoImpl()) {
-                int idInt = Integer.parseInt(content.findParameter(PARAM_ID));
+                int parsedId = Integer.parseInt(content.findParameter(PARAM_ID));
 
-                trainingDao.delete(idInt);
+                trainingDao.delete(parsedId);
 
                 message = DONE;
             } catch (DaoException e) {
@@ -137,7 +137,7 @@ public class TrainingService {
         return message;
     }
 
-    public List<Training> findAllTrainingByTrainer(RequestContent content) throws ServiceException {
+    public List<Training> findAllTrainingByTrainer(SessionRequestContent content) throws ServiceException {
         List<Training> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {
@@ -148,7 +148,7 @@ public class TrainingService {
         return itemList;
     }
 
-    public List<Training> findAllTrainingByClient(RequestContent content) throws ServiceException {
+    public List<Training> findAllTrainingByClient(SessionRequestContent content) throws ServiceException {
         List<Training> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {
@@ -159,7 +159,7 @@ public class TrainingService {
         return itemList;
     }
 
-    public List<Trainer> findAllTrainerByClient(RequestContent content) throws ServiceException {
+    public List<Trainer> findAllTrainerByClient(SessionRequestContent content) throws ServiceException {
         List<Trainer> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {

@@ -1,10 +1,10 @@
 package com.dk.gym.command.admin;
 
 import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.ContentPage;
-import com.dk.gym.command.RequestMethod;
+import com.dk.gym.command.RouterPage;
+import com.dk.gym.command.Router;
 import com.dk.gym.command.PageConstant;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.entity.Client;
 import com.dk.gym.entity.Role;
 import com.dk.gym.entity.Trainer;
@@ -28,7 +28,7 @@ public class UserReadCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         List<User> userList;
         List<Client> clientList;
@@ -41,8 +41,8 @@ public class UserReadCommand implements ActionCommand {
 
         try {
             userList = UserService.getInstance().findAllUser();
-            clientList = UserService.getInstance().findAllClient();
-            trainerList = UserService.getInstance().findAllTrainer();
+            clientList = UserService.getInstance().findRelatedAllClient();
+            trainerList = UserService.getInstance().findRelatedAllTrainer();
 
             clientAllList = ClientService.getInstance().findAllClient();
             trainerAllList = TrainerService.getInstance().findAllTrainer();
@@ -63,14 +63,10 @@ public class UserReadCommand implements ActionCommand {
         LOGGER.log(Level.DEBUG, clientList);
         LOGGER.log(Level.DEBUG, trainerList);
 
-        LOGGER.log(Level.DEBUG, clientAllList);
-        LOGGER.log(Level.DEBUG, trainerAllList);
-        LOGGER.log(Level.DEBUG, roleList);
-
         String pageUrl = PageConstant.PAGE_USER;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

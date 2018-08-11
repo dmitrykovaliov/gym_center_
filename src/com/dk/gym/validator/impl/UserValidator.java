@@ -1,6 +1,6 @@
 package com.dk.gym.validator.impl;
 
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.entity.Role;
 import com.dk.gym.validator.chain.ChainPassValidator;
 import com.dk.gym.validator.EnumValidator;
@@ -26,7 +26,7 @@ public class UserValidator {
         this.notEmptyValidator = new NotEmptyValidator();
     }
 
-    public boolean validate(RequestContent content) {
+    public boolean validate(SessionRequestContent content) {
         boolean valid;
 
         valid = validateLogin(content.findParameter(PARAM_LOGIN));
@@ -57,7 +57,6 @@ public class UserValidator {
     }
 
     private boolean validateRole(String parameter) {
-
         boolean valid = true;
         if (notEmptyValidator.validate(parameter)) {
             lineNotEmpty = true;

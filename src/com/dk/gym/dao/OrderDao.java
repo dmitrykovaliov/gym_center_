@@ -20,9 +20,9 @@ public abstract class OrderDao extends AbstractDao<Order> {
 
     public abstract boolean delete(int id) throws DaoException;
 
-    public abstract List<Client> findAllClient() throws DaoException;
+    public abstract List<Client> findRelatedAllClient() throws DaoException;
 
-    public abstract List<Activity> findAllActivity() throws DaoException;
+    public abstract List<Activity> findRelatedAllActivity() throws DaoException;
 
     public abstract List<Order> findAllOrderByTrainer(int idUser) throws DaoException;
 

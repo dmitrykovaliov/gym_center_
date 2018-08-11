@@ -21,7 +21,7 @@ public abstract class TrainingDao extends AbstractDao<Training> {
 
     public abstract boolean delete(int id) throws DaoException;
 
-    public abstract List<Trainer> findAllTrainer() throws DaoException;
+    public abstract List<Trainer> findRelatedAllTrainer() throws DaoException;
 
     public abstract List<Training> findAllTrainingByTrainer(int idUser) throws DaoException;
 

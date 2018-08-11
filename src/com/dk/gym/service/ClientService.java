@@ -9,7 +9,7 @@ import com.dk.gym.entity.Client;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.validator.chain.ChainIdValidator;
 import com.dk.gym.validator.impl.ClientValidator;
 import org.apache.logging.log4j.Level;
@@ -40,7 +40,7 @@ public class ClientService {
         return instance;
     }
 
-    public ReturnMessageType createClient(RequestContent content) throws ServiceException {
+    public ReturnMessageType createClient(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -76,13 +76,10 @@ public class ClientService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
-        LOGGER.log(Level.INFO, "Size of collection: " + itemList.size());
-
         return itemList;
     }
 
-    public ReturnMessageType updateClient(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateClient(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -116,15 +113,13 @@ public class ClientService {
         return message;
     }
 
-    public ReturnMessageType deleteClient(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteClient(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
         if (new ChainIdValidator().validate(content.findParameter(PARAM_ID))) {
             try (ClientDao clientDao = new ClientDaoImpl()) {
                 int parsedId = Integer.parseInt(content.findParameter(PARAM_ID));
-
-                LOGGER.log(Level.DEBUG, "ID: " + parsedId);
 
                 clientDao.delete(parsedId);
 
@@ -139,7 +134,7 @@ public class ClientService {
         return message;
     }
 
-    public List<Client> findAllClientByTrainer(RequestContent content) throws ServiceException {
+    public List<Client> findAllClientByTrainer(SessionRequestContent content) throws ServiceException {
         List<Client> itemList;
 
         try (ClientDao clientDao = new ClientDaoImpl()) {
@@ -153,7 +148,7 @@ public class ClientService {
         return itemList;
     }
 
-    public  Client findClientByUserId(RequestContent content) throws ServiceException {
+    public  Client findClientByUserId(SessionRequestContent content) throws ServiceException {
             Client client;
 
             try (ClientDao clientDao = new ClientDaoImpl()) {

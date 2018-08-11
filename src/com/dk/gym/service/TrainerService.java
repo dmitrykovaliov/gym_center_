@@ -1,7 +1,7 @@
 package com.dk.gym.service;
 
 import com.dk.gym.command.ReturnMessageType;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.dao.TrainerDao;
 import com.dk.gym.dao.TransactionManager;
 import com.dk.gym.dao.impl.TrainerDaoImpl;
@@ -42,7 +42,7 @@ public class TrainerService {
     }
 
 
-    public ReturnMessageType createTrainer(RequestContent content) throws ServiceException {
+    public ReturnMessageType createTrainer(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -64,7 +64,7 @@ public class TrainerService {
                 throw new ServiceException(e);
             }
         }
-        LOGGER.log(Level.DEBUG, "createTrainerMessage: " + message);
+        LOGGER.log(Level.DEBUG, "CreateTrainerMessage: " + message);
 
         return message;
     }
@@ -80,7 +80,7 @@ public class TrainerService {
         return itemList;
     }
 
-    public ReturnMessageType updateTrainer(RequestContent content) throws ServiceException {
+    public ReturnMessageType updateTrainer(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -113,7 +113,7 @@ public class TrainerService {
         return message;
     }
 
-    public ReturnMessageType deleteTrainer(RequestContent content) throws ServiceException {
+    public ReturnMessageType deleteTrainer(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
 
@@ -121,9 +121,8 @@ public class TrainerService {
             try (TrainerDao trainerDao = new TrainerDaoImpl()) {
                 int parsedId = Integer.parseInt(content.findParameter(PARAM_ID));
 
-                LOGGER.log(Level.DEBUG, "ID: " + parsedId);
-
                 trainerDao.delete(parsedId);
+
                 message = DONE;
             } catch (DaoException e) {
                 throw new ServiceException(e);
@@ -135,7 +134,7 @@ public class TrainerService {
         return message;
     }
 
-    public Trainer findTrainerByUserId(RequestContent content) throws ServiceException {
+    public Trainer findTrainerByUserId(SessionRequestContent content) throws ServiceException {
         Trainer trainer;
 
         try (TrainerDao trainerDao = new TrainerDaoImpl()) {

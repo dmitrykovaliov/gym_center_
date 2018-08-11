@@ -1,10 +1,10 @@
 package com.dk.gym.command.admin;
 
 import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.ContentPage;
-import com.dk.gym.command.RequestMethod;
+import com.dk.gym.command.RouterPage;
+import com.dk.gym.command.Router;
 import com.dk.gym.command.PageConstant;
-import com.dk.gym.controller.RequestContent;
+import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.entity.Order;
 import com.dk.gym.entity.Prescription;
 import com.dk.gym.entity.Trainer;
@@ -26,7 +26,7 @@ public class PrescriptionReadCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public ContentPage execute(RequestContent content) throws CommandException {
+    public RouterPage execute(SessionRequestContent content) throws CommandException {
 
         List<Prescription> prescriptionList;
         List<Trainer> trainerList;
@@ -36,7 +36,7 @@ public class PrescriptionReadCommand implements ActionCommand {
 
         try {
             prescriptionList = PrescriptionService.getInstance().findAllPrescription();
-            trainerList = PrescriptionService.getInstance().findAllTrainer();
+            trainerList = PrescriptionService.getInstance().findRelatedAllTrainer();
 
             orderAllList = OrderService.getInstance().findAllOrder();
             trainerAllList = TrainerService.getInstance().findAllTrainer();
@@ -56,10 +56,10 @@ public class PrescriptionReadCommand implements ActionCommand {
         LOGGER.log(Level.DEBUG, orderAllList);
         LOGGER.log(Level.DEBUG, trainerAllList);
 
-        String pageUrl = PageConstant.PAGE_ADMIN_PRESCRIPTION;
+        String pageUrl = PageConstant.PAGE_PRESCRIPTION;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 
-        return new ContentPage(RequestMethod.FORWARD, pageUrl);
+        return new RouterPage(Router.FORWARD, pageUrl);
     }
 }

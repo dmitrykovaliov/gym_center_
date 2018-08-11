@@ -22,7 +22,7 @@ public abstract class PrescriptionDao extends AbstractDao<Prescription> {
 
     public abstract boolean delete(int idTrainer, int idOrder) throws DaoException;
 
-    public abstract List<Trainer> findAllTrainer() throws DaoException;
+    public abstract List<Trainer> findRelatedAllTrainer() throws DaoException;
 
     public abstract List<Prescription> findAllPrescriptionByTrainer(int idUser) throws DaoException;
 

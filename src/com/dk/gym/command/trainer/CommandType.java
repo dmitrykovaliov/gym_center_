@@ -1,7 +1,7 @@
 package com.dk.gym.command.trainer;
 
 import com.dk.gym.command.ActionCommand;
-import com.dk.gym.command.LocaleCommand;
+import com.dk.gym.command.LocaleEnCommand;
 import com.dk.gym.command.LoginCommand;
 import com.dk.gym.command.LogoutCommand;
 import com.dk.gym.command.admin.*;
@@ -12,7 +12,7 @@ public enum CommandType {
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
 
-    LOCALE(new LocaleCommand()),
+    LOCALE(new LocaleEnCommand()),
 
     USER_CREATE(new UserCreateCommand()),
     USER_READ(new UserReadCommand()),

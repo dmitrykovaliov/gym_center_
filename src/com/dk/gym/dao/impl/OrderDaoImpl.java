@@ -19,13 +19,14 @@ public class OrderDaoImpl extends OrderDao {
     private static final String SQL_UPDATE_ORDER = "UPDATE order_ SET ord_date = ?, ord_price = ?, " +
             "ord_discount = ?, ord_closure = ?, ord_feedback = ?, id_client = ?, id_activity = ?  " +
             "WHERE id_order = ?";
-    private static final String SQL_SELECT_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount,ord_closure," +
-            " ord_feedback, c.id_client, cl_name, cl_lastname, a.id_activity, act_name " +
+    private static final String SQL_SELECT_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount, " +
+            "ord_closure, ord_feedback, c.id_client, cl_name, cl_lastname, a.id_activity, act_name " +
             "FROM order_ " +
             "JOIN client c ON order_.id_client = c.id_client " +
             "JOIN activity a ON order_.id_activity = a.id_activity " +
-            "ORDER BY ord_date DESC, id_order ASC;";
-    private static final String SQL_SELECT_ALL_ORDER_BY_TRAINER = "SELECT order_.id_order, ord_date, ord_price, ord_discount,ord_closure, " +
+            "ORDER BY ord_date DESC, id_order ASC";
+    private static final String SQL_SELECT_ALL_ORDER_BY_TRAINER = "SELECT order_.id_order, ord_date, ord_price, " +
+            "ord_discount, ord_closure, " +
             "ord_feedback, c.id_client, cl_name, cl_lastname, a.id_activity, act_name " +
             "FROM order_ " +
             "JOIN client c ON order_.id_client = c.id_client " +
@@ -72,7 +73,8 @@ public class OrderDaoImpl extends OrderDao {
     @Override
     public int create(Order entity) throws DaoException {
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection
+                .prepareStatement(SQL_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setDate(1, entity.getDate() != null ? Date.valueOf(entity.getDate()) : null);
             statement.setBigDecimal(2, entity.getPrice());
@@ -163,7 +165,7 @@ public class OrderDaoImpl extends OrderDao {
     }
 
     @Override
-    public List<Client> findAllClient() throws DaoException {
+    public List<Client> findRelatedAllClient() throws DaoException {
         List<Client> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
@@ -181,18 +183,17 @@ public class OrderDaoImpl extends OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allClient: ", e);
+            throw new DaoException("Not found allClient: ", e);
         }
         return list;
     }
 
     @Override
-    public List<Activity> findAllActivity() throws DaoException {
+    public List<Activity> findRelatedAllActivity() throws DaoException {
         List<Activity> list = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ORDER)) {
-
                 while (resultSet.next()) {
 
                     Activity activity = new Activity();
@@ -204,12 +205,10 @@ public class OrderDaoImpl extends OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allClient: ", e);
+            throw new DaoException("Not found allClient: ", e);
         }
         return list;
     }
-
-
 
     @Override
     public Order findById(int id) throws DaoException {
