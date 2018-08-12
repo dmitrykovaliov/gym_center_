@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -41,6 +41,7 @@
 <h3 style="margin-left: 30px">    <fmt:message key="table.activity.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="activity_create">
+    <input type="text" id="idActivity" name="id" hidden>
 
     <table class="greyGridTable">
         <thead>
@@ -72,7 +73,7 @@
                     <ctg:select tagId="note${status.count}" elem="${elem.note}"/>
                 </td>
                 <td>
-                    <a onclick="fillActivityForm('idCount', ${status.count}, 'idActivity', 'idCommand', 'idSubmit', ${elem.idActivity},
+                    <a class="onClickCursor" onclick="fillActivityForm('idCount', ${status.count}, 'idActivity', 'idCommand', 'idSubmit', ${elem.idActivity},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">
                         U
@@ -88,7 +89,6 @@
         </c:forEach>
 
         <tr>
-            <input form="createForm" type="text" id="idActivity" name="id" hidden>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
             <td><input form="createForm" type="text" name="name"></td>
             <td><input form="createForm" type="text" name="price"></td>

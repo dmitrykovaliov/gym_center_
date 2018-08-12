@@ -1,9 +1,6 @@
 package com.dk.gym.listener;
 
 import com.dk.gym.pool.ConnectionPool;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -14,9 +11,7 @@ public class ConnectionContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        ConnectionPool
-                .getInstance()
-                .initPool();
+        ConnectionPool.getInstance().initPool();
     }
 
     @Override

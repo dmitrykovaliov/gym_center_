@@ -52,7 +52,7 @@ public class OrderDaoImpl extends OrderDao {
             "JOIN user u ON t2.id_user = u.id_user " +
             "WHERE u.id_user = ?) " +
             "ORDER BY ord_date DESC,  id_order ASC;";
-    private static final String SQL_SELECT_ALL_ORDER_BY_CLIENT = "SELECT id_order, ord_date, ord_price, " +
+    private static final String SQL_SELECT_RELATED_ALL_ORDER_BY_CLIENT = "SELECT id_order, ord_date, ord_price, " +
             "ord_discount, ord_closure, ord_feedback, c.id_client, a.id_activity, act_name " +
             "FROM order_ " +
             "JOIN client c ON order_.id_client = c.id_client " +
@@ -271,13 +271,13 @@ public class OrderDaoImpl extends OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allByTrainer", e);
+            throw new DaoException("Not found allByTrainer", e);
         }
         return list;
     }
 
     @Override
-    public List<Client> findAllClientByTrainer(int idUser) throws DaoException {
+    public List<Client> findRelatedAllClientByTrainer(int idUser) throws DaoException {
         List<Client> list = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_ORDER_BY_TRAINER)) {
@@ -298,13 +298,13 @@ public class OrderDaoImpl extends OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allClientByTrainer: ", e);
+            throw new DaoException("Not found allClientByTrainer: ", e);
         }
         return list;
     }
 
     @Override
-    public List<Activity> findAllActivityByTrainer(int idUser) throws DaoException {
+    public List<Activity> findRelatedAllActivityByTrainer(int idUser) throws DaoException {
         List<Activity> list = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_ORDER_BY_TRAINER)) {
@@ -323,16 +323,16 @@ public class OrderDaoImpl extends OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Can't find allActivityByTrainer: ", e);
+            throw new DaoException("Not found allActivityByTrainer: ", e);
         }
         return list;
     }
 
     @Override
-    public List<Order> findAllOrderByClient(int idUser) throws DaoException {
+    public List<Order> findRelatedAllOrderByClient(int idUser) throws DaoException {
         List<Order> list = new ArrayList<>();
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_ORDER_BY_CLIENT)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_RELATED_ALL_ORDER_BY_CLIENT)) {
             statement.setInt(1, idUser);
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -357,7 +357,7 @@ public class OrderDaoImpl extends OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found allByClient", e);
+            throw new DaoException("Not found relatedAllByClient", e);
         }
         return list;
     }
@@ -366,7 +366,7 @@ public class OrderDaoImpl extends OrderDao {
     public List<Activity> findAllActivityByClient(int idUser) throws DaoException {
         List<Activity> list = new ArrayList<>();
 
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_ORDER_BY_CLIENT)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_RELATED_ALL_ORDER_BY_CLIENT)) {
             statement.setInt(1, idUser);
 
             try (ResultSet resultSet = statement.executeQuery()) {

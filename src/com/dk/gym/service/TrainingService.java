@@ -159,11 +159,11 @@ public class TrainingService {
         return itemList;
     }
 
-    public List<Trainer> findAllTrainerByClient(SessionRequestContent content) throws ServiceException {
+    public List<Trainer> findRelatedAllTrainerByClient(SessionRequestContent content) throws ServiceException {
         List<Trainer> itemList;
 
         try (TrainingDao trainingDao = new TrainingDaoImpl()) {
-            itemList = trainingDao.findAllTrainerByClient((int) content.findSessionAttribute(PARAM_USER_ID));
+            itemList = trainingDao.findRelatedAllTrainerByClient((int) content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

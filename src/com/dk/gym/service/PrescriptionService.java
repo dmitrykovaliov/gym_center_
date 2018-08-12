@@ -152,7 +152,18 @@ public class PrescriptionService {
         List<Prescription> itemList;
 
         try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
-            itemList = prescriptionDao.findAllPrescriptinByClient((int) content.findSessionAttribute(PARAM_USER_ID));
+            itemList = prescriptionDao.findAllPrescriptionByClient((int) content.findSessionAttribute(PARAM_USER_ID));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return itemList;
+    }
+
+    public List<Trainer> findRelatedAllTrainerByClient(SessionRequestContent content) throws ServiceException {
+        List<Trainer> itemList;
+
+        try (PrescriptionDao prescriptionDao = new PrescriptionDaoImpl()) {
+            itemList = prescriptionDao.findRelatedAllTrainerByClient((int) content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

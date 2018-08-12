@@ -105,7 +105,7 @@
                             <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
                         </td>
                         <td>
-                            <a onclick="fillPrescriptionFormClient('idCount', ${status.count}, 'idOrder', 'idTrainer',
+                            <a class="onClickCursor" onclick="fillPrescriptionFormClient('idCount', ${status.count}, 'idOrder', 'idTrainer',
                                 'idSubmit',
                                 ${elem.idOrder},
                                 ${elem.idTrainer})">

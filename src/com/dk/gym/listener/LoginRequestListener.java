@@ -23,9 +23,10 @@ public class LoginRequestListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest req = (HttpServletRequest) servletRequestEvent.getServletRequest();
         HttpSession session = req.getSession();
-        if (session.getAttribute(ParamConstant.PARAM_ERROR) != null && session.getAttribute(ParamConstant.PARAM_ROLE) != null) {
+        if (session.getAttribute(ParamConstant.PARAM_ERROR) != null
+                && session.getAttribute(ParamConstant.PARAM_ROLE) != null) {
             session.setAttribute(ParamConstant.PARAM_ERROR, null);
-            LOGGER.log(Level.INFO, "Destroyed PARAM_ERROR");
+            LOGGER.log(Level.INFO, "Destroyed sessionParamError");
         }
     }
 }

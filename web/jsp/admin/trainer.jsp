@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -81,7 +81,7 @@
                 </c:if>
             </td>
             <td>
-                <a href="${pageContext.servletContext.contextPath}
+                <a class="onClickCursor" href="${pageContext.servletContext.contextPath}
                         /jsp/admin/updateTrainer.jsp?id=${elem.idTrainer}&count=${status.count}">
                     U
                 </a>

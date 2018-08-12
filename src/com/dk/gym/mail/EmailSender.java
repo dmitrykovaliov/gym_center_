@@ -15,6 +15,10 @@ public class EmailSender {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    private EmailSender() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static boolean sendMail(String sendToEmail, String mailSubject, String mailText) {
         Session mailSession = new EmailSessionCreator().createSession();
         mailSession.setDebug(true);

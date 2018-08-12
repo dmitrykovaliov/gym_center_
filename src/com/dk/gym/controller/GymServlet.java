@@ -16,18 +16,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 import static com.dk.gym.command.PageConstant.*;
-import static com.dk.gym.service.ParamConstant.PARAM_URL_QUERY;
 
 
 @WebServlet(name = "GymServlet", urlPatterns = {"/controller"})
-@MultipartConfig(location = "/home/dk", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
+@MultipartConfig(location = "/home/dk", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5)
 
 public class GymServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final String CONTROLLER_URI = "/controller";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +42,6 @@ public class GymServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
 
         RouterPage routerPage;
 

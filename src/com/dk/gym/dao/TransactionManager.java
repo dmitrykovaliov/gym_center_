@@ -24,10 +24,12 @@ public class TransactionManager {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "Autocommit not changed: " + e);
         }
+
         for (AbstractDao dao : daoList) {
             dao.close();
             dao.setConnection(connection);
         }
+        LOGGER.log(Level.INFO, "Transaction started");
     }
 
     public void commit() {
@@ -36,6 +38,7 @@ public class TransactionManager {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "Transaction not committed: " + e);
         }
+        LOGGER.log(Level.INFO, "Transaction commited");
     }
 
     public void rollback() {
@@ -44,5 +47,10 @@ public class TransactionManager {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "Transaction not rolled back: " + e);
         }
+        LOGGER.log(Level.INFO, "Transaction rollbacked");
+    }
+
+    public ProxyConnection getConnection() {
+        return connection;
     }
 }

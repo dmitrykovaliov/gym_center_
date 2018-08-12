@@ -17,9 +17,4 @@ public class ContainsDigitValidator extends AbstractValidator {
 
         return isValid;
     }
-
-    public static void main(String[] args) {
-        String message = "sdfdf5fdf";
-        System.out.println(new ContainsDigitValidator().validate(message));
-    }
 }

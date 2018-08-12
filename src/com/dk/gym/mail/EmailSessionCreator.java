@@ -6,11 +6,11 @@ import java.util.Properties;
 
 public class EmailSessionCreator {
 
-    private final String USER_NAME = "gym.test.2018@gmail.com";
-    private final String USER_PASSWORD = "12345A6789B";
+    private static final String USER_NAME = "gym.test.2018@gmail.com";
+    private static final String USER_PASS = "12345A6789B";
     private Properties sessionProperties;
 
-    public EmailSessionCreator() {
+    EmailSessionCreator() {
         sessionProperties = new Properties();
         sessionProperties.setProperty("mail.transport.protocol", "smtp");
         sessionProperties.setProperty("mail.host", "smtp.gmail.com");
@@ -21,11 +21,12 @@ public class EmailSessionCreator {
         sessionProperties.setProperty("mail.smtp.socketFactory.fallback", "false");
     }
 
-    public Session createSession() {
+    Session createSession() {
         return Session.getDefaultInstance(sessionProperties,
                 new javax.mail.Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(USER_NAME, USER_PASSWORD);
+                        return new PasswordAuthentication(USER_NAME, USER_PASS);
                     }
                 });
     }

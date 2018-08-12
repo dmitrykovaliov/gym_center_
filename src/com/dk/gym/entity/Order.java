@@ -3,7 +3,7 @@ package com.dk.gym.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Order extends Entity {
+public class Order implements Entity {
 
     private int idOrder;
     private LocalDate date;

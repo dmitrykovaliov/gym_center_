@@ -1,9 +1,12 @@
-/*
 package com.dk.gym.filter;
 
-import com.dk.gym.service.ParamConstant;
 import com.dk.gym.entity.Role;
+import com.dk.gym.service.ParamConstant;
 import com.dk.gym.validator.EnumValidator;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
@@ -14,11 +17,14 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/jsp/*"},
         initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
-public class PageRedirectFilter implements Filter {
+
+public class PageForwardFilter implements Filter {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private String indexPath;
 
-    public void init(FilterConfig fConfig) throws ServletException {
+    public void init(FilterConfig fConfig) {
         indexPath = fConfig.getInitParameter("INDEX_PATH");
     }
 
@@ -30,16 +36,18 @@ public class PageRedirectFilter implements Filter {
 
         HttpSession session = req.getSession();
         String role = (String) session.getAttribute(ParamConstant.PARAM_ROLE);
+
         if (!new EnumValidator().validate(Role.class, role)) {
-            RequestDispatcher dispatcher = req.getServletContext()
-                    .getRequestDispatcher(indexPath);
-            dispatcher.forward(req, resp);
+
+            req.getServletContext().getRequestDispatcher(indexPath).forward(req, resp);
+            LOGGER.log(Level.INFO, "PageForward filtered");
+            return;
         }
         chain.doFilter(req, resp);
     }
 
     public void destroy() {
+        indexPath = null;
     }
 }
 
-*/

@@ -14,10 +14,4 @@ public class LineNotEmptyValidator {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        LineNotEmptyValidator validator = new LineNotEmptyValidator();
-
-        System.out.println(validator.validate("", "", "", "", ""));
-    }
 }

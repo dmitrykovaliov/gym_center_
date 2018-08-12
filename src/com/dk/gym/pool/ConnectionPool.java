@@ -30,7 +30,7 @@ public final class ConnectionPool {
     private int initPoolSize;
     private int maxPoolSize;
 
-    private int currentPoolSize;     // size of pool, total quantity of connections in both queues
+    private int currentPoolSize;  // size of pool, total quantity of connections in both queues
     private int initAttempts; // factual attempts to initialize pool
 
 
@@ -149,14 +149,12 @@ public final class ConnectionPool {
             if (!connection.getAutoCommit()) {
                 connection.setAutoCommit(true);
             }
-            if (currentPoolSize > 0) {
-                if (boundConnections.remove(connection)) {
-                    freeConnections.add(connection);
-                }
+            if (currentPoolSize > 0 && boundConnections.remove(connection)) {
+                freeConnections.add(connection);
             }
             currentPoolSize = freeConnections.size() + boundConnections.size();
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "Connection was not realeased", e);
+            LOGGER.log(Level.ERROR, "Connection was not released: ", e);
         }
 
         monitorPool();
@@ -209,7 +207,7 @@ public final class ConnectionPool {
                 DriverManager.deregisterDriver(driver);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "Drivers deregistered", e);
+            LOGGER.log(Level.ERROR, "DeregisterDrivers:", e);
         }
     }
 }

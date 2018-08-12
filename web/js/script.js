@@ -15,7 +15,6 @@ function fillActivityForm (idCount, countNumber, idActivity, idCommand, idSubmit
         count.value = countNumber;
         idAct.value = activityValue;
 
-        idSu
         idSubm.value = update;
         idComm.value = "activity_update";
     }

@@ -17,10 +17,4 @@ public class ContainsCapitalValidator extends AbstractValidator {
 
         return isValid;
     }
-
-    public static void main(String[] args) {
-        String message = "sdfasdf";
-
-        System.out.println(new ContainsCapitalValidator().validate(message));
-    }
 }

@@ -86,7 +86,7 @@
                 </c:if>
             </td>
             <td>
-                <a href="${pageContext.servletContext.contextPath}
+                <a class="onClickCursor" href="${pageContext.servletContext.contextPath}
                         /jsp/admin/updateClient.jsp?id=${elem.idClient}&count=${status.count}">
                     U
                 </a>

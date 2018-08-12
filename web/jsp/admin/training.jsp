@@ -45,6 +45,7 @@
 <h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="training_create">
+    <input type="text" id="idTraining" name="id" hidden>
 
     <table class="greyGridTable">
         <thead>
@@ -109,7 +110,7 @@
                     <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
                 </td>
                 <td>
-                    <a onclick="fillFormTraining('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
+                    <a class="onClickCursor" onclick="fillFormTraining('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
                             'idCommand', 'idSubmit',
                         ${elem.idTraining},
                             ${elem.idOrder},
@@ -131,7 +132,6 @@
         <jsp:useBean id="readAllOrder" scope="request" type="java.util.List"/>
         <jsp:useBean id="readAllTrainer" scope="request" type="java.util.List"/>
         <tr>
-            <input form="createForm" type="text" id="idTraining" name="id" hidden>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
             <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date"></td>
             <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime"></td>

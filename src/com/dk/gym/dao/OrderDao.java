@@ -26,11 +26,11 @@ public abstract class OrderDao extends AbstractDao<Order> {
 
     public abstract List<Order> findAllOrderByTrainer(int idUser) throws DaoException;
 
-    public abstract List<Client> findAllClientByTrainer(int idUser) throws DaoException;
+    public abstract List<Client> findRelatedAllClientByTrainer(int idUser) throws DaoException;
 
-    public abstract List<Activity> findAllActivityByTrainer(int idUser) throws DaoException;
+    public abstract List<Activity> findRelatedAllActivityByTrainer(int idUser) throws DaoException;
 
-    public abstract List<Order> findAllOrderByClient(int idUser) throws DaoException;
+    public abstract List<Order> findRelatedAllOrderByClient(int idUser) throws DaoException;
 
     public abstract List<Activity> findAllActivityByClient(int idUser) throws DaoException;
 }

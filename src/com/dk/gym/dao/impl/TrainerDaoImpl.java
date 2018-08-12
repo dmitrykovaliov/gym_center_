@@ -178,7 +178,7 @@ public class TrainerDaoImpl extends TrainerDao {
                 trainer.setIconPath(resultSet.getString(TR_ICONPATH));
             }
         } catch (SQLException e) {
-            throw new DaoException("Not found entityByUserId: ", e);
+            throw new DaoException("Not found byUserId: ", e);
         }
         return trainer;
     }

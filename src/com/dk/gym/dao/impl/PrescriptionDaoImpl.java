@@ -27,21 +27,22 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
             "FROM prescription " +
             "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " +
             "ORDER BY pre_date DESC, id_order ASC, prescription.id_trainer ASC";
-    private static final String SQL_SELECT_ALL_PRESCRIPTION_BY_TRAINER = "SELECT id_order, tr.id_trainer, pre_date, pre_weeks, " +
-            "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " +
+    private static final String SQL_SELECT_ALL_PRESCRIPTION_BY_TRAINER = "SELECT id_order, tr.id_trainer, pre_date, " +
+            "pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  " +
+            "FROM prescription " +
             "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " +
             "JOIN user u ON tr.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
             "ORDER BY pre_date DESC,  id_order ASC, tr.id_trainer ASC";
     private static final String SQL_SELECT_ALL_PRESCRIPTION_BY_CLIENT = "SELECT o.id_order, tr.id_trainer, tr_name, " +
-            "tr_lastname, tr_name, tr_lastname, pre_date, pre_weeks, " +
-            "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " +
+            "tr_lastname, pre_date, pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  " +
+            "FROM prescription " +
             "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " +
             "JOIN order_ o ON prescription.id_order = o.id_order " +
             "JOIN client c ON o.id_client = c.id_client " +
             "JOIN user u ON c.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
-            "ORDER BY pre_date DESC,  o.id_order ASC, tr.id_trainer ASC";
+            "ORDER BY pre_date DESC, o.id_order ASC, tr.id_trainer ASC";
     private static final String SQL_SELECT_PRESCRIPTION_BY_ID = "SELECT id_order, id_trainer, pre_date, pre_weeks, " +
             "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " +
             "WHERE id_order=? AND id_trainer=?";
@@ -52,7 +53,6 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
 
     public PrescriptionDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
-        System.out.println("PRESCRDAO - INIT CONNECTION: " + connection);
     }
 
     @Override
@@ -236,7 +236,7 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
     }
 
     @Override
-    public List<Prescription> findAllPrescriptinByClient(int idUser) throws DaoException {
+    public List<Prescription> findAllPrescriptionByClient(int idUser) throws DaoException {
         List<Prescription> list = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_PRESCRIPTION_BY_CLIENT)) {
@@ -260,7 +260,6 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
                     if (resultSet.getDate(PRE_AGREED) != null) {
                         prescription.setAgreedDate(resultSet.getDate(PRE_AGREED).toLocalDate());
                     }
-
                     list.add(prescription);
                 }
             }
@@ -268,6 +267,32 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
             throw new DaoException("Not found clientPrescription", e);
         }
 
+        return list;
+    }
+
+    @Override
+    public List<Trainer> findRelatedAllTrainerByClient(int idUser) throws DaoException {
+        List<Trainer> list = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_PRESCRIPTION_BY_CLIENT)) {
+            statement.setInt(1, idUser);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                while (resultSet.next()) {
+
+                    Trainer trainer = new Trainer();
+
+                    trainer.setIdTrainer(resultSet.getInt(ID_TRAINER));
+                    trainer.setName(resultSet.getString(TR_NAME));
+                    trainer.setLastName(resultSet.getString(TR_LASTNAME));
+
+                    list.add(trainer);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Not found relatedAllTrainerByClient: ", e);
+        }
         return list;
     }
 }

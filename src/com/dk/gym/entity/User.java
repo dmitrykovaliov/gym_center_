@@ -1,6 +1,6 @@
 package com.dk.gym.entity;
 
-public class User extends Entity {
+public class User implements Entity {
     private int idUser;
     private String login;
     private String pass;

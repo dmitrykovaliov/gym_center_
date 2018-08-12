@@ -30,7 +30,7 @@ public class PrescriptionReadClientCommand implements ActionCommand {
 
         try {
             prescriptionList = PrescriptionService.getInstance().findAllPrescriptionByClient(content);
-            trainerList = PrescriptionService.getInstance().findRelatedAllTrainer();
+            trainerList = PrescriptionService.getInstance().findRelatedAllTrainerByClient(content);
 
         } catch (ServiceException e) {
             throw new CommandException(e);

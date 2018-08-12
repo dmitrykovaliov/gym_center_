@@ -3,7 +3,7 @@ package com.dk.gym.entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Training extends Entity {
+public class Training implements Entity {
 
     private int idTraining;
     private LocalDate date;

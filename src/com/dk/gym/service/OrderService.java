@@ -162,11 +162,11 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Client> findAllClientByTrainer(SessionRequestContent content) throws ServiceException {
+    public List<Client> findRelatedAllClientByTrainer(SessionRequestContent content) throws ServiceException {
         List<Client> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findAllClientByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = orderDao.findRelatedAllClientByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -174,11 +174,11 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Activity> findAllActivityByTrainer(SessionRequestContent content) throws ServiceException {
+    public List<Activity> findRelatedAllActivityByTrainer(SessionRequestContent content) throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findAllActivityByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = orderDao.findRelatedAllActivityByTrainer((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -191,7 +191,7 @@ public class OrderService {
         List<Order> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {
-            itemList = orderDao.findAllOrderByClient((int)content.findSessionAttribute(PARAM_USER_ID));
+            itemList = orderDao.findRelatedAllOrderByClient((int)content.findSessionAttribute(PARAM_USER_ID));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -199,7 +199,7 @@ public class OrderService {
         return itemList;
     }
 
-    public List<Activity> findAllActivityByClient(SessionRequestContent content) throws ServiceException {
+    public List<Activity> findRelatedAllActivityByClient(SessionRequestContent content) throws ServiceException {
         List<Activity> itemList;
 
         try (OrderDao orderDao = new OrderDaoImpl()) {

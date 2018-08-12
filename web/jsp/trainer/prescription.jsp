@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="selecttag" %>
@@ -95,7 +95,7 @@
                     <c:out value="${elem.idOrder}"/>
                 </td>
                 <td>
-                    <a onclick="fillPrescriptionFormTrainer('idCount', ${status.count}, 'idOrder', 'idTrainer', 'idCommand', 'idSubmit',
+                    <a class="onClickCursor" onclick="fillPrescriptionFormTrainer('idCount', ${status.count}, 'idOrder', 'idTrainer', 'idCommand', 'idSubmit',
                         ${elem.idOrder},
                         ${elem.idTrainer},
                             '<fmt:message key="body.create"/>',

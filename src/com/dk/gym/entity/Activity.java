@@ -2,7 +2,7 @@ package com.dk.gym.entity;
 
 import java.math.BigDecimal;
 
-public class Activity extends Entity {
+public class Activity implements Entity {
 
     private int idActivity;
     private String name;

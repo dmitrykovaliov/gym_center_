@@ -42,6 +42,7 @@
 <h3 style="margin-left: 30px"><fmt:message key="table.order.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="order_update_client">
+    <input type="hidden" id="idClient" name="idClient">
 
     <table class="greyGridTable">
         <thead>
@@ -93,7 +94,7 @@
                     <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
                 <td>
-                    <a onclick="fillOrderFormClient('idOrder', 'idClient', 'idActivity', 'idSubmit',
+                    <a class="onClickCursor" onclick="fillOrderFormClient('idOrder', 'idClient', 'idActivity', 'idSubmit',
                         ${elem.idOrder},
                         ${elem.idClient},
                         ${elem.idActivity})">
@@ -111,7 +112,6 @@
             <td><input form="createForm" type="text" name="discount" hidden></td>
             <td><input form="createForm" type="text" name="closure" hidden></td>
             <td><input form="createForm" type="text" name="feedback"></td>
-            <input form="createForm" type="hidden" id="idClient" name="idClient">
             <td>
                 <input form="createForm" type="text" id="idActivity" name="activityId" hidden>
             </td>

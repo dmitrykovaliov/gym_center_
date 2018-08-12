@@ -22,9 +22,4 @@ public class LengthValidator extends AbstractValidator {
 
         return isValid;
     }
-
-    public static void main(String[] args) {
-        String message = "sdf453=-0";
-        System.out.println(new LengthValidator(10, 20).validate(message));
-    }
 }

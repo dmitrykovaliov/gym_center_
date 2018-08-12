@@ -2,7 +2,7 @@ package com.dk.gym.entity;
 
 import java.time.LocalDate;
 
-public class Prescription extends Entity {
+public class Prescription implements Entity {
 
     private int idOrder;
     private int idTrainer;

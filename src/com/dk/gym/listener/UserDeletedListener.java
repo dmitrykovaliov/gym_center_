@@ -3,8 +3,6 @@ package com.dk.gym.listener;
 import com.dk.gym.command.CommandType;
 import com.dk.gym.command.ReturnMessageType;
 import com.dk.gym.mail.EmailSender;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.dk.gym.resource.LocaleManager;
 
 import javax.servlet.ServletRequestEvent;
@@ -16,7 +14,6 @@ import static com.dk.gym.service.ParamConstant.*;
 
 @WebListener
 public class UserDeletedListener implements ServletRequestListener {
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
@@ -24,15 +21,15 @@ public class UserDeletedListener implements ServletRequestListener {
 
         String id = req.getParameter(PARAM_ID);
         String command = req.getParameter(PARAM_COMMAND);
-        String error = (String)req.getAttribute(PARAM_ERROR);
+        String error = (String) req.getAttribute(PARAM_ERROR);
 
-        if (error != null && command != null) {
+        if (command != null
+                && error != null
+                && command.equalsIgnoreCase(CommandType.USER_DELETE.toString())
+                && error.equals(LocaleManager.getProperty(ReturnMessageType.DONE.getProperty()))) {
 
-            if(error.equals(LocaleManager.getProperty(ReturnMessageType.DONE.getProperty()))
-                    && command.equalsIgnoreCase(CommandType.USER_DELETE.toString())) {
-
-                new Thread(() -> EmailSender.sendMail("dmi.kovaliov@gmail.com", "User deleted", "User: " + id)).start();
-            }
+            new Thread(() -> EmailSender.sendMail("dmi.kovaliov@gmail.com",
+                    "User deleted", "User: " + id)).start();
         }
     }
 

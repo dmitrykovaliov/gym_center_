@@ -45,7 +45,7 @@
 <h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" name="command" value="training_update_client">
-
+    <input type="text" id="idTraining" name="id" hidden>
     <table class="greyGridTable">
         <thead>
         <tr>
@@ -109,7 +109,7 @@
                     <ctg:select tagId="idTrainer${status.count}" elem="${name} ${lastName}"/>
                 </td>
                 <td>
-                    <a onclick="fillTrainingFormClient('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
+                    <a class="onClickCursor" onclick="fillTrainingFormClient('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
                         'idSubmit',
                         ${elem.idTraining},
                         ${elem.idOrder},
@@ -121,7 +121,6 @@
         </c:forEach>
 
         <tr>
-            <input form="createForm" type="text" id="idTraining" name="id" hidden>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
             <td><input form="createForm" type="text" placeholder="yyyy/mm/dd" name="date" hidden></td>
             <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime" hidden></td>

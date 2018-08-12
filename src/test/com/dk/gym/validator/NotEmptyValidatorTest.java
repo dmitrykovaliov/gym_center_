@@ -13,7 +13,6 @@ public class NotEmptyValidatorTest {
 
     @BeforeMethod
     public void setUp() throws Exception {
-
         validator = new NotEmptyValidator();
     }
 
@@ -29,6 +28,7 @@ public class NotEmptyValidatorTest {
     public Object[][] dataForValidate() {
         return new Object[][]{
                 {"", false},
+                {" ", false},
                 {null, false},
                 {"-1", true},
                 {"null", true},

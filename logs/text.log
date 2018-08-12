@@ -1,3 +1,49 @@
-2018-08-10 00:32:54.762 [main] INFO  com.dk.gym.pool.ConnectionPool - ReceiveConnection_freeConnections: 7
-2018-08-10 00:32:54.779 [main] INFO  com.dk.gym.pool.ConnectionPool - ReceiveConnection_boundConnections: 1
-2018-08-10 00:32:54.779 [main] INFO  com.dk.gym.pool.ConnectionPool - ReceiveConnection_PoolSize: 8
+2018-08-11 22:17:43.269 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:43.296 [main] INFO  com.dk.gym.validator.RangeValidator - 1
+2018-08-11 22:17:43.297 [main] INFO  com.dk.gym.validator.RangeValidator - 2
+2018-08-11 22:17:43.297 [main] INFO  com.dk.gym.validator.RangeValidator - -1
+2018-08-11 22:17:43.298 [main] INFO  com.dk.gym.validator.RangeValidator - 5
+2018-08-11 22:17:43.299 [main] INFO  com.dk.gym.validator.RangeValidator - 6
+2018-08-11 22:17:43.301 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:43.302 [main] INFO  com.dk.gym.validator.RangeValidator - 1
+2018-08-11 22:17:43.303 [main] INFO  com.dk.gym.validator.RangeValidator - 2
+2018-08-11 22:17:43.304 [main] INFO  com.dk.gym.validator.RangeValidator - -1
+2018-08-11 22:17:43.304 [main] INFO  com.dk.gym.validator.RangeValidator - 7
+2018-08-11 22:17:43.305 [main] INFO  com.dk.gym.validator.RangeValidator - 8
+2018-08-11 22:17:43.382 [main] INFO  com.dk.gym.validator.RangeValidator - 5
+2018-08-11 22:17:43.385 [main] INFO  com.dk.gym.validator.RangeValidator - 55
+2018-08-11 22:17:43.393 [main] INFO  com.dk.gym.validator.RangeValidator - 10
+2018-08-11 22:17:43.394 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:43.402 [main] INFO  com.dk.gym.validator.RangeValidator - 5
+2018-08-11 22:17:43.403 [main] INFO  com.dk.gym.validator.RangeValidator - 59
+2018-08-11 22:17:43.405 [main] INFO  com.dk.gym.validator.RangeValidator - 25
+2018-08-11 22:17:43.413 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:43.414 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:43.419 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:43.420 [main] INFO  com.dk.gym.validator.RangeValidator - 60
+2018-08-11 22:17:43.436 [main] INFO  com.dk.gym.validator.RangeValidator - 23
+2018-08-11 22:17:43.436 [main] INFO  com.dk.gym.validator.RangeValidator - 59
+2018-08-11 22:17:43.441 [main] INFO  com.dk.gym.validator.RangeValidator - 2018
+2018-08-11 22:17:43.456 [main] INFO  com.dk.gym.validator.RangeValidator - 2018
+2018-08-11 22:17:43.474 [main] INFO  com.dk.gym.validator.RangeValidator - 2018
+2018-08-11 22:17:43.488 [main] INFO  com.dk.gym.validator.RangeValidator - 2018
+2018-08-11 22:17:43.703 [main] ERROR dk.gym.validator.chain.ChainDateValidator - java.time.DateTimeException: Invalid date 'February 29' as '2018' is not a leap year
+2018-08-11 22:17:43.704 [main] INFO  com.dk.gym.validator.RangeValidator - 2018
+2018-08-11 22:17:43.727 [main] INFO  com.dk.gym.validator.RangeValidator - 2026
+2018-08-11 22:17:43.735 [main] INFO  com.dk.gym.validator.RangeValidator - 1949
+2018-08-11 22:17:43.736 [main] ERROR dk.gym.validator.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 1
+2018-08-11 22:17:43.737 [main] ERROR dk.gym.validator.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 1
+2018-08-11 22:17:43.739 [main] ERROR dk.gym.validator.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 1
+2018-08-11 22:17:43.742 [main] ERROR dk.gym.validator.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 2
+2018-08-11 22:17:43.787 [main] ERROR com.dk.gym.validator.BigDecimalValidator - java.lang.NumberFormatException
+2018-08-11 22:17:44.092 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:44.122 [main] INFO  com.dk.gym.validator.RangeValidator - 1
+2018-08-11 22:17:44.123 [main] INFO  com.dk.gym.validator.RangeValidator - 2
+2018-08-11 22:17:44.137 [main] INFO  com.dk.gym.validator.RangeValidator - 15654
+2018-08-11 22:17:44.138 [main] INFO  com.dk.gym.validator.RangeValidator - 2147483647
+2018-08-11 22:17:44.162 [main] INFO  com.dk.gym.validator.RangeValidator - 0
+2018-08-11 22:17:44.174 [main] INFO  com.dk.gym.validator.RangeValidator - 12
+2018-08-11 22:17:44.176 [main] INFO  com.dk.gym.validator.RangeValidator - 9
+2018-08-11 22:17:44.184 [main] INFO  com.dk.gym.validator.RangeValidator - 45
+2018-08-11 22:17:44.186 [main] INFO  com.dk.gym.validator.RangeValidator - 99
+2018-08-11 22:17:44.187 [main] INFO  com.dk.gym.validator.RangeValidator - 100

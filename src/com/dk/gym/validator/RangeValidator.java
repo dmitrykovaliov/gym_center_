@@ -34,9 +34,4 @@ public class RangeValidator extends AbstractValidator {
 
         return isValid;
     }
-
-    public static void main(String[] args) { //todo delete main
-        String message = "015";
-        System.out.println(new RangeValidator(15, 20).validate(message));
-    }
 }

@@ -29,15 +29,6 @@ public class BigDecimalValidator extends AbstractValidator {
 
         return isValid;
     }
-
-    public static void main(String[] args) { //  todo delete this method
-
-        String str = "25";
-
-        System.out.println(new BigDecimalValidator().validate(str));
-
-        System.out.println(System.getProperty("java.class.path"));
-    }
 }
 
 

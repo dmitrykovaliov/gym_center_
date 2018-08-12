@@ -102,7 +102,7 @@
                     <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
                 <td>
-                    <a onclick="fillOrderForm('idOrder', 'idCommand', 'idSubmit', 'idClient',
+                    <a class="onClickCursor" onclick="fillOrderForm('idOrder', 'idCommand', 'idSubmit', 'idClient',
                             'idActivity', ${elem.idOrder}, ${elem.idClient}, ${elem.idActivity},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">

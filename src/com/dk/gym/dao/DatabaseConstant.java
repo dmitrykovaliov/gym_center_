@@ -1,6 +1,9 @@
 package com.dk.gym.dao;
 
 public class DatabaseConstant {
+    public DatabaseConstant() {
+        throw new IllegalStateException("Utility class");
+    }
     public static final String ID_ACTIVITY = "id_activity";
     public static final String ACT_NAME = "act_name";
     public static final String ACT_PRICE = "act_price";

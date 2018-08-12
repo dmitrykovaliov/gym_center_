@@ -27,5 +27,5 @@ public abstract class TrainingDao extends AbstractDao<Training> {
 
     public abstract List<Training> findAllTrainingByClient(int idUser) throws DaoException;
 
-    public abstract List<Trainer> findAllTrainerByClient(int idUser) throws DaoException;
+    public abstract List<Trainer> findRelatedAllTrainerByClient(int idUser) throws DaoException;
 }

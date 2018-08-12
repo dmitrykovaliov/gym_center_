@@ -245,9 +245,12 @@ public class TrainingDaoImpl extends TrainingDao {
                     Training training = new Training();
 
                     training.setIdTraining(resultSet.getInt(ID_TRAINING));
-                    training.setDate(resultSet.getDate(TRG_DATE) != null ? resultSet.getDate(TRG_DATE).toLocalDate() : null);
-                    training.setStartTime(resultSet.getTime(TRG_START_TIME) != null ? resultSet.getTime(TRG_START_TIME).toLocalTime() : null);
-                    training.setEndTime(resultSet.getTime(TRG_END_TIME) != null ? resultSet.getTime(TRG_END_TIME).toLocalTime() : null);
+                    training.setDate(resultSet
+                            .getDate(TRG_DATE) != null ? resultSet.getDate(TRG_DATE).toLocalDate() : null);
+                    training.setStartTime(resultSet
+                            .getTime(TRG_START_TIME) != null ? resultSet.getTime(TRG_START_TIME).toLocalTime() : null);
+                    training.setEndTime(resultSet
+                            .getTime(TRG_END_TIME) != null ? resultSet.getTime(TRG_END_TIME).toLocalTime() : null);
                     training.setVisited(resultSet.getInt(TRG_VISITED) == 1);
                     training.setClientNote(resultSet.getString(TRG_CLIENT_NOTE));
                     training.setTrainerNote(resultSet.getString(TRG_TRAINER_NOTE));
@@ -264,7 +267,7 @@ public class TrainingDaoImpl extends TrainingDao {
     }
 
     @Override
-    public List<Trainer> findAllTrainerByClient(int idUser) throws DaoException {
+    public List<Trainer> findRelatedAllTrainerByClient(int idUser) throws DaoException {
         List<Trainer> list = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_TRAINING_BY_CLIENT)) {

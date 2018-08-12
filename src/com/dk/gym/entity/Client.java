@@ -1,6 +1,6 @@
 package com.dk.gym.entity;
 
-public class Client extends Entity {
+public class Client implements Entity {
 
     private int idClient;
     private String name;

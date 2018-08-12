@@ -7,9 +7,9 @@ import com.dk.gym.dao.impl.ClientDaoImpl;
 import com.dk.gym.dao.impl.TrainerDaoImpl;
 import com.dk.gym.dao.impl.UserDaoImpl;
 import com.dk.gym.entity.Client;
+import com.dk.gym.entity.Role;
 import com.dk.gym.entity.Trainer;
 import com.dk.gym.entity.User;
-import com.dk.gym.entity.Role;
 import com.dk.gym.builder.UserDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
@@ -20,7 +20,6 @@ import com.dk.gym.validator.impl.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.List;
 
 import static com.dk.gym.command.ReturnMessageType.*;
@@ -62,9 +61,9 @@ public class UserService {
                  ClientDao clientDao = new ClientDaoImpl();
                  TrainerDao trainerDao = new TrainerDaoImpl()) {
 
-                if (!userDao.findLogin(content.findParameter(PARAM_LOGIN))) {
+                transactionManager.startTransaction(userDao, clientDao, trainerDao);
 
-                    transactionManager.startTransaction(userDao, clientDao, trainerDao);
+                if (!userDao.findLogin(content.findParameter(PARAM_LOGIN))) {
 
                     User user = new UserDirector().buildUser(content);
 
@@ -179,7 +178,7 @@ public class UserService {
         String pass = content.findParameter(PARAM_PASS);
         String encryptPass = CryptPass.cryptSha(pass);
 
-        if (encryptPass == null) {
+        if (encryptPass.isEmpty()) {
             throw new ServiceException("Pass was not encrypted");
         }
 

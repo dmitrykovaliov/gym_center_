@@ -29,8 +29,8 @@ public class OrderReadTrainerCommand implements ActionCommand {
 
         try {
             orderList = OrderService.getInstance().findAllOrderByTrainer(content);
-            clientList = OrderService.getInstance().findAllClientByTrainer(content);
-            activityList = OrderService.getInstance().findAllActivityByTrainer(content);
+            clientList = OrderService.getInstance().findRelatedAllClientByTrainer(content);
+            activityList = OrderService.getInstance().findRelatedAllActivityByTrainer(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

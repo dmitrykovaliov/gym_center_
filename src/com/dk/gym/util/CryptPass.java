@@ -12,7 +12,12 @@ public class CryptPass {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    public CryptPass() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static String cryptSha(String pass){
+
 
         MessageDigest digest;
 
@@ -23,15 +28,9 @@ public class CryptPass {
             return Base64.getEncoder().encodeToString(hash);
 
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.log(Level.ERROR, e);
+            LOGGER.log(Level.ERROR, "Crypt SHA-256: " + e);
         }
-
-        return null;
-    }
-
-    //todo
-    public static void main(String[] args) {
-        LOGGER.log(Level.INFO, CryptPass.cryptSha("1234567A"));
+        return "";
     }
 }
 

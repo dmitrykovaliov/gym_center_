@@ -3,9 +3,7 @@ package com.dk.gym.dao;
 import com.dk.gym.entity.Prescription;
 import com.dk.gym.entity.Trainer;
 import com.dk.gym.exception.DaoException;
-
 import java.util.List;
-import java.util.Set;
 
 public abstract class PrescriptionDao extends AbstractDao<Prescription> {
 
@@ -26,5 +24,7 @@ public abstract class PrescriptionDao extends AbstractDao<Prescription> {
 
     public abstract List<Prescription> findAllPrescriptionByTrainer(int idUser) throws DaoException;
 
-    public abstract List<Prescription> findAllPrescriptinByClient(int idUser) throws DaoException;
+    public abstract List<Prescription> findAllPrescriptionByClient(int idUser) throws DaoException;
+
+    public abstract List<Trainer> findRelatedAllTrainerByClient(int idUser) throws DaoException;
 }

@@ -1,20 +1,23 @@
 package com.dk.gym.validator;
 
+import java.util.Arrays;
+
+import static java.util.stream.Collectors.toSet;
+
 public class EnumValidator {
 
     public boolean validate(Class<? extends Enum<?>> aEnum, String parameter) {
-        boolean valid = false;
 
-        Enum[] list = aEnum.getEnumConstants();
+        if(parameter != null && !parameter.trim().isEmpty()) {
 
-        if(parameter != null) {
-            for (Enum e : list) {
-                if (e.toString().equalsIgnoreCase(parameter.trim())) {
-                    valid = true;
-                    break;
-                }
-            }
+            Enum[] list = aEnum.getEnumConstants();
+
+            return Arrays.stream(list)
+                    .map(Enum::toString)
+                    .collect(toSet())
+                    .contains(parameter.trim().toUpperCase());
         }
-        return valid;
+
+        return false;
     }
 }

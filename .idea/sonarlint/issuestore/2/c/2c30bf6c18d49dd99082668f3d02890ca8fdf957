@@ -1,3 +1,4 @@
 
-psquid:S1192"ODefine a constant instead of duplicating this literal "FROM training " 3 times.(âÓ¼Ìüÿÿÿÿ8¿¦ÙÒ,
-squid:S1192"|Define a constant instead of duplicating this literal "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC" 3 times.(œª·Æşÿÿÿÿ8ü£õ›Ò,
+squid:S1192"|Define a constant instead of duplicating this literal "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC" 3 times.(œª·Æşÿÿÿÿ8Êâ¦ÊÒ,
+‹squid:S1192"oDefine a constant instead of duplicating this literal "SELECT id_training, trg_date, trg_start_time, " 3 times.(ŠÄ°´8Êâ¦ÊÒ,
+psquid:S1192"ODefine a constant instead of duplicating this literal "FROM training " 3 times.(âÓ¼Ìüÿÿÿÿ8Êâ¦ÊÒ,

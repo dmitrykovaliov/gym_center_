@@ -27,7 +27,7 @@ public enum CommandType {
     TRAINER_READ(new TrainerReadCommand()),
     TRAINER_UPDATE(new TrainerUpdateCommand()),
     TRAINER_DELETE(new TrainerDeleteCommand()),
-    TRAINER_READ_PROFILE(new TrainerReadProfileCommand()),
+    TRAINER_READ_PROFILE(new ProfileReadTrainerCommand()),
 
     ORDER_CREATE(new OrderCreateCommand()),
     ORDER_READ(new OrderReadCommand()),
@@ -61,7 +61,7 @@ public enum CommandType {
     ACTIVITY_READ(new ActivityReadCommand()),
     ACTIVITY_UPDATE(new ActivityUpdateCommand()),
     ACTIVITY_DELETE(new ActivityDeleteCommand()),
-    ACTIVITY_READ_GENERAL(new ActivityReadGeneralCommand());
+    ACTIVITY_READ_GENERAL(new ActivityReadTrainerCommand());
 
     private ActionCommand command;
 

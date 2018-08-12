@@ -30,7 +30,7 @@ public class TrainingReadClientCommand implements ActionCommand {
 
         try {
             trainingList = TrainingService.getInstance().findAllTrainingByClient(content);
-            trainerList = TrainingService.getInstance().findAllTrainerByClient(content);
+            trainerList = TrainingService.getInstance().findRelatedAllTrainerByClient(content);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
