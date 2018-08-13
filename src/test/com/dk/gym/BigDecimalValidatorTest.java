@@ -1,19 +1,20 @@
-package test.com.dk.gym.validator;
+package test.com.dk.gym;
 
 import com.dk.gym.validator.AbstractValidator;
-import com.dk.gym.validator.NotEmptyValidator;
+import com.dk.gym.validator.BigDecimalValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class NotEmptyValidatorTest {
+public class BigDecimalValidatorTest {
 
     private AbstractValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        validator = new NotEmptyValidator();
+
+        validator = new BigDecimalValidator();
     }
 
     @Test (dataProvider = "data", groups = {"base"})
@@ -27,13 +28,13 @@ public class NotEmptyValidatorTest {
     @DataProvider(name="data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"", false},
-                {" ", false},
-                {null, false},
-                {"-1", true},
-                {"null", true},
-                {"false", true},
-                {"sdfffffffffffffffffffffsdfdfdfsdfRdfdfsfdfddddddddddddddddddddddddd", true},
+                {"1", true},
+                {"0", true},
+                {"-1.34", false},
+                {"-165545461556", false},
+                {"256.45", true},
+                {"954565561545654561545", true},
+                {"56545dfd", false}
         };
     }
 }

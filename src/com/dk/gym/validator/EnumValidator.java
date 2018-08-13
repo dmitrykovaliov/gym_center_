@@ -12,12 +12,13 @@ public class EnumValidator {
 
             Enum[] list = aEnum.getEnumConstants();
 
-            return Arrays.stream(list)
-                    .map(Enum::toString)
-                    .collect(toSet())
-                    .contains(parameter.trim().toUpperCase());
+            if(list != null) {
+                return Arrays.stream(list)
+                        .map(Enum::toString)
+                        .collect(toSet())
+                        .contains(parameter.trim().toUpperCase());
+            }
         }
-
         return false;
     }
 }

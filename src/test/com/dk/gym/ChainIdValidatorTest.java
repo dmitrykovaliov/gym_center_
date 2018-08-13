@@ -1,19 +1,19 @@
-package test.com.dk.gym.validator;
+package test.com.dk.gym;
 
-import com.dk.gym.validator.chain.ChainProcentValidator;
+import com.dk.gym.validator.chain.ChainIdValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class ChainProcentValidatorTest {
+public class ChainIdValidatorTest {
 
-    private ChainProcentValidator validator;
+    private ChainIdValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
 
-        validator = new ChainProcentValidator();
+        validator = new ChainIdValidator();
     }
 
     @Test(dataProvider = "data", groups = {"chain"})
@@ -24,18 +24,19 @@ public class ChainProcentValidatorTest {
         Assert.assertEquals(fact, expected);
     }
 
-    @DataProvider(name="data")
+    @DataProvider(name = "data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"-0", false},
-                {"0", true},
+                {"0", false},
+                {"", false},
+                {null, false},
                 {"-1", false},
-                {"12", true},
-                {"-15", false},
-                {"9", true},
-                {"45", true},
-                {"99", true},
-                {"100", true},
+                {"1", true},
+                {"2", true},
+                {"25.26", false},
+                {"15654", true},
+                {String.valueOf(Integer.MAX_VALUE), true},
+                {String.valueOf(Integer.MAX_VALUE + 1), false},
         };
     }
 }

@@ -1,23 +1,22 @@
-package test.com.dk.gym.validator;
+package test.com.dk.gym;
 
 import com.dk.gym.validator.AbstractValidator;
-import com.dk.gym.validator.OnlyDigitsValidator;
+import com.dk.gym.validator.NotEmptyValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class OnlyDigitsValidatorTest {
+public class NotEmptyValidatorTest {
 
     private AbstractValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
-
-        validator = new OnlyDigitsValidator();
+        validator = new NotEmptyValidator();
     }
 
-    @Test(dataProvider = "data", groups = {"base"})
+    @Test (dataProvider = "data", groups = {"base"})
     public void testValidate(String first, boolean expected) throws Exception {
 
         boolean fact = validator.validate(first);
@@ -28,14 +27,13 @@ public class OnlyDigitsValidatorTest {
     @DataProvider(name="data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"345234d", false},
-                {"a345435", false},
-                {"-1", false},
-                {"0", true},
-                {"6516545654651565456551565456", true},
-                {"asdfdsf", false},
-                {"/-*+-*/*-+", false},
+                {"", false},
+                {" ", false},
+                {null, false},
+                {"-1", true},
+                {"null", true},
+                {"false", true},
+                {"sdfffffffffffffffffffffsdfdfdfsdfRdfdfsfdfddddddddddddddddddddddddd", true},
         };
     }
-
 }

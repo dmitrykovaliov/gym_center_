@@ -17,6 +17,7 @@ public class LoginRequestListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
+        //empty
     }
 
     @Override

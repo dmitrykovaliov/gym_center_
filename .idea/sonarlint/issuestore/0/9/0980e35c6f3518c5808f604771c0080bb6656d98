@@ -1,5 +1,3 @@
 
-·squid:S1192"šDefine a constant instead of duplicating this literal "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " 3 times.(‘Ø¿æ8Ìâ¦ÊÒ,
-˜squid:S1192"|Define a constant instead of duplicating this literal "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " 3 times.(Ö¶¯à8Ìâ¦ÊÒ,
-T
-squid:S106"9Replace this use of System.out or System.err by a logger.(¦ìÍş8Ìâ¦ÊÒ,
+osquid:S1192"SDefine a constant instead of duplicating this literal "FROM prescription " 3 times.(îÈ©×8ñ¬íêÒ,
+˜squid:S1192"|Define a constant instead of duplicating this literal "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " 3 times.(Ö¶¯à8ñ¬íêÒ,

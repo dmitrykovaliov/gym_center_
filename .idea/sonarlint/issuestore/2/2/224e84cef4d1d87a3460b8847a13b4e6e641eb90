@@ -1,5 +1,4 @@
 
-Psquid:S1066"/Merge this if statement with the enclosing one.(éÿ¿Üùÿÿÿÿ8®ÏÊ™Ò,
-hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ö ùÿÿÿÿ8òµò±Ğ,
-dsquid:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(¯áÑë8òµò±Ğ,
-hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(òî—ûÿÿÿÿ8òµò±Ğ,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(òî—ûÿÿÿÿ8‚ò¿’Ó,
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ö ùÿÿÿÿ8‚ò¿’Ó,
+dsquid:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(¯áÑë8‚ò¿’Ó,

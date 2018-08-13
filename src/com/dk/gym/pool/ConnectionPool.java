@@ -30,9 +30,8 @@ public final class ConnectionPool {
     private int initPoolSize;
     private int maxPoolSize;
 
-    private int currentPoolSize;  // size of pool, total quantity of connections in both queues
-    private int initAttempts; // factual attempts to initialize pool
-
+    private int currentPoolSize;
+    private int initAttempts;
 
     private static ConnectionPool instance;
 
@@ -48,7 +47,7 @@ public final class ConnectionPool {
         initPoolSize = poolManager.getInitPoolSize();
         maxPoolSize = poolManager.getMaxPoolSize();
 
-        freeConnections = new LinkedBlockingQueue<>();
+        freeConnections = new LinkedBlockingQueue<>(maxPoolSize);
         boundConnections = new ArrayDeque<>();
     }
 
@@ -67,7 +66,6 @@ public final class ConnectionPool {
         return instance;
     }
 
-    //protection from clone
     @Override
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
@@ -104,17 +102,20 @@ public final class ConnectionPool {
                 initPool();
             }
         } else {
-            LOGGER.fatal("Couldn't init connection pool");
-            throw new RuntimeException("Couldn't init connection pool");
+            LOGGER.fatal("Not init connection pool");
+            throw new RuntimeException("Not init connection pool");
         }
     }
 
     private int createConnection(int size) {
         for (int i = 0; i < size; i++) {
             try {
-                freeConnections.add(poolManager.getConnection());
+                freeConnections.put(poolManager.getConnection());
+            } catch (InterruptedException e) {
+                LOGGER.log(Level.WARN, "CreateConnection interrupted: ", e);
+                Thread.currentThread().interrupt();
             } catch (SQLException e) {
-                LOGGER.log(Level.ERROR, "Connection not created: ", e);
+                LOGGER.log(Level.ERROR, "Connections not created: ", e);
             }
         }
         return freeConnections.size();
@@ -132,7 +133,7 @@ public final class ConnectionPool {
             currentPoolSize = freeConnections.size() + boundConnections.size();
 
         } catch (InterruptedException e) {
-            LOGGER.log(Level.WARN, "Interrupted!", e);
+            LOGGER.log(Level.WARN, "Receive connection interrupted: ", e);
             Thread.currentThread().interrupt();
         }
 
@@ -143,20 +144,22 @@ public final class ConnectionPool {
         return connection;
     }
 
-
     public void releaseConnection(ProxyConnection connection) {
+
         try {
             if (!connection.getAutoCommit()) {
                 connection.setAutoCommit(true);
             }
             if (currentPoolSize > 0 && boundConnections.remove(connection)) {
-                freeConnections.add(connection);
+                freeConnections.put(connection);
             }
             currentPoolSize = freeConnections.size() + boundConnections.size();
+        } catch (InterruptedException e) {
+            LOGGER.log(Level.WARN, "ReleaseConnection interrupted: ", e);
+            Thread.currentThread().interrupt();
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "Connection was not released: ", e);
+            LOGGER.log(Level.ERROR, "Connection not released: ", e);
         }
-
         monitorPool();
     }
 
@@ -176,7 +179,7 @@ public final class ConnectionPool {
                     try {
                         freeConnections.take();
                     } catch (InterruptedException e) {
-                        LOGGER.log(Level.WARN, "Interrupted!", e);
+                        LOGGER.log(Level.WARN, "MonitorPool interrupted: ", e);
                         Thread.currentThread().interrupt();
                     }
                 }

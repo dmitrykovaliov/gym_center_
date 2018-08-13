@@ -1,4 +1,4 @@
 
-squid:S1192"qDefine a constant instead of duplicating this literal "JOIN client c ON order_.id_client = c.id_client " 4 times.(¾«ÑÂ8Êâ¦ÊÒ,
-“squid:S1192"wDefine a constant instead of duplicating this literal "JOIN activity a ON order_.id_activity = a.id_activity " 4 times.(©ÿ¼8Êâ¦ÊÒ,
-isquid:S1192"MDefine a constant instead of duplicating this literal "FROM order_ " 6 times.(é­Â8Êâ¦ÊÒ,
+squid:S1192"qDefine a constant instead of duplicating this literal "JOIN client c ON order_.id_client = c.id_client " 4 times.(¾«ÑÂ8ğ¬íêÒ,
+“squid:S1192"wDefine a constant instead of duplicating this literal "JOIN activity a ON order_.id_activity = a.id_activity " 4 times.(©ÿ¼8ğ¬íêÒ,
+isquid:S1192"MDefine a constant instead of duplicating this literal "FROM order_ " 6 times.(é­Â8ğ¬íêÒ,

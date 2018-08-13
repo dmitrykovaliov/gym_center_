@@ -1,23 +1,24 @@
-package test.com.dk.gym.validator;
+package test.com.dk.gym;
 
 import com.dk.gym.validator.AbstractValidator;
-import com.dk.gym.validator.TimeValidator;
+import com.dk.gym.validator.ContainsDigitValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class TimeValidatorTest {
+
+public class ContainsDigitValidatorTest {
 
     private AbstractValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
 
-        validator = new TimeValidator();
+        validator = new ContainsDigitValidator();
     }
 
-    @Test(dataProvider = "data", groups = {"base"})
+    @Test (dataProvider = "data", groups = {"base"})
     public void testValidate(String first, boolean expected) throws Exception {
 
         boolean fact = validator.validate(first);
@@ -28,13 +29,15 @@ public class TimeValidatorTest {
     @DataProvider(name="data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"08:10", true},
-                {"00:12", true},
-                {"11:05", true},
-                {"8:1", false},
-                {"8:25", true},
-                {"8+25", false},
-                {"08.25", false},
+                {"000d545239sd", true},
+                {"sdkfldkfD4535", true},
+                {"", false},
+                {"0", true},
+                {"-1", true},
+                {"sdfffffffffffffffffffffsdfdfdfsdfRdfdfsfdfddddddddddddddddddddddddd", false},
+                {"Asdfs5", true},
+                {"asdfdfZ", false},
+                {"7asdfdfZ", true},
         };
     }
 }

@@ -1,23 +1,23 @@
-package test.com.dk.gym.validator;
+package test.com.dk.gym;
 
 import com.dk.gym.validator.AbstractValidator;
-import com.dk.gym.validator.BigDecimalValidator;
+import com.dk.gym.validator.OnlyDigitsValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class BigDecimalValidatorTest {
+public class OnlyDigitsValidatorTest {
 
     private AbstractValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
 
-        validator = new BigDecimalValidator();
+        validator = new OnlyDigitsValidator();
     }
 
-    @Test (dataProvider = "data", groups = {"base"})
+    @Test(dataProvider = "data", groups = {"base"})
     public void testValidate(String first, boolean expected) throws Exception {
 
         boolean fact = validator.validate(first);
@@ -28,13 +28,14 @@ public class BigDecimalValidatorTest {
     @DataProvider(name="data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"1", true},
+                {"345234d", false},
+                {"a345435", false},
+                {"-1", false},
                 {"0", true},
-                {"-1.34", false},
-                {"-165545461556", false},
-                {"256.45", true},
-                {"954565561545654561545", true},
-                {"56545dfd", false}
+                {"6516545654651565456551565456", true},
+                {"asdfdsf", false},
+                {"/-*+-*/*-+", false},
         };
     }
+
 }

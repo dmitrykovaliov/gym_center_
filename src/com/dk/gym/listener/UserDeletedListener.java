@@ -35,5 +35,6 @@ public class UserDeletedListener implements ServletRequestListener {
 
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
+        //empty
     }
 }

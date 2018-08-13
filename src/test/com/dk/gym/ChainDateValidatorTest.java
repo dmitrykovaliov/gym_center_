@@ -1,4 +1,4 @@
-package test.com.dk.gym.validator;
+package test.com.dk.gym;
 
 import com.dk.gym.validator.chain.ChainDateValidator;
 import org.testng.Assert;
