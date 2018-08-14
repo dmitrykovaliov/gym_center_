@@ -11,6 +11,7 @@ import java.util.Base64;
 public class CryptPass {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final String EMPTY_RESULT = "";
 
     public CryptPass() {
         throw new IllegalStateException("Utility class");
@@ -30,7 +31,7 @@ public class CryptPass {
         } catch (NoSuchAlgorithmException e) {
             LOGGER.log(Level.ERROR, "Crypt SHA-256: " + e);
         }
-        return "";
+        return EMPTY_RESULT;
     }
 }
 

@@ -8,6 +8,18 @@ import java.util.regex.Pattern;
 
 public class XssRequestWrapper extends HttpServletRequestWrapper {
 
+    private static final String EMPTY_CHARACTER = "";
+    private static final String ANYTHING_BETWEEN_SCRIPT_TAGS = "<script>(.*?)</script>";
+    private static final String ANYTHING_IN_SRC = "src[\r\n]*=[\r\n]*\'(.*?)\'";
+    private static final String CLOSE_SCRIPT_TAG = "</script>";
+    private static final String OPEN_SCRIPT_TAG = "<script(.*?)>";
+    private static final String EVAL_EXPRESSION = "eval\\((.*?)\\)";
+    private static final String EXPRESSION = "expression\\((.*?)\\)";
+    private static final String EXPRESSION_FUNCTION = EXPRESSION;
+    private static final String JAVASCRIPT_EXSPRESSION = "javascript:";
+    private static final String VBSCRIPT_EXPRESSION = "vbscript:";
+    private static final String ONLOAD_EXPRESSION = "onload(.*?)=";
+
     public XssRequestWrapper(HttpServletRequest servletRequest) {
         super(servletRequest);
     }
@@ -47,37 +59,37 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
 
             value = ESAPI.encoder().canonicalize(value);
 
-            value = value.replaceAll("", "");
+            Pattern scriptPattern = Pattern.compile(ANYTHING_BETWEEN_SCRIPT_TAGS, Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(ANYTHING_IN_SRC, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE
+                    | Pattern.DOTALL);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(CLOSE_SCRIPT_TAG, Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(OPEN_SCRIPT_TAG, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE
+                    | Pattern.DOTALL);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(EVAL_EXPRESSION, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE
+                    | Pattern.DOTALL);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(EXPRESSION_FUNCTION, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE
+                    | Pattern.DOTALL);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(JAVASCRIPT_EXSPRESSION, Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(VBSCRIPT_EXPRESSION, Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
 
-            scriptPattern = Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE);
-            value = scriptPattern.matcher(value).replaceAll("");
-
-            scriptPattern = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
-            value = scriptPattern.matcher(value).replaceAll("");
-
-            scriptPattern = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-            value = scriptPattern.matcher(value).replaceAll("");
+            scriptPattern = Pattern.compile(ONLOAD_EXPRESSION, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE
+                    | Pattern.DOTALL);
+            value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);
         }
         return value;
     }

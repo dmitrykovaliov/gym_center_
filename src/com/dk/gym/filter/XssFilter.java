@@ -11,22 +11,20 @@ import java.io.IOException;
 
 public class XssFilter implements Filter {
 
-    private String code;
-
     @Override
     public void init(FilterConfig fConfig) throws ServletException {
-        code = fConfig.getInitParameter("encoding");
+        //empty
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
 
-        chain.doFilter(new XSSRequestWrapper((HttpServletRequest) request), response);
+        chain.doFilter(new XssRequestWrapper((HttpServletRequest) request), response);
     }
 
     @Override
     public void destroy() {
-        code = null;
+        //empty
     }
 }

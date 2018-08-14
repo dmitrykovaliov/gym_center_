@@ -12,11 +12,12 @@ import static com.dk.gym.service.ParamConstant.*;
 
 public class LocaleEnCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final String EMPTY_PARAMETER = "";
 
     @Override
     public RouterPage execute(SessionRequestContent content) {
 
-        content.insertSessionAttribute(PARAM_LOCALE, "");
+        content.insertSessionAttribute(PARAM_LOCALE, EMPTY_PARAMETER);
         LocaleManager.changeResource(Locale.getDefault());
 
 
