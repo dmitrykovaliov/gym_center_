@@ -41,7 +41,8 @@
 <h3 style="margin-left: 30px">    <fmt:message key="table.activity.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="activity_create">
-    <input type="text" id="idActivity" name="id" hidden>
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}">
+    <input type="hidden" id="idActivity" name="id">
 
     <table class="greyGridTable">
         <thead>

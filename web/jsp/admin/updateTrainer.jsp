@@ -41,6 +41,8 @@
     <form class="ui-form" name="loginForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
         <input type="hidden" name="command" value="trainer_update"/>
+        <input type="hidden" name="formId" value="${sessionScope.formSessionId}" >
+
         <input id="id" type="hidden" name="id" value="${param.id}"/>
 
         <div class="form-row">

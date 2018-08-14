@@ -15,8 +15,8 @@ import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.util.CryptPass;
-import com.dk.gym.validator.chain.ChainIdValidator;
-import com.dk.gym.validator.impl.UserValidator;
+import com.dk.gym.validation.chain.ChainIdValidator;
+import com.dk.gym.validation.impl.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -200,6 +200,7 @@ public class UserService {
                 content.insertSessionAttribute(PARAM_ROLE, role.toString());
                 content.insertSessionAttribute(PARAM_USER_ID, userId);
                 content.insertSessionAttribute(PARAM_URL_QUERY, PageConstant.PAGE_MAIN);
+                content.insertSessionAttribute(PARAM_TIME_REQUEST, String.valueOf(System.currentTimeMillis()));
             }
         }
         return message;

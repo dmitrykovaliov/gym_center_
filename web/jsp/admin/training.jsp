@@ -45,7 +45,8 @@
 <h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="training_create">
-    <input type="text" id="idTraining" name="id" hidden>
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}" >
+    <input type="hidden" id="idTraining" name="id" >
 
     <table class="greyGridTable">
         <thead>
@@ -143,7 +144,7 @@
             <td><input form="createForm" type="text" name="clientNote"></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>
             <td>
-                <select form="createForm" id="idOrder" name="orderId">
+                <select form="createForm" id="idOrder" name="orderId" required>
                     <option></option>
                     <c:forEach var="elem" items="${readAllOrder}" varStatus="status">
                         <option value="${elem.idOrder}">${elem.idOrder}</option>

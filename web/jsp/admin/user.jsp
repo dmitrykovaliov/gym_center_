@@ -41,6 +41,7 @@
 <br>
 <h3 style="margin-left: 30px"><fmt:message key="table.user.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}" >
     <input id="idHid" type="hidden" name="command" value="user_create">
 
     <table class="greyGridTable">

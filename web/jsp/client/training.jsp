@@ -45,7 +45,8 @@
 <h3 style="margin-left: 30px"><fmt:message key="table.training.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" name="command" value="training_update_client">
-    <input type="text" id="idTraining" name="id" hidden>
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}" >
+    <input type="hidden" id="idTraining" name="id" >
     <table class="greyGridTable">
         <thead>
         <tr>

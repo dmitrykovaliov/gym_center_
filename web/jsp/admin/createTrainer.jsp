@@ -43,6 +43,8 @@
     <form class="ui-form" id="createForm" name="createForm" method="post"
           action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
         <input type="hidden" name="command" value="trainer_create">
+        <input type="hidden" name="formId" value="${sessionScope.formSessionId}">
+
         <div class="form-row">
             <input id="name" form="createForm" type="text" name="name" autocomplete="off">
             <label for="name"><fmt:message key="table.trainer.name"/></label>

@@ -42,6 +42,7 @@
 <h3 style="margin-left: 30px"><fmt:message key="table.order.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
     <input type="hidden" id="idCommand" name="command" value="order_update_client">
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}" >
     <input type="hidden" id="idClient" name="idClient">
 
     <table class="greyGridTable">

@@ -1,20 +1,20 @@
-package test.com.dk.gym;
+package test.com.dk.gym.validation;
 
 import com.dk.gym.validation.AbstractValidator;
-import com.dk.gym.validation.TimeValidator;
+import com.dk.gym.validation.EmailValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class TimeValidatorTest {
+public class EmailValidatorTest {
 
     private AbstractValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
 
-        validator = new TimeValidator();
+        validator = new EmailValidator();
     }
 
     @Test(dataProvider = "data", groups = {"base"})
@@ -28,13 +28,13 @@ public class TimeValidatorTest {
     @DataProvider(name="data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"08:10", true},
-                {"00:12", true},
-                {"11:05", true},
-                {"8:1", false},
-                {"8:25", true},
-                {"8+25", false},
-                {"08.25", false},
+                {"@mail.ru", false},
+                {"a@mail.com", true},
+                {"asdfsdfsdfsdfdfsdfsdf@gmail.com", true},
+                {"asd@gmaaaaaaaaaaaaaaaaaaail.com", true},
+                {"and@gon.developer", false},
+                {"sdfd$mail.zet", false},
         };
     }
+
 }

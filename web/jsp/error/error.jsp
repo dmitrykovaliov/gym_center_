@@ -6,9 +6,9 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
     <title>Error page</title>
 </head>
-
 <body>
 <div>
+    ${sessionScope.formSessionId = null}
     <br>
     <br>
     <div style="text-align: center">

@@ -9,7 +9,7 @@
             <!--</run>-->
         <!--</groups>-->
         <packages>
-            <package name="test.com.dk.gym.validator"/>
+            <package name="test.com.dk.gym.validation"/>
         </packages>
     </test>
 </suite>

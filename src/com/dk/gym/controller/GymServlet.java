@@ -55,6 +55,7 @@ public class GymServlet extends HttpServlet {
             routerPage = command.execute(content);
         } catch (CommandException e) {
             LOGGER.log(Level.ERROR, e);
+            e.printStackTrace();
             routerPage = new RouterPage(Router.FORWARD, PAGE_ERROR);
         }
 

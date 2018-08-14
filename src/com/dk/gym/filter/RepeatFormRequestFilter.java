@@ -1,8 +1,6 @@
 package com.dk.gym.filter;
 
-import com.dk.gym.entity.Role;
-import com.dk.gym.service.ParamConstant;
-import com.dk.gym.validation.EnumValidator;
+import com.dk.gym.command.PageConstant;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.UUID;
 
-@WebFilter(urlPatterns = {"/jsp/*"},
+import static com.dk.gym.service.ParamConstant.*;
+import static com.dk.gym.service.ParamConstant.PARAM_FORM_SESSION_ID;
+
+@WebFilter(urlPatterns = {"/controller"},
         initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 
-public class PageForwardFilter implements Filter {
+public class RepeatFormRequestFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -35,13 +37,19 @@ public class PageForwardFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
         HttpSession session = req.getSession();
-        String role = (String) session.getAttribute(ParamConstant.PARAM_ROLE);
 
-        if (!new EnumValidator().validate(Role.class, role)) {
+        String lastFormAttribute = (String)session.getAttribute(PARAM_FORM_SESSION_ID);
 
-            req.getServletContext().getRequestDispatcher(indexPath).forward(req, resp);
-            LOGGER.log(Level.INFO, "PageForward filtered");
-            return;
+        String currentFormAttribute = req.getParameter(PARAM_FORM_ID);
+
+        session.setAttribute(PARAM_FORM_SESSION_ID, Long.toHexString(UUID.randomUUID().getLeastSignificantBits()));
+
+        if(lastFormAttribute != null
+                && currentFormAttribute != null
+                && !lastFormAttribute.equals(currentFormAttribute)) {
+                resp.sendRedirect(indexPath);
+                LOGGER.log(Level.INFO, "RepeatFormSecurity filtered");
+                return;
         }
         chain.doFilter(req, resp);
     }

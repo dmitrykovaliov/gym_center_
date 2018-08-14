@@ -1,20 +1,20 @@
-package test.com.dk.gym;
+package test.com.dk.gym.validation;
 
 import com.dk.gym.validation.AbstractValidator;
-import com.dk.gym.validation.TimeValidator;
+import com.dk.gym.validation.OnlyDigitsValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class TimeValidatorTest {
+public class OnlyDigitsValidatorTest {
 
     private AbstractValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
 
-        validator = new TimeValidator();
+        validator = new OnlyDigitsValidator();
     }
 
     @Test(dataProvider = "data", groups = {"base"})
@@ -28,13 +28,14 @@ public class TimeValidatorTest {
     @DataProvider(name="data")
     public Object[][] dataForValidate() {
         return new Object[][]{
-                {"08:10", true},
-                {"00:12", true},
-                {"11:05", true},
-                {"8:1", false},
-                {"8:25", true},
-                {"8+25", false},
-                {"08.25", false},
+                {"345234d", false},
+                {"a345435", false},
+                {"-1", false},
+                {"0", true},
+                {"6516545654651565456551565456", true},
+                {"asdfdsf", false},
+                {"/-*+-*/*-+", false},
         };
     }
+
 }

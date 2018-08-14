@@ -25,7 +25,7 @@ public final class ConnectionPool {
     private BlockingQueue<ProxyConnection> freeConnections;
     private Deque<ProxyConnection> boundConnections;
 
-   private PoolManager poolManager;
+    private PoolManager poolManager;
 
     private int initPoolSize;
     private int maxPoolSize;
@@ -36,13 +36,12 @@ public final class ConnectionPool {
     private static ConnectionPool instance;
 
     private ConnectionPool() {
-
-        registerDriver();
-
         currentPoolSize = 0;
         initAttempts = 0;
 
         poolManager = new PoolManager();
+
+        poolManager.registerDriver();
 
         initPoolSize = poolManager.getInitPoolSize();
         maxPoolSize = poolManager.getMaxPoolSize();
@@ -69,15 +68,6 @@ public final class ConnectionPool {
     @Override
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
-    }
-
-    private void registerDriver() {
-        try {
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-        } catch (SQLException e) {
-            LOGGER.fatal("Driver was not registered: ", e);
-            throw new RuntimeException("Driver was not registered: ", e);
-        }
     }
 
     public void initPool() {
@@ -107,20 +97,6 @@ public final class ConnectionPool {
         }
     }
 
-    private int createConnection(int size) {
-        for (int i = 0; i < size; i++) {
-            try {
-                freeConnections.put(poolManager.getConnection());
-            } catch (InterruptedException e) {
-                LOGGER.log(Level.WARN, "CreateConnection interrupted: ", e);
-                Thread.currentThread().interrupt();
-            } catch (SQLException e) {
-                LOGGER.log(Level.ERROR, "Connections not created: ", e);
-            }
-        }
-        return freeConnections.size();
-    }
-
     public ProxyConnection receiveConnection() {
         ProxyConnection connection = null;
 
@@ -136,11 +112,6 @@ public final class ConnectionPool {
             LOGGER.log(Level.WARN, "Receive connection interrupted: ", e);
             Thread.currentThread().interrupt();
         }
-
-        LOGGER.log(Level.INFO, "ReceiveConnection_freeConnections: " + freeConnections.size());
-        LOGGER.log(Level.INFO, "ReceiveConnection_boundConnections: " + boundConnections.size());
-        LOGGER.log(Level.INFO, "ReceiveConnection_PoolSize: " + currentPoolSize);
-
         return connection;
     }
 
@@ -160,57 +131,68 @@ public final class ConnectionPool {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "Connection not released: ", e);
         }
+
+
         monitorPool();
     }
 
     private void monitorPool() {
 
         if (currentPoolSize < initPoolSize) {
-
             createConnection(initPoolSize - currentPoolSize);
-
+        } else if (currentPoolSize == initPoolSize) {
+            if (freeConnections.size() < BUFFER_CONNECTIONS) {
+                createConnection(BUFFER_CONNECTIONS - freeConnections.size());
+            }
         } else if (currentPoolSize < maxPoolSize) {
-
-            if (BUFFER_CONNECTIONS >= freeConnections.size()) {
+            if (freeConnections.size() < BUFFER_CONNECTIONS) {
                 createConnection(BUFFER_CONNECTIONS - freeConnections.size());
             } else {
-
-                for (int i = 0; i < freeConnections.size() - initPoolSize; i++) {
-                    try {
-                        freeConnections.take();
-                    } catch (InterruptedException e) {
-                        LOGGER.log(Level.WARN, "MonitorPool interrupted: ", e);
-                        Thread.currentThread().interrupt();
-                    }
-                }
+                closeConnection();
             }
         } else {
-            LOGGER.log(Level.INFO, "All connections are given out");
+            if (freeConnections.size() >= BUFFER_CONNECTIONS) {
+                closeConnection();
+            }
         }
+        LOGGER.log(Level.INFO, "FreeConnections: " + freeConnections.size());
+        LOGGER.log(Level.INFO, "BoundConnections: " + boundConnections.size());
+        LOGGER.log(Level.INFO, "PoolSize: " + currentPoolSize);
     }
 
     public void closePool() {
-
         for (int i = 0; i < freeConnections.size(); i++) {
-            try {
-                ProxyConnection connection = freeConnections.take();
-                connection.closeConnection();
-            } catch (InterruptedException | SQLException e) {
-                LOGGER.log(Level.ERROR, "FreeConnections not closed: ", e);
-            }
+            closeConnection();
         }
-        deregisterDrivers();
+        poolManager.deregisterDrivers();
     }
 
-    private void deregisterDrivers() {
-        try {
-            Enumeration<Driver> drivers = DriverManager.getDrivers();
-            while (drivers.hasMoreElements()) {
-                Driver driver = drivers.nextElement();
-                DriverManager.deregisterDriver(driver);
+
+    public int getCurrentPoolSize() {
+        return currentPoolSize;
+    }
+
+    private int createConnection(int size) {
+        for (int i = 0; i < size; i++) {
+            try {
+                freeConnections.put(poolManager.getConnection());
+            } catch (InterruptedException e) {
+                LOGGER.log(Level.WARN, "CreateConnection interrupted: ", e);
+                Thread.currentThread().interrupt();
+            } catch (SQLException e) {
+                LOGGER.log(Level.ERROR, "Connections not created: ", e);
             }
-        } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "DeregisterDrivers:", e);
+        }
+
+        return freeConnections.size();
+    }
+
+    private void closeConnection() {
+        try {
+            ProxyConnection connection = freeConnections.take();
+            connection.closeConnection();
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.log(Level.ERROR, "FreeConnections not closed: ", e);
         }
     }
 }

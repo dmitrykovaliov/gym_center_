@@ -89,25 +89,22 @@ function fillPrescriptionForm (idCount, countNumber, idOrder, idTrainer, idComma
     }
 }
 
-function fillPrescriptionFormTrainer (idCount, countNumber, idOrder, idTrainer, idCommand, idSubmit, valueOrder,
-                                      valueTrainer, create, update) {
+function fillPrescriptionFormTrainer (idCount, countNumber, idOrder,idCommand, idSubmit, valueOrder,
+                                      create, update) {
 
     var count = document.getElementById(idCount);
     var idOrd = document.getElementById(idOrder);
-    var idTrain = document.getElementById(idTrainer);
     var idComm = document.getElementById(idCommand);
     var idSubm = document.getElementById(idSubmit);
 
     if(count.value == countNumber) {
         count.value = "";
         idOrd.value = "";
-        idTrain.value = "";
         idSubm.value = create;
         idComm.value = "prescription_create_trainer";
     } else {
         count.value = countNumber;
         idOrd.value = valueOrder;
-        idTrain.value = valueTrainer;
 
         idSubm.value = update;
         idComm.value = "prescription_update_trainer";

@@ -44,6 +44,7 @@
 <br>
 <h3 style="margin-left: 30px"><fmt:message key="table.prescription.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}">
     <input type="hidden" id="idCommand" name="command" value="prescription_create">
 
     <table class="greyGridTable">

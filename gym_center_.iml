@@ -27,5 +27,6 @@
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="mail" level="project" />
     <orderEntry type="library" name="testng-6.10" level="project" />
+    <orderEntry type="library" name="esapi-2.0.1" level="project" />
   </component>
 </module>
