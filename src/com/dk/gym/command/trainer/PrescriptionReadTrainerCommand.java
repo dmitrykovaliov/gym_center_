@@ -11,6 +11,7 @@ import com.dk.gym.exception.CommandException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.service.OrderService;
 import com.dk.gym.service.PrescriptionService;
+import com.dk.gym.service.TrainerService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,10 +28,14 @@ public class PrescriptionReadTrainerCommand implements ActionCommand {
 
         List<Prescription> prescriptionList;
 
+        int idTrainer;
+
         List<Order> orderAllList;
 
         try {
             prescriptionList = PrescriptionService.getInstance().findAllPrescriptionByTrainer(content);
+
+            idTrainer = TrainerService.getInstance().findTrainerByUserId(content).getIdTrainer();
 
             orderAllList = OrderService.getInstance().findAllOrder();
         } catch (ServiceException e) {
@@ -38,6 +43,7 @@ public class PrescriptionReadTrainerCommand implements ActionCommand {
         }
 
         content.insertAttribute(PARAM_READ_ALL, prescriptionList);
+        content.insertAttribute(PARAM_TRAINER_ID, idTrainer);
 
         content.insertAttribute(PARAM_READ_ALL_ORDER, orderAllList);
 

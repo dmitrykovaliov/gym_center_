@@ -44,10 +44,9 @@
 <br>
 <h3 style="margin-left: 30px"><fmt:message key="table.prescription.head"/></h3>
 <form id="createForm" name="createForm" method="get" action="controller">
-    <input type="text" name="formId" value="${sessionScope.formSessionId}" hidden>
-    <input type="hidden" id="idCommand" name="command" value="prescription_create">
-
-
+    <input type="hidden" id="idCommand" name="command" value="prescription_create_trainer">
+    <input type="hidden" name="formId" value="${sessionScope.formSessionId}">
+    <input type="hidden" id="idTrainer" name="trainerId" value="${trainerId}">
 
     <table class="greyGridTable">
         <thead>
@@ -98,9 +97,9 @@
                     <c:out value="${elem.idOrder}"/>
                 </td>
                 <td>
-                    <input type="text" id="idTrainer" name="trainerId" value="${elem.idTrainer}" hidden>
-                    <a class="onClickCursor" onclick="fillPrescriptionFormTrainer('idCount', ${status.count}, 'idOrder', 'idCommand', 'idSubmit',
-                        ${elem.idOrder},
+                    <a class="onClickCursor" onclick="fillPrescriptionFormTrainer('idCount', ${status.count}, 'idOrder',
+                            'idCommand', 'idSubmit',
+                            ${elem.idOrder},
                             '<fmt:message key="body.create"/>',
                             '<fmt:message key="body.update"/>')">
                         U
@@ -118,7 +117,7 @@
         <jsp:useBean id="readAllOrder" scope="request" type="java.util.List"/>
         <tr>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
-            <td><input form="createForm" type="text" name="date" placeholder="yyyy/mm/dd"></td>
+            <td><input form="createForm" type="text" name="date"></td>
             <td><input form="createForm" type="text" name="weeks"></td>
             <td><input form="createForm" type="text" name="trainingsWeek"></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>
@@ -132,12 +131,12 @@
                     </c:forEach>
                 </select>
             </td>
+
             <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
                                    value="<fmt:message key="body.create"/>"></td>
         </tr>
         </tbody>
     </table>
-
 </form>
 <br>
 <div class="leftMessage">${error}</div>

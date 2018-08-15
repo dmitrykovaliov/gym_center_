@@ -95,7 +95,8 @@
                     <ctg:select tagId="idActivity${status.count}" elem="${name}"/>
                 </td>
                 <td>
-                    <a class="onClickCursor" onclick="fillOrderFormClient('idOrder', 'idClient', 'idActivity', 'idSubmit',
+                    <a class="onClickCursor" onclick="fillOrderFormClient('idOrder', 'idClient', 'idActivity',
+                            'idSubmit', 'feedback',
                         ${elem.idOrder},
                         ${elem.idClient},
                         ${elem.idActivity})">
@@ -112,7 +113,7 @@
             <td><input form="createForm" type="text" name="price" hidden></td>
             <td><input form="createForm" type="text" name="discount" hidden></td>
             <td><input form="createForm" type="text" name="closure" hidden></td>
-            <td><input form="createForm" type="text" name="feedback"></td>
+            <td><input form="createForm" type="text" id="feedback" name="feedback" hidden></td>
             <td>
                 <input form="createForm" type="text" id="idActivity" name="activityId" hidden>
             </td>

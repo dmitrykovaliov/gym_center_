@@ -100,7 +100,8 @@
                     <ctg:select tagId="idOrder${status.count}" elem="${elem.idOrder}"/>
                 </td>
                 <td>
-                    <a class="onClickCursor" onclick="fillTrainingFormTrainer('idCount', ${status.count}, 'idTraining', 'idOrder', 'idSubmit',
+                    <a class="onClickCursor" onclick="fillTrainingFormTrainer('idCount', ${status.count}, 'idTraining',
+                            'idOrder', 'idSubmit', 'trainerNote',
                         ${elem.idTraining},
                             ${elem.idOrder})">
                         U
@@ -116,7 +117,7 @@
             <td><input form="createForm" type="text" name="endTime" placeholder="hh:mm" hidden></td>
             <td><input form="createForm" type="text" name="visited" hidden></td>
             <td><input form="createForm" type="text" name="clientNote" hidden></td>
-            <td><input form="createForm" type="text" name="trainerNote"></td>
+            <td><input form="createForm" type="text" id="trainerNote" name="trainerNote" hidden></td>
             <td>
                 <input form="createForm" id="idOrder" name="orderId" hidden>
             </td>

@@ -11,7 +11,7 @@ import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
 import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.validation.chain.ChainIdValidator;
-import com.dk.gym.validation.impl.ClientValidator;
+import com.dk.gym.validation.entity.ClientValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

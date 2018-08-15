@@ -55,7 +55,7 @@ class PoolManager {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         } catch (SQLException e) {
             LOGGER.fatal("Driver not registered: ", e);
-            throw new RuntimeException("Driver was not registered: ", e);
+            throw new RuntimeException("Driver not registered: ", e);
         }
     }
 

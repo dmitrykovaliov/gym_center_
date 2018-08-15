@@ -1,6 +1,6 @@
 package test.com.dk.gym.validation;
 
-import com.dk.gym.validation.LineNotEmptyValidator;
+import com.dk.gym.validation.atomic.LineNotEmptyValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;

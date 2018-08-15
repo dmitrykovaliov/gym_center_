@@ -10,7 +10,7 @@ import com.dk.gym.builder.TrainerDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
 import com.dk.gym.util.FileLoader;
-import com.dk.gym.validation.impl.TrainerValidator;
+import com.dk.gym.validation.entity.TrainerValidator;
 import com.dk.gym.validation.chain.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

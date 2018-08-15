@@ -1,5 +1,5 @@
 
-dsquid:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(¯áÑë8Á á´Ó,
 csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Ş«ûÌ8Á á´Ó,
-\squid:UselessImportCheck"3Remove this unused import 'java.sql.DriverManager'.(“£°8Á á´Ó,
+dsquid:S1182"HUse super.clone() to create and seed the cloned instance to be returned.(¯áÑë8Á á´Ó,
 Zsquid:UselessImportCheck",Remove this unused import 'java.sql.Driver'.(”óäŠÿÿÿÿÿ8Á á´Ó,
+\squid:UselessImportCheck"3Remove this unused import 'java.sql.DriverManager'.(“£°8Á á´Ó,

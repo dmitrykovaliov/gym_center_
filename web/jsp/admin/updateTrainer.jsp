@@ -61,10 +61,6 @@
             <label for="phone"><fmt:message key="table.trainer.phone"/></label>
         </div>
         <div class="form-row">
-            <input id="email" type="text" name="email" autocomplete="off"/>
-            <label for="email"><fmt:message key="table.trainer.phone"/></label>
-        </div>
-        <div class="form-row">
             <input id="personalData" type="text" name="personalData" autocomplete="off"/>
             <label for="personalData"><fmt:message key="table.trainer.personalData"/></label>
         </div>

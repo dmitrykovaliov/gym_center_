@@ -44,11 +44,12 @@ function fillOrderForm (idOrder, idCommand, idSubmit, idClient, idActivity,
     }
 }
 
-function fillOrderFormClient (idOrder, idClient, idActivity, idSubmit, valueOrder,
-                              valueClient, valueActivity) {
+function fillOrderFormClient (idOrder, idClient, idActivity, idSubmit, feedback,
+                              valueOrder, valueClient, valueActivity) {
 
     var idOrd = document.getElementById(idOrder);
     var idSubm = document.getElementById(idSubmit);
+    var feedb = document.getElementById(feedback);
 
     document.getElementById(idClient).value = valueClient;
     document.getElementById(idActivity).value = valueActivity;
@@ -56,9 +57,11 @@ function fillOrderFormClient (idOrder, idClient, idActivity, idSubmit, valueOrde
     if(idOrd.value == valueOrder) {
         idOrd.value = "";
         idSubm.hidden = true;
+        feedb.hidden = true;
     } else {
         idOrd.value = valueOrder;
         idSubm.hidden = false;
+        feedb.hidden = false;
     }
 }
 
@@ -89,8 +92,8 @@ function fillPrescriptionForm (idCount, countNumber, idOrder, idTrainer, idComma
     }
 }
 
-function fillPrescriptionFormTrainer (idCount, countNumber, idOrder,idCommand, idSubmit, valueOrder,
-                                      create, update) {
+function fillPrescriptionFormTrainer (idCount, countNumber, idOrder, idCommand, idSubmit, valueOrder,
+                               create, update) {
 
     var count = document.getElementById(idCount);
     var idOrd = document.getElementById(idOrder);
@@ -98,25 +101,27 @@ function fillPrescriptionFormTrainer (idCount, countNumber, idOrder,idCommand, i
     var idSubm = document.getElementById(idSubmit);
 
     if(count.value == countNumber) {
+
         count.value = "";
         idOrd.value = "";
         idSubm.value = create;
         idComm.value = "prescription_create_trainer";
+
     } else {
         count.value = countNumber;
         idOrd.value = valueOrder;
-
         idSubm.value = update;
         idComm.value = "prescription_update_trainer";
     }
-
 }
 
-function fillPrescriptionFormClient (idCount, countValue, idOrder, idTrainer, idSubmit,
+function fillPrescriptionFormClient (idCount, countValue, idOrder, idTrainer, idSubmit, clientNote, agreed,
                                      valueOrder, valueTrainer) {
 
     var count = document.getElementById(idCount);
     var idSubm = document.getElementById(idSubmit);
+    var clNote = document.getElementById(clientNote);
+    var agr = document.getElementById(agreed);
 
     document.getElementById(idOrder).value = valueOrder;
     document.getElementById(idTrainer).value = valueTrainer;
@@ -124,10 +129,13 @@ function fillPrescriptionFormClient (idCount, countValue, idOrder, idTrainer, id
     if(count.value == countValue) {
         count.value = "";
         idSubm.hidden = true;
+        clNote.hidden = true;
+        agr.hidden = true;
     } else {
         count.value = countValue;
         idSubm.hidden = false;
-
+        clNote.hidden = false;
+        agr.hidden = false;
     }
 }
 
@@ -162,37 +170,45 @@ function fillFormTraining (idCount, countNumber, idTraining, idOrder, idTrainer,
     }
 }
 
-function fillTrainingFormTrainer (idCount, countNumber, idTraining, idOrder, idSubmit, valueTraining, valueOrder) {
+function fillTrainingFormTrainer (idCount, countNumber, idTraining, idOrder, idSubmit, trainerNote,
+                                  valueTraining, valueOrder) {
 
     var count = document.getElementById(idCount);
     var idSubm = document.getElementById(idSubmit);
+    var trNote = document.getElementById(trainerNote);
+
     document.getElementById(idTraining).value = valueTraining;
     document.getElementById(idOrder).value = valueOrder;
 
     if(count.value == countNumber) {
         count.value = "";
         idSubm.hidden = true;
+        trNote.hidden = true;
     } else {
         count.value = countNumber;
         idSubm.hidden = false;
+        trNote.hidden = false;
     }
 }
 
-function fillTrainingFormClient (idCount, countNumber, idTraining, idOrder, idTrainer, idSubmit,
+function fillTrainingFormClient (idCount, countNumber, idTraining, idOrder, idTrainer, idSubmit, clientNote,
                                  trainingValue, orderValue, trainerValue) {
 
     var count = document.getElementById(idCount);
     var idSubm = document.getElementById(idSubmit);
+    var clNote = document.getElementById(clientNote);
 
     document.getElementById(idTraining).value = trainingValue;
     document.getElementById(idOrder).value = orderValue;
    document.getElementById(idTrainer).value = trainerValue;
 
-    if(count.value === countNumber) {
+    if(count.value == countNumber) {
         count.value = "";
         idSubm.hidden = true;
+        clNote.hidden = true;
     } else {
         count.value = countNumber;
         idSubm.hidden = false;
+        clNote.hidden = false;
     }
 }

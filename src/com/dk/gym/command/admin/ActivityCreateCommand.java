@@ -32,7 +32,7 @@ public class ActivityCreateCommand implements ActionCommand {
         content.insertAttribute(PARAM_ERROR, LocaleManager
                 .getProperty(new ReturnMessageFactory().defineMessage(message)));
 
-        String pageUrl = PageConstant.PAGE_ACTIVITY_READ;
+        String pageUrl = PageConstant.PAGE_READ_ACTIVITY;
 
         LOGGER.log(Level.DEBUG, pageUrl);
 

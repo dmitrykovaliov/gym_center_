@@ -7,16 +7,7 @@ import java.util.List;
 
 public abstract class PrescriptionDao extends AbstractDao<Prescription> {
 
-    @Override
-    public abstract List<Prescription> findAll() throws DaoException;
-
     public abstract Prescription findById(int idOrder, int idTrainer) throws DaoException;
-
-    @Override
-    public abstract int create(Prescription entity) throws DaoException;
-
-    @Override
-    public abstract boolean update(Prescription entity) throws DaoException;
 
     public abstract boolean delete(int idTrainer, int idOrder) throws DaoException;
 

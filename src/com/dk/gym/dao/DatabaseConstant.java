@@ -1,7 +1,7 @@
 package com.dk.gym.dao;
 
 public class DatabaseConstant {
-    public DatabaseConstant() {
+    private DatabaseConstant() {
         throw new IllegalStateException("Utility class");
     }
     public static final String ID_ACTIVITY = "id_activity";

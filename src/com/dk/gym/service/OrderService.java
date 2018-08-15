@@ -11,7 +11,7 @@ import com.dk.gym.entity.Order;
 import com.dk.gym.builder.OrderDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.validation.OrderValidator;
+import com.dk.gym.validation.atomic.OrderValidator;
 import com.dk.gym.validation.chain.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

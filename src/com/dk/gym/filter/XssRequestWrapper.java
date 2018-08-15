@@ -1,7 +1,5 @@
 package com.dk.gym.filter;
 
-import org.owasp.esapi.ESAPI;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.regex.Pattern;
@@ -56,8 +54,6 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
 
     private String stripXSS(String value) {
         if (value != null) {
-
-            value = ESAPI.encoder().canonicalize(value);
 
             Pattern scriptPattern = Pattern.compile(ANYTHING_BETWEEN_SCRIPT_TAGS, Pattern.CASE_INSENSITIVE);
             value = scriptPattern.matcher(value).replaceAll(EMPTY_CHARACTER);

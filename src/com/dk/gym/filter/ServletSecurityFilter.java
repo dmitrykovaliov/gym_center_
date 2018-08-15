@@ -1,7 +1,7 @@
 package com.dk.gym.filter;
 
 import com.dk.gym.entity.Role;
-import com.dk.gym.validation.EnumValidator;
+import com.dk.gym.validation.atomic.EnumValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

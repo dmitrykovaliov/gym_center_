@@ -1,7 +1,7 @@
 package test.com.dk.gym.validation;
 
-import com.dk.gym.validation.AbstractValidator;
-import com.dk.gym.validation.RangeValidator;
+import com.dk.gym.validation.atomic.AbstractValidator;
+import com.dk.gym.validation.atomic.RangeValidator;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

@@ -9,16 +9,7 @@ import java.util.List;
 
 public abstract class UserDao extends AbstractDao<User> {
 
-    @Override
-    public abstract List<User> findAll() throws DaoException;
-
     public abstract User findById(int id) throws DaoException;
-
-    @Override
-    public abstract int create(User entity) throws DaoException;
-
-    @Override
-    public abstract boolean update(User entity) throws DaoException;
 
     public abstract boolean delete(int id) throws DaoException;
 

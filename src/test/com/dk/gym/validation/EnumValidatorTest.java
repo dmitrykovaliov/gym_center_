@@ -1,7 +1,7 @@
 package test.com.dk.gym.validation;
 
 import com.dk.gym.entity.Role;
-import com.dk.gym.validation.EnumValidator;
+import com.dk.gym.validation.atomic.EnumValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;

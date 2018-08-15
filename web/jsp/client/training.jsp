@@ -111,7 +111,7 @@
                 </td>
                 <td>
                     <a class="onClickCursor" onclick="fillTrainingFormClient('idCount', ${status.count}, 'idTraining', 'idOrder', 'idTrainer',
-                        'idSubmit',
+                        'idSubmit', 'clientNote',
                         ${elem.idTraining},
                         ${elem.idOrder},
                         ${elem.idTrainer})">
@@ -127,7 +127,7 @@
             <td><input form="createForm" type="text" placeholder="hh:mm" name="startTime" hidden></td>
             <td><input form="createForm" type="text" placeholder="hh:mm" name="endTime" hidden></td>
             <td><input form="createForm" type="text" name="visited" hidden></td>
-            <td><input form="createForm" type="text" name="clientNote" ></td>
+            <td><input form="createForm" type="text" id="clientNote" name="clientNote" hidden></td>
             <td><input form="createForm" type="text" name="trainerNote" hidden></td>
             <td>
                 <input form="createForm" type="text" id="idOrder" name="orderId" hidden>

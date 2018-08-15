@@ -16,7 +16,7 @@ import com.dk.gym.exception.ServiceException;
 import com.dk.gym.controller.SessionRequestContent;
 import com.dk.gym.util.CryptPass;
 import com.dk.gym.validation.chain.ChainIdValidator;
-import com.dk.gym.validation.impl.UserValidator;
+import com.dk.gym.validation.entity.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

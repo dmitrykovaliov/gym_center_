@@ -7,16 +7,7 @@ import java.util.List;
 
 public abstract class ClientDao extends AbstractDao<Client> {
 
-    @Override
-    public abstract List<Client> findAll() throws DaoException;
-
     public abstract Client findById(int id) throws DaoException;
-
-    @Override
-    public abstract int create(Client entity) throws DaoException;
-
-    @Override
-    public abstract boolean update(Client entity) throws DaoException;
 
     public abstract boolean delete(int id) throws DaoException;
 
