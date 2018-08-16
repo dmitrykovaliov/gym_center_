@@ -121,8 +121,8 @@
             <td><input form="createForm" type="text" name="weeks"></td>
             <td><input form="createForm" type="text" name="trainingsWeek"></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>
-            <td><input form="createForm" type="text" name="clientNote" readonly></td>
-            <td><input form="createForm" type="text" name="agreed" readonly></td>
+            <td><input form="createForm" type="text" name="clientNote" hidden></td>
+            <td><input form="createForm" type="text" name="agreed" hidden></td>
             <td>
                 <select form="createForm" id="idOrder" name="orderId" required>
                     <option></option>

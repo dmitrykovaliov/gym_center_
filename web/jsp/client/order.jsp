@@ -107,16 +107,15 @@
         </c:forEach>
 
         <tr>
-
             <td><input form="createForm" type="text" id="idOrder" name="id" readonly></td>
             <td><input form="createForm" type="text" name="date" placeholder="yyyy/mm/dd" hidden></td>
             <td><input form="createForm" type="text" name="price" hidden></td>
             <td><input form="createForm" type="text" name="discount" hidden></td>
             <td><input form="createForm" type="text" name="closure" hidden></td>
             <td><input form="createForm" type="text" id="feedback" name="feedback" hidden></td>
-            <td>
+
                 <input form="createForm" type="text" id="idActivity" name="activityId" hidden>
-            </td>
+
             <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
                                    value="<fmt:message key="body.update"/>" hidden></td>
         </tr>

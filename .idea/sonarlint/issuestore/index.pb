@@ -765,3 +765,7 @@ g
 7src/com/dk/gym/validation/atomic/AbstractValidator.java,e/9/e94791db4559d3f3a7d0ee681864214edee2c47f
 g
 7src/com/dk/gym/validation/atomic/NotEmptyValidator.java,2/2/22f302c8ab716bc02a9f527fcc066b1ddc833daf
+d
+4src/com/dk/gym/validation/atomic/RangeValidator.java,1/8/186598dcb6d41b729fa21fc1cc65184247161123
+c
+3src/com/dk/gym/validation/atomic/TimeValidator.java,6/c/6cb296116d558c88fc82cac95ddbf81c65a81ae9

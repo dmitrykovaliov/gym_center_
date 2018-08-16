@@ -43,9 +43,12 @@ public class RepeatFormRequestFilter implements Filter {
 
         session.setAttribute(PARAM_FORM_SESSION_ID, Long.toHexString(UUID.randomUUID().getLeastSignificantBits()));
 
+
+
         if(lastFormAttribute != null
                 && currentFormAttribute != null
                 && !lastFormAttribute.equals(currentFormAttribute)) {
+
                 resp.sendRedirect(indexPath);
                 LOGGER.log(Level.INFO, "RepeatFormSecurity filtered");
                 return;

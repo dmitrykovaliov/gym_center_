@@ -132,8 +132,8 @@
             <td>
                 <input form="createForm" type="text" id="idOrder" name="orderId" hidden>
             </td>
-            <td><input form="createForm" type="text" id="idTrainer" name="trainerId" hidden></td>
-            <td><input form="createForm" id="idSubmit" type="submit"
+            <input form="createForm" type="text" id="idTrainer" name="trainerId" hidden>
+            <td colspan="2"><input form="createForm" id="idSubmit" type="submit"
                        value="<fmt:message key="body.update"/>" hidden></td>
         </tr>
 

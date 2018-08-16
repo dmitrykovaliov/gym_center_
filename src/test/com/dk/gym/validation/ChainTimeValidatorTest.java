@@ -29,7 +29,7 @@ public class ChainTimeValidatorTest {
         return new Object[][]{
                 {"05:55", true},
                 {"10:00", true},
-                {"5:59", true},
+                {"5:59", false},
                 {"25:06", false},
                 {"00:00", true},
                 {"00:60", false},

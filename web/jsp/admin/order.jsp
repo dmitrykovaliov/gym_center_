@@ -126,7 +126,7 @@
             <td><input form="createForm" type="text" placeholder="yyyy-mm-dd" name="date"></td>
             <td><input form="createForm" type="text" name="price"></td>
             <td><input form="createForm" type="text" name="discount"></td>
-            <td><input form="createForm" type="text" name="closure"></td>
+            <td><input form="createForm" type="text" placeholder="yyyy-mm-dd" name="closure"></td>
             <td><input form="createForm" type="text" name="feedback"></td>
             <td>
                 <select form="createForm" id="idClient" name="clientId" required>
