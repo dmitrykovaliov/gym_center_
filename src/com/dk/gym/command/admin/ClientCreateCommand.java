@@ -14,6 +14,9 @@ import com.dk.gym.resource.LocaleManager;
 
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class ClientCreateCommand.
+ */
 public class ClientCreateCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -11,14 +11,28 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * The Class EmailSender. Creates and send message.
+ */
 public class EmailSender {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Instantiates a new email sender.
+     */
     private EmailSender() {
         throw new IllegalStateException("Utility class");
     }
 
+    /**
+     * Send mail.
+     *
+     * @param sendToEmail the send to email
+     * @param mailSubject the mail subject
+     * @param mailText the mail text
+     * @return true, if successful
+     */
     public static boolean sendMail(String sendToEmail, String mailSubject, String mailText) {
         Session mailSession = new EmailSessionCreator().createSession();
         mailSession.setDebug(true);

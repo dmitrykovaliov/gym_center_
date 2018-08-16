@@ -21,6 +21,9 @@ import java.util.List;
 import static com.dk.gym.command.PageConstant.*;
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The Class OrderReadCommand.
+ */
 public class OrderReadCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

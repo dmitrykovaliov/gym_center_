@@ -23,16 +23,29 @@ import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
 import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
-
+/**
+ * The Class TrainerService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class TrainerService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The instance. */
     private static TrainerService instance;
 
+    /**
+     * Instantiates a new trainer service.
+     */
     private TrainerService() {
     }
 
+    /**
+     * Gets the single instance of TrainerService.
+     *
+     * @return single instance of TrainerService
+     */
     public static TrainerService getInstance() {
         if (instance == null) {
             instance = new TrainerService();
@@ -42,6 +55,13 @@ public class TrainerService {
     }
 
 
+    /**
+     * Creates the trainer.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createTrainer(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -69,6 +89,12 @@ public class TrainerService {
         return message;
     }
 
+    /**
+     * Find all trainer.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Trainer> findAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
@@ -80,6 +106,13 @@ public class TrainerService {
         return itemList;
     }
 
+    /**
+     * Update trainer.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType updateTrainer(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -113,6 +146,13 @@ public class TrainerService {
         return message;
     }
 
+    /**
+     * Delete trainer.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deleteTrainer(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -134,6 +174,13 @@ public class TrainerService {
         return message;
     }
 
+    /**
+     * Find trainer by user id.
+     *
+     * @param content the content
+     * @return the trainer
+     * @throws ServiceException the service exception
+     */
     public Trainer findTrainerByUserId(SessionRequestContent content) throws ServiceException {
         Trainer trainer;
 

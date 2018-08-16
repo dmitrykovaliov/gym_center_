@@ -11,22 +11,31 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class PrescriptionDaoImpl. Implementation of prescription dao.
+ */
 public class PrescriptionDaoImpl extends PrescriptionDao {
 
 
+    /** The Constant SQL_INSERT_PRESCRIPTION. */
     private static final String SQL_INSERT_PRESCRIPTION = "INSERT INTO prescription(id_order, id_trainer, pre_date, " +
             "pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_PRESCRIPTION. */
     private static final String SQL_UPDATE_PRESCRIPTION = "UPDATE prescription SET pre_date = ?," +
             " pre_weeks = ?, pre_trainings_per_week = ?, pre_trainer_note = ?, pre_client_note = ?, pre_agreed = ?" +
             " WHERE id_order = ? AND id_trainer = ?";
 
+    /** The Constant SQL_SELECT_ALL_PRESCRIPTION. */
     private static final String SQL_SELECT_ALL_PRESCRIPTION = "SELECT id_order, prescription.id_trainer, tr_name, " +
             "tr_lastname, pre_date, pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, " +
             "pre_agreed  " +
             "FROM prescription " +
             "JOIN trainer tr ON prescription.id_trainer = tr.id_trainer " +
             "ORDER BY pre_date DESC, id_order ASC, prescription.id_trainer ASC";
+    
+    /** The Constant SQL_SELECT_ALL_PRESCRIPTION_BY_TRAINER. */
     private static final String SQL_SELECT_ALL_PRESCRIPTION_BY_TRAINER = "SELECT id_order, tr.id_trainer, pre_date, " +
             "pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  " +
             "FROM prescription " +
@@ -34,6 +43,8 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
             "JOIN user u ON tr.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
             "ORDER BY pre_date DESC,  id_order ASC, tr.id_trainer ASC";
+    
+    /** The Constant SQL_SELECT_ALL_PRESCRIPTION_BY_CLIENT. */
     private static final String SQL_SELECT_ALL_PRESCRIPTION_BY_CLIENT = "SELECT o.id_order, tr.id_trainer, tr_name, " +
             "tr_lastname, pre_date, pre_weeks, pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  " +
             "FROM prescription " +
@@ -43,18 +54,29 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
             "JOIN user u ON c.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
             "ORDER BY pre_date DESC, o.id_order ASC, tr.id_trainer ASC";
+    
+    /** The Constant SQL_SELECT_PRESCRIPTION_BY_ID. */
     private static final String SQL_SELECT_PRESCRIPTION_BY_ID = "SELECT id_order, id_trainer, pre_date, pre_weeks, " +
             "pre_trainings_per_week, pre_trainer_note, pre_client_note, pre_agreed  FROM prescription " +
             "WHERE id_order=? AND id_trainer=?";
+    
+    /** The Constant SQL_DELETE_PRESCRIPTION. */
     private static final String SQL_DELETE_PRESCRIPTION = "DELETE FROM prescription WHERE id_order = ? AND id_trainer = ?";
 
+    /** The Constant POSITIVE_RESULT. */
     private static final int POSITIVE_RESULT = 1;
 
 
+    /**
+     * Instantiates a new prescription dao impl.
+     */
     public PrescriptionDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(Prescription entity) throws DaoException {
 
@@ -77,6 +99,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         return POSITIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(Prescription entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PRESCRIPTION)) {
@@ -98,6 +123,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.PrescriptionDao#delete(int, int)
+     */
     public boolean delete(int idOrder, int idTrainer) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_PRESCRIPTION)) {
             statement.setInt(1, idOrder);
@@ -109,6 +137,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<Prescription> findAll() throws DaoException {
         List<Prescription> list = new ArrayList<>();
@@ -143,6 +174,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.PrescriptionDao#findRelatedAllTrainer()
+     */
     @Override
     public List<Trainer> findRelatedAllTrainer() throws DaoException {
         List<Trainer> list = new ArrayList<>();
@@ -168,6 +202,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.PrescriptionDao#findById(int, int)
+     */
     @Override
     public Prescription findById(int idOrder, int idTrainer) throws DaoException {
 
@@ -199,6 +236,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         return prescription;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.PrescriptionDao#findAllPrescriptionByTrainer(int)
+     */
     @Override
     public List<Prescription> findAllPrescriptionByTrainer(int idUser) throws DaoException {
         List<Prescription> list = new ArrayList<>();
@@ -235,6 +275,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.PrescriptionDao#findAllPrescriptionByClient(int)
+     */
     @Override
     public List<Prescription> findAllPrescriptionByClient(int idUser) throws DaoException {
         List<Prescription> list = new ArrayList<>();
@@ -270,6 +313,9 @@ public class PrescriptionDaoImpl extends PrescriptionDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.PrescriptionDao#findRelatedAllTrainerByClient(int)
+     */
     @Override
     public List<Trainer> findRelatedAllTrainerByClient(int idUser) throws DaoException {
         List<Trainer> list = new ArrayList<>();

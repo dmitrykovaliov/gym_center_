@@ -1,19 +1,19 @@
 package test.com.dk.gym.validation;
 
-import com.dk.gym.validation.chain.ChainProcentValidator;
+import com.dk.gym.validation.chain.ChainPercentValidator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class ChainProcentValidatorTest {
+public class ChainPercentValidatorTest {
 
-    private ChainProcentValidator validator;
+    private ChainPercentValidator validator;
 
     @BeforeMethod
     public void setUp() throws Exception {
 
-        validator = new ChainProcentValidator();
+        validator = new ChainPercentValidator();
     }
 
     @Test(dataProvider = "data", groups = {"chain"})

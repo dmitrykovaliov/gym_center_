@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import static com.dk.gym.command.PageConstant.PAGE_USER_READ;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class UserDeleteCommand.
+ */
 public class UserDeleteCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

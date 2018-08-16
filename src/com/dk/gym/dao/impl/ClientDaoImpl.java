@@ -13,23 +13,38 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class ClientDaoImpl. Implementation of client dao.
+ */
 public class ClientDaoImpl extends ClientDao {
 
+    /** The Constant SQL_INSERT_CLIENT. */
     private static final String SQL_INSERT_CLIENT = "INSERT INTO client(id_client, cl_name, cl_lastname, cl_phone, " +
             "cl_email, cl_personal_data, cl_iconpath) " +
             "VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_CLIENT. */
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET cl_name = ?, cl_lastname = ?, cl_phone = ?, " +
             "cl_email = ?, cl_personal_data = ?, cl_iconpath = ? " +
             "WHERE id_client = ?";
+    
+    /** The Constant SQL_UPDATE_CLIENT_USERID. */
     private static final String SQL_UPDATE_CLIENT_USERID = "UPDATE client SET id_user = ? " +
             "WHERE id_client = ?";
+    
+    /** The Constant SQL_SELECT_ALL_CLIENT. */
     private static final String SQL_SELECT_ALL_CLIENT = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client ORDER BY id_client";
+    
+    /** The Constant SQL_SELECT_CLIENT_BY_ID. */
     private static final String SQL_SELECT_CLIENT_BY_ID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_client = ?";
+    
+    /** The Constant SQL_SELECT_CLIENT_BY_USERID. */
     private static final String SQL_SELECT_CLIENT_BY_USERID = "SELECT id_client, cl_name, cl_lastname, cl_phone," +
             "cl_email, cl_personal_data, cl_iconpath FROM client WHERE id_user = ?";
 
+    /** The Constant SQL_SELECT_CLIENT_BY_TRAINER. */
     private static final String SQL_SELECT_CLIENT_BY_TRAINER = "SELECT client.id_client, cl_name, cl_lastname, " +
             "cl_phone, cl_email, cl_personal_data, cl_iconpath " +
             "FROM client " +
@@ -49,12 +64,20 @@ public class ClientDaoImpl extends ClientDao {
             "WHERE u.id_user = ? " +
             "GROUP BY client.id_client " +
             "ORDER BY cl_name ASC";
+    
+    /** The Constant SQL_DELETE_CLIENT. */
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE id_client = ?";
 
+    /**
+     * Instantiates a new client dao impl.
+     */
     public ClientDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(Client entity) throws DaoException {
 
@@ -81,6 +104,9 @@ public class ClientDaoImpl extends ClientDao {
         return RETURNED_NEGATIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(Client entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT)) {
@@ -101,6 +127,9 @@ public class ClientDaoImpl extends ClientDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ClientDao#updateUserId(java.lang.Integer, int)
+     */
     @Override
     public boolean updateUserId(Integer idUser, int idClient) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT_USERID)) {
@@ -116,6 +145,9 @@ public class ClientDaoImpl extends ClientDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<Client> findAll() throws DaoException {
         List<Client> list = new ArrayList<>();
@@ -144,6 +176,9 @@ public class ClientDaoImpl extends ClientDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ClientDao#findAllByTrainer(int)
+     */
     @Override
     public List<Client> findAllByTrainer(int idUser) throws DaoException {
         List<Client> list = new ArrayList<>();
@@ -178,6 +213,9 @@ public class ClientDaoImpl extends ClientDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ClientDao#findById(int)
+     */
     @Override
     public Client findById(int id) throws DaoException {
 
@@ -203,6 +241,9 @@ public class ClientDaoImpl extends ClientDao {
         return client;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ClientDao#delete(int)
+     */
     @Override
     public boolean delete(int id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLIENT)) {
@@ -214,6 +255,9 @@ public class ClientDaoImpl extends ClientDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ClientDao#findByUserId(int)
+     */
     @Override
     public Client findByUserId(int idUser) throws DaoException {
         Client client = new Client();

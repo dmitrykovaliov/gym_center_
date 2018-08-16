@@ -23,16 +23,29 @@ import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.PARAM_ID;
 import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
-
+/**
+ * The Class TrainingService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class TrainingService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The instance. */
     private static TrainingService instance;
 
+    /**
+     * Instantiates a new training service.
+     */
     private TrainingService() {
     }
 
+    /**
+     * Gets the single instance of TrainingService.
+     *
+     * @return single instance of TrainingService
+     */
     public static TrainingService getInstance() {
         if (instance == null) {
             instance = new TrainingService();
@@ -40,6 +53,13 @@ public class TrainingService {
         return instance;
     }
 
+    /**
+     * Creates the training.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createTraining(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -65,6 +85,12 @@ public class TrainingService {
         return message;
     }
 
+    /**
+     * Find all training.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Training> findAllTraining() throws ServiceException {
         List<Training> itemList;
 
@@ -76,6 +102,12 @@ public class TrainingService {
         return itemList;
     }
 
+    /**
+     * Find related all trainer.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Trainer> findRelatedAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
@@ -87,6 +119,13 @@ public class TrainingService {
         return itemList;
     }
 
+    /**
+     * Update training.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType updateTraining(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -117,6 +156,13 @@ public class TrainingService {
         return message;
     }
 
+    /**
+     * Delete training.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deleteTraining(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -137,6 +183,13 @@ public class TrainingService {
         return message;
     }
 
+    /**
+     * Find all training by trainer.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Training> findAllTrainingByTrainer(SessionRequestContent content) throws ServiceException {
         List<Training> itemList;
 
@@ -148,6 +201,13 @@ public class TrainingService {
         return itemList;
     }
 
+    /**
+     * Find all training by client.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Training> findAllTrainingByClient(SessionRequestContent content) throws ServiceException {
         List<Training> itemList;
 
@@ -159,6 +219,13 @@ public class TrainingService {
         return itemList;
     }
 
+    /**
+     * Find related all trainer by client.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Trainer> findRelatedAllTrainerByClient(SessionRequestContent content) throws ServiceException {
         List<Trainer> itemList;
 

@@ -11,7 +11,7 @@ import com.dk.gym.entity.Order;
 import com.dk.gym.builder.OrderDirector;
 import com.dk.gym.exception.DaoException;
 import com.dk.gym.exception.ServiceException;
-import com.dk.gym.validation.atomic.OrderValidator;
+import com.dk.gym.validation.entity.OrderValidator;
 import com.dk.gym.validation.chain.ChainIdValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -25,15 +25,29 @@ import static com.dk.gym.service.ParamConstant.PARAM_ID;
 import static com.dk.gym.service.ParamConstant.PARAM_USER_ID;
 
 
+/**
+ * The Class OrderService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class OrderService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The instance. */
     private static OrderService instance;
 
+    /**
+     * Instantiates a new order service.
+     */
     private OrderService() {
     }
 
+    /**
+     * Gets the single instance of OrderService.
+     *
+     * @return single instance of OrderService
+     */
     public static OrderService getInstance() {
         if (instance == null) {
             instance = new OrderService();
@@ -41,6 +55,13 @@ public class OrderService {
         return instance;
     }
 
+    /**
+     * Creates the order.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createOrder(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -66,6 +87,12 @@ public class OrderService {
         return message;
     }
 
+    /**
+     * Find all order.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Order> findAllOrder() throws ServiceException {
         List<Order> itemList;
 
@@ -77,6 +104,12 @@ public class OrderService {
         return itemList;
     }
 
+    /**
+     * Find related all client.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Client> findRelatedAllClient() throws ServiceException {
         List<Client> itemList;
 
@@ -88,6 +121,12 @@ public class OrderService {
         return itemList;
     }
 
+    /**
+     * Find related all activity.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Activity> findRelatedAllActivity() throws ServiceException {
         List<Activity> itemList;
 
@@ -99,6 +138,13 @@ public class OrderService {
         return itemList;
     }
 
+    /**
+     * Update order.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType updateOrder(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -130,6 +176,13 @@ public class OrderService {
         return message;
     }
 
+    /**
+     * Delete order.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deleteOrder(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -150,6 +203,13 @@ public class OrderService {
         return message;
     }
 
+    /**
+     * Find all order by trainer.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Order> findAllOrderByTrainer(SessionRequestContent content) throws ServiceException {
         List<Order> itemList;
 
@@ -162,6 +222,13 @@ public class OrderService {
         return itemList;
     }
 
+    /**
+     * Find related all client by trainer.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Client> findRelatedAllClientByTrainer(SessionRequestContent content) throws ServiceException {
         List<Client> itemList;
 
@@ -174,6 +241,13 @@ public class OrderService {
         return itemList;
     }
 
+    /**
+     * Find related all activity by trainer.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Activity> findRelatedAllActivityByTrainer(SessionRequestContent content) throws ServiceException {
         List<Activity> itemList;
 
@@ -187,6 +261,13 @@ public class OrderService {
     }
 
 
+    /**
+     * Find all order by client.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Order> findAllOrderByClient(SessionRequestContent content) throws ServiceException {
         List<Order> itemList;
 
@@ -199,6 +280,13 @@ public class OrderService {
         return itemList;
     }
 
+    /**
+     * Find related all activity by client.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Activity> findRelatedAllActivityByClient(SessionRequestContent content) throws ServiceException {
         List<Activity> itemList;
 

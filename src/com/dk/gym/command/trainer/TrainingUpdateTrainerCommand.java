@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import static com.dk.gym.command.PageConstant.PAGE_TRAINER_READ_TRAINING;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class TrainingUpdateTrainerCommand.
+ */
 public class TrainingUpdateTrainerCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -21,16 +21,29 @@ import static com.dk.gym.command.ReturnMessageType.*;
 import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
-
+/**
+ * The Class ActivityService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class ActivityService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The instance. */
     private static ActivityService instance;
 
+    /**
+     * Instantiates a new activity service.
+     */
     private ActivityService() {
     }
 
+    /**
+     * Gets the single instance of ActivityService.
+     *
+     * @return single instance of ActivityService
+     */
     public static ActivityService getInstance() {
         if (instance == null) {
             instance = new ActivityService();
@@ -38,6 +51,13 @@ public class ActivityService {
         return instance;
     }
 
+    /**
+     * Creates the activity.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createActivity(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -64,6 +84,12 @@ public class ActivityService {
         return message;
     }
 
+    /**
+     * Find all activity.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Activity> findAllActivity() throws ServiceException {
         List<Activity> itemList;
 
@@ -75,6 +101,13 @@ public class ActivityService {
         return itemList;
     }
 
+    /**
+     * Update activity.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType updateActivity(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -106,6 +139,13 @@ public class ActivityService {
         return message;
     }
 
+    /**
+     * Delete activity.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deleteActivity(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message =INVALID;

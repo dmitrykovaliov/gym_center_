@@ -12,21 +12,31 @@ import java.util.List;
 
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class TrainingDaoImpl. Implementation of training dao.
+ */
 public class TrainingDaoImpl extends TrainingDao {
 
+    /** The Constant SQL_INSERT_TRAINING. */
     private static final String SQL_INSERT_TRAINING = "INSERT INTO training(id_training, trg_date, trg_start_time, " +
             "trg_end_time, trg_visited," +
             "trg_client_note, trg_trainer_note, id_order, id_trainer) " +
             "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_TRAINING. */
     private static final String SQL_UPDATE_TRAINING = "UPDATE training " +
             "SET trg_date = ?, trg_start_time = ?, trg_end_time = ?, " +
             "trg_visited = ?, trg_client_note = ?, trg_trainer_note = ?, id_order = ?, id_trainer = ? " +
             "WHERE id_training = ?";
+    
+    /** The Constant SQL_SELECT_ALL_TRAINING. */
     private static final String SQL_SELECT_ALL_TRAINING = "SELECT id_training, trg_date, trg_start_time, " +
             "trg_end_time, trg_visited, trg_client_note, trg_trainer_note, id_order, t.id_trainer, tr_name, tr_lastname " +
             "FROM training " +
             "LEFT JOIN trainer t ON training.id_trainer = t.id_trainer " +
             "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC";
+    
+    /** The Constant SQL_SELECT_ALL_TRAINING_BY_TRAINER. */
     private static final String SQL_SELECT_ALL_TRAINING_BY_TRAINER = "SELECT id_training, trg_date, trg_start_time, " +
             "trg_end_time, trg_visited, trg_client_note, trg_trainer_note, id_order, t.id_trainer " +
             "FROM training " +
@@ -34,6 +44,8 @@ public class TrainingDaoImpl extends TrainingDao {
             "LEFT JOIN user u ON t.id_user = u.id_user " +
             "WHERE u.id_user=? " +
             "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC";
+    
+    /** The Constant SQL_SELECT_ALL_TRAINING_BY_CLIENT. */
     private static final String SQL_SELECT_ALL_TRAINING_BY_CLIENT = "SELECT training.id_training, trg_date, trg_start_time, " +
             "trg_end_time, trg_visited, trg_client_note, trg_trainer_note, training.id_order, training.id_trainer, tr_name, tr_lastname " +
             "FROM training " +
@@ -43,18 +55,29 @@ public class TrainingDaoImpl extends TrainingDao {
             "JOIN user u ON c.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
             "ORDER BY trg_date DESC, trg_start_time ASC, id_training ASC";
+    
+    /** The Constant SQL_SELECT_TRAINING_BY_ID. */
     private static final String SQL_SELECT_TRAINING_BY_ID = "SELECT id_training, trg_date, trg_start_time, " +
             "trg_end_time, trg_visited, trg_client_note," +
             "trg_trainer_note, id_order, id_trainer  FROM training WHERE id_training=?";
+    
+    /** The Constant SQL_DELETE_TRAINING. */
     private static final String SQL_DELETE_TRAINING = "DELETE FROM training WHERE id_training = ?";
 
+    /** The Constant TRUE_VALUE. */
     private static final int TRUE_VALUE = 1;
 
 
+    /**
+     * Instantiates a new training dao impl.
+     */
     public TrainingDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(Training entity) throws DaoException {
 
@@ -83,6 +106,9 @@ public class TrainingDaoImpl extends TrainingDao {
         return RETURNED_NEGATIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(Training entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_TRAINING)) {
@@ -105,6 +131,9 @@ public class TrainingDaoImpl extends TrainingDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainingDao#delete(int)
+     */
     @Override
     public boolean delete(int id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_TRAINING)) {
@@ -116,6 +145,9 @@ public class TrainingDaoImpl extends TrainingDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<Training> findAll() throws DaoException {
         List<Training> list = new ArrayList<>();
@@ -148,6 +180,9 @@ public class TrainingDaoImpl extends TrainingDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainingDao#findRelatedAllTrainer()
+     */
     @Override
     public List<Trainer> findRelatedAllTrainer() throws DaoException {
         List<Trainer> list = new ArrayList<>();
@@ -172,6 +207,9 @@ public class TrainingDaoImpl extends TrainingDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainingDao#findById(int)
+     */
     @Override
     public Training findById(int id) throws DaoException {
 
@@ -201,6 +239,9 @@ public class TrainingDaoImpl extends TrainingDao {
         return training;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainingDao#findAllTrainingByTrainer(int)
+     */
     @Override
     public List<Training> findAllTrainingByTrainer(int idUser) throws DaoException {
         List<Training> list = new ArrayList<>();
@@ -232,6 +273,9 @@ public class TrainingDaoImpl extends TrainingDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainingDao#findAllTrainingByClient(int)
+     */
     @Override
     public List<Training> findAllTrainingByClient(int idUser) throws DaoException {
         List<Training> list = new ArrayList<>();
@@ -266,6 +310,9 @@ public class TrainingDaoImpl extends TrainingDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainingDao#findRelatedAllTrainerByClient(int)
+     */
     @Override
     public List<Trainer> findRelatedAllTrainerByClient(int idUser) throws DaoException {
         List<Trainer> list = new ArrayList<>();

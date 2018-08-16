@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import static com.dk.gym.command.PageConstant.PAGE_TRAINER_READ_PRESCRIPTION;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class PrescriptionDeleteTrainerCommand.
+ */
 public class PrescriptionDeleteTrainerCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -16,20 +16,40 @@ import java.util.UUID;
 import static com.dk.gym.service.ParamConstant.*;
 import static com.dk.gym.service.ParamConstant.PARAM_FORM_SESSION_ID;
 
+/**
+ * The Class RepeatFormRequestFilter. Forward to index page when there is attempt to send form field parameters
+ * one more time. Protection from F5.
+ */
 @WebFilter(urlPatterns = {"/controller"},
         initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 
 public class RepeatFormRequestFilter implements Filter {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The index path. */
     private String indexPath;
 
+    /**
+     * Inits the.
+     *
+     * @param fConfig the f config
+     */
     public void init(FilterConfig fConfig) {
         indexPath = fConfig.getInitParameter("INDEX_PATH");
     }
 
 
+    /**
+     * Do filter.
+     *
+     * @param servletRequest the servlet request
+     * @param servletResponse the servlet response
+     * @param chain the chain
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
@@ -56,6 +76,9 @@ public class RepeatFormRequestFilter implements Filter {
         chain.doFilter(req, resp);
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy() {
         indexPath = null;
     }

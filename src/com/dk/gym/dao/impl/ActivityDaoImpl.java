@@ -10,27 +10,43 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class ActivityDaoImpl. Implementation of activity dao.
+ */
 public class ActivityDaoImpl extends ActivityDao {
 
+    /** The Constant SQL_INSERT_ACTIVITY. */
     private static final String SQL_INSERT_ACTIVITY = "INSERT INTO activity(id_activity, act_name, act_price, " +
             "act_note) " +
             "VALUES (NULL, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_ACTIVITY. */
     private static final String SQL_UPDATE_ACTIVITY = "UPDATE activity SET act_name = ?, act_price = ?, act_note = ?" +
             " WHERE id_activity = ?";
 
+    /** The Constant SQL_SELECT_ALL_ACTIVITY. */
     private static final String SQL_SELECT_ALL_ACTIVITY = "SELECT id_activity, act_name, act_price, act_note " +
             "FROM activity";
+    
+    /** The Constant SQL_SELECT_ACTIVITY_BY_ID. */
     private static final String SQL_SELECT_ACTIVITY_BY_ID = "SELECT id_activity, act_name, act_price, act_note " +
             "FROM activity WHERE id_activity=?";
 
+    /** The Constant SQL_DELETE_ACTIVITY. */
     private static final String SQL_DELETE_ACTIVITY = "DELETE FROM activity WHERE id_activity = ?";
 
 
+    /**
+     * Instantiates a new activity dao impl.
+     */
     public ActivityDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(Activity entity) throws DaoException {
 
@@ -55,6 +71,9 @@ public class ActivityDaoImpl extends ActivityDao {
         return RETURNED_NEGATIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(Activity entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ACTIVITY)) {
@@ -71,6 +90,9 @@ public class ActivityDaoImpl extends ActivityDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ActivityDao#delete(int)
+     */
     @Override
     public boolean delete(int id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ACTIVITY)) {
@@ -82,6 +104,9 @@ public class ActivityDaoImpl extends ActivityDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<Activity> findAll() throws DaoException {
         List<Activity> list = new ArrayList<>();
@@ -106,6 +131,9 @@ public class ActivityDaoImpl extends ActivityDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.ActivityDao#findById(int)
+     */
     @Override
     public Activity findById(int id) throws DaoException {
 

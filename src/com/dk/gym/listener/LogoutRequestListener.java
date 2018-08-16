@@ -11,15 +11,30 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The listener which invalidate session when logout command activated.
+ */
 @WebListener
 public class LogoutRequestListener implements ServletRequestListener {
+    
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Request destroyed.
+     *
+     * @param servletRequestEvent the servlet request event
+     */
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
         //empty
     }
 
+    /**
+     * Request initialized.
+     *
+     * @param servletRequestEvent the servlet request event
+     */
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest req = (HttpServletRequest) servletRequestEvent.getServletRequest();

@@ -10,6 +10,7 @@
         <!--</groups>-->
         <packages>
             <package name="test.com.dk.gym.validation"/>
+            <package name="test.com.dk.gym.pool"/>
         </packages>
     </test>
 </suite>

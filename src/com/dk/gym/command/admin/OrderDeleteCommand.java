@@ -17,8 +17,12 @@ import com.dk.gym.resource.LocaleManager;
 import static com.dk.gym.command.PageConstant.PAGE_READ_ORDER;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class OrderDeleteCommand.
+ */
 public class OrderDeleteCommand implements ActionCommand {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override

@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import static com.dk.gym.command.PageConstant.*;
 
-
+/**
+ * The Class GymServlet. Main controller in application.
+ */
 @WebServlet(name = "GymServlet", urlPatterns = {"/controller"})
 @MultipartConfig(location = "/home/dk", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5)
@@ -27,12 +29,29 @@ public class GymServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Do get.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException the servlet exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         processRequest(request, response);
     }
+    
+    /**
+     * Do post.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException the servlet exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +59,14 @@ public class GymServlet extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * Process request.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException the servlet exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

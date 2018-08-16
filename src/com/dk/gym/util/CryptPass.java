@@ -8,15 +8,29 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * The Class CryptPass. Crypt string to SHA-256.
+ */
 public class CryptPass {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    
+    /** The Constant EMPTY_RESULT. */
     private static final String EMPTY_RESULT = "";
 
+    /**
+     * Instantiates a new crypt pass.
+     */
     public CryptPass() {
         throw new IllegalStateException("Utility class");
     }
 
+    /**
+     * Crypt sha.
+     *
+     * @param pass the pass
+     * @return the string
+     */
     public static String cryptSha(String pass){
 
 

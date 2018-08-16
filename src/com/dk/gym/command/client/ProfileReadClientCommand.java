@@ -15,7 +15,11 @@ import org.apache.logging.log4j.Logger;
 
 import static com.dk.gym.service.ParamConstant.PARAM_READ;
 
+/**
+ * The Class ProfileReadClientCommand.
+ */
 public class ProfileReadClientCommand implements ActionCommand {
+    
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override

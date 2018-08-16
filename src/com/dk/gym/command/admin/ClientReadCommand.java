@@ -17,6 +17,9 @@ import java.util.List;
 
 import static com.dk.gym.service.ParamConstant.PARAM_READ_ALL;
 
+/**
+ * The Class ClientReadCommand.
+ */
 public class ClientReadCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

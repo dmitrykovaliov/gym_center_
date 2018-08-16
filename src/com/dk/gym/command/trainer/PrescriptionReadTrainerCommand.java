@@ -20,7 +20,11 @@ import java.util.List;
 
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The Class PrescriptionReadTrainerCommand.
+ */
 public class PrescriptionReadTrainerCommand implements ActionCommand {
+    
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override

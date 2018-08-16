@@ -1,4 +1,4 @@
-package test.com.dk.gym;
+package test.com.dk.gym.validation;
 
 import com.dk.gym.validation.atomic.AbstractValidator;
 import com.dk.gym.validation.atomic.TimeValidator;
@@ -32,7 +32,7 @@ public class TimeValidatorTest {
                 {"00:12", true},
                 {"11:05", true},
                 {"8:1", false},
-                {"8:25", true},
+                {"8:25", false},
                 {"8+25", false},
                 {"08.25", false},
         };

@@ -2,8 +2,15 @@ package com.dk.gym.command;
 
 import com.dk.gym.command.admin.*;
 import com.dk.gym.command.client.*;
+import com.dk.gym.command.general.LocaleEnCommand;
+import com.dk.gym.command.general.LocaleRuCommand;
+import com.dk.gym.command.general.LoginCommand;
+import com.dk.gym.command.general.LogoutCommand;
 import com.dk.gym.command.trainer.*;
 
+/**
+ * The Enum CommandType.
+ */
 public enum CommandType {
 
     LOGIN(new LoginCommand()),
@@ -63,12 +70,23 @@ public enum CommandType {
     ACTIVITY_DELETE(new ActivityDeleteCommand()),
     ACTIVITY_READ_GENERAL(new ActivityReadTrainerCommand());
 
+    /** The command. */
     private ActionCommand command;
 
+    /**
+     * Instantiates a new command type.
+     *
+     * @param command the command
+     */
     CommandType(ActionCommand command) {
         this.command = command;
     }
 
+    /**
+     * Gets the command.
+     *
+     * @return the command
+     */
     public ActionCommand getCommand() {
         return command;
     }

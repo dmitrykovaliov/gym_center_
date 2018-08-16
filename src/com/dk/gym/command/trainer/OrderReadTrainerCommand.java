@@ -17,7 +17,11 @@ import java.util.List;
 import static com.dk.gym.command.PageConstant.PAGE_TRAINER_ORDER;
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The Class OrderReadTrainerCommand.
+ */
 public class OrderReadTrainerCommand implements ActionCommand {
+    
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override

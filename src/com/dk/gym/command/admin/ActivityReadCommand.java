@@ -17,6 +17,9 @@ import java.util.List;
 
 import static com.dk.gym.service.ParamConstant.PARAM_READ_ALL;
 
+/**
+ * The Class ActivityReadCommand.
+ */
 public class ActivityReadCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

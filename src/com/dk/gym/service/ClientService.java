@@ -23,15 +23,29 @@ import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
 
+/**
+ * The Class ClientService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class ClientService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The instance. */
     private static ClientService instance;
 
+    /**
+     * Instantiates a new client service.
+     */
     private ClientService() {
     }
 
+    /**
+     * Gets the single instance of ClientService.
+     *
+     * @return single instance of ClientService
+     */
     public static ClientService getInstance() {
         if (instance == null) {
             instance = new ClientService();
@@ -40,6 +54,13 @@ public class ClientService {
         return instance;
     }
 
+    /**
+     * Creates the client.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createClient(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -68,6 +89,12 @@ public class ClientService {
         return message;
     }
 
+    /**
+     * Find all client.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Client> findAllClient() throws ServiceException {
         List<Client> itemList;
 
@@ -79,6 +106,13 @@ public class ClientService {
         return itemList;
     }
 
+    /**
+     * Update client.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType updateClient(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -113,6 +147,13 @@ public class ClientService {
         return message;
     }
 
+    /**
+     * Delete client.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deleteClient(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -134,6 +175,13 @@ public class ClientService {
         return message;
     }
 
+    /**
+     * Find all client by trainer.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Client> findAllClientByTrainer(SessionRequestContent content) throws ServiceException {
         List<Client> itemList;
 
@@ -148,6 +196,13 @@ public class ClientService {
         return itemList;
     }
 
+    /**
+     * Find client by user id.
+     *
+     * @param content the content
+     * @return the client
+     * @throws ServiceException the service exception
+     */
     public  Client findClientByUserId(SessionRequestContent content) throws ServiceException {
             Client client;
 

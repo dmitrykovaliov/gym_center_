@@ -13,6 +13,9 @@ import org.apache.logging.log4j.Logger;
 
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class PrescriptionUpdateTrainerCommand.
+ */
 public class PrescriptionUpdateTrainerCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

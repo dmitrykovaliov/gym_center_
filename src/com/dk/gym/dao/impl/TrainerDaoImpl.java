@@ -12,29 +12,51 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class TrainerDaoImpl. Implementation of trainer dao.
+ */
 public class TrainerDaoImpl extends TrainerDao {
 
+    /** The Constant SQL_INSERT_TRAINER. */
     private static final String SQL_INSERT_TRAINER = "INSERT INTO trainer(id_trainer, tr_name, tr_lastname, " +
             "tr_phone, tr_personal_data, tr_iconpath) " +
             "VALUES (NULL, ?, ?, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_TRAINER. */
     private static final String SQL_UPDATE_TRAINER = "UPDATE trainer SET tr_name = ?, tr_lastname = ?, tr_phone = ?, " +
             "tr_personal_data = ?, tr_iconpath = ? " +
             "WHERE id_trainer = ?";
+    
+    /** The Constant SQL_UPDATE_TRAINER_USERID. */
     private static final String SQL_UPDATE_TRAINER_USERID = "UPDATE trainer SET id_user = ? " +
             "WHERE id_trainer = ?";
+    
+    /** The Constant SQL_SELECT_ALL_TRAINER. */
     private static final String SQL_SELECT_ALL_TRAINER = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer " +
             "ORDER BY id_trainer";
+    
+    /** The Constant SQL_SELECT_TRAINER_BY_ID. */
     private static final String SQL_SELECT_TRAINER_BY_ID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer WHERE id_trainer = ?";
+    
+    /** The Constant SQL_SELECT_TRAINER_BY_USERID. */
     private static final String SQL_SELECT_TRAINER_BY_USERID = "SELECT id_trainer, tr_name, tr_lastname, tr_phone," +
             "tr_personal_data, tr_iconpath FROM trainer WHERE id_user = ?";
+    
+    /** The Constant SQL_DELETE_TRAINER. */
     private static final String SQL_DELETE_TRAINER = "DELETE FROM trainer WHERE id_trainer = ?";
 
+    /**
+     * Instantiates a new trainer dao impl.
+     */
     public TrainerDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(Trainer entity) throws DaoException {
 
@@ -61,6 +83,9 @@ public class TrainerDaoImpl extends TrainerDao {
         return RETURNED_NEGATIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(Trainer entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_TRAINER)) {
@@ -80,6 +105,9 @@ public class TrainerDaoImpl extends TrainerDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainerDao#updateUserId(java.lang.Integer, int)
+     */
     @Override
     public boolean updateUserId(Integer idUser, int idTrainer) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_TRAINER_USERID)) {
@@ -96,6 +124,9 @@ public class TrainerDaoImpl extends TrainerDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<Trainer> findAll() throws DaoException {
 
@@ -125,6 +156,9 @@ public class TrainerDaoImpl extends TrainerDao {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainerDao#findById(int)
+     */
     @Override
     public Trainer findById(int id) throws DaoException {
 
@@ -149,6 +183,9 @@ public class TrainerDaoImpl extends TrainerDao {
         return trainer;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainerDao#delete(int)
+     */
     @Override
     public boolean delete(int id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_TRAINER)) {
@@ -160,6 +197,9 @@ public class TrainerDaoImpl extends TrainerDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.TrainerDao#findByUserId(int)
+     */
     @Override
     public Trainer findByUserId(int idUser) throws DaoException {
         Trainer trainer = new Trainer();

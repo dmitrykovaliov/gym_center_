@@ -12,12 +12,23 @@ import java.util.UUID;
 
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The Class FileLoader. Organize directory to load file. Writes file to this directory.
+ */
 public class FileLoader {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The Constant PATH_FORMAT. */
     private static final String PATH_FORMAT = "%s%s%s";
 
+    /**
+     * Load file.
+     *
+     * @param saveDirName the save dir name
+     * @param content the content
+     */
     public void loadFile(String saveDirName, SessionRequestContent content) {
 
         long id = UUID.randomUUID().getLeastSignificantBits();

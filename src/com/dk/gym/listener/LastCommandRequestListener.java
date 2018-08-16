@@ -14,13 +14,25 @@ import static com.dk.gym.command.CommandType.*;
 import static com.dk.gym.command.PageConstant.*;
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The listener to save in session attribute last command which contains URI and
+ * query with form or hypertext link parameters.
+ *
+ */
 @WebListener
 public class LastCommandRequestListener implements ServletRequestListener {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The Constant CONTROLLER. */
     private static final String CONTROLLER = "/controller";
 
+    /**
+     * Request destroyed.
+     *
+     * @param servletRequestEvent the servlet request event
+     */
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest req = (HttpServletRequest) servletRequestEvent.getServletRequest();
@@ -44,6 +56,11 @@ public class LastCommandRequestListener implements ServletRequestListener {
         }
     }
 
+    /**
+     * Request initialized.
+     *
+     * @param servletRequestEvent the servlet request event
+     */
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         //empty

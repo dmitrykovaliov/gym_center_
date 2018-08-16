@@ -12,9 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The listener which activating email sending when any user deleted in user table.
+ */
 @WebListener
 public class UserDeletedRequestListener implements ServletRequestListener {
 
+    /**
+     * Request destroyed.
+     *
+     * @param servletRequestEvent the servlet request event
+     */
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
         HttpServletRequest req = (HttpServletRequest) servletRequestEvent.getServletRequest();
@@ -33,6 +41,11 @@ public class UserDeletedRequestListener implements ServletRequestListener {
         }
     }
 
+    /**
+     * Request initialized.
+     *
+     * @param servletRequestEvent the servlet request event
+     */
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         //empty

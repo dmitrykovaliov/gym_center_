@@ -17,6 +17,9 @@ import com.dk.gym.resource.LocaleManager;
 import static com.dk.gym.command.PageConstant.PAGE_READ_ACTIVITY;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class ActivityDeleteCommand.
+ */
 public class ActivityDeleteCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -22,15 +22,29 @@ import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
 
+/**
+ * The Class PrescriptionService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class PrescriptionService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The instance. */
     private static PrescriptionService instance;
 
+    /**
+     * Instantiates a new prescription service.
+     */
     private PrescriptionService() {
     }
 
+    /**
+     * Gets the single instance of PrescriptionService.
+     *
+     * @return single instance of PrescriptionService
+     */
     public static PrescriptionService getInstance() {
         if (instance == null) {
             instance = new PrescriptionService();
@@ -38,6 +52,13 @@ public class PrescriptionService {
         return instance;
     }
 
+    /**
+     * Creates the prescription.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createPrescription(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -63,6 +84,12 @@ public class PrescriptionService {
         return message;
     }
 
+    /**
+     * Find all prescription.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Prescription> findAllPrescription() throws ServiceException {
         List<Prescription> itemList;
 
@@ -74,6 +101,12 @@ public class PrescriptionService {
         return itemList;
     }
 
+    /**
+     * Find related all trainer.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Trainer> findRelatedAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
@@ -85,6 +118,13 @@ public class PrescriptionService {
         return itemList;
     }
 
+    /**
+     * Update prescription.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType updatePrescription(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -116,6 +156,13 @@ public class PrescriptionService {
         return message;
     }
 
+    /**
+     * Delete prescription.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deletePrescription(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message;
@@ -137,6 +184,13 @@ public class PrescriptionService {
         return message;
     }
 
+    /**
+     * Find all prescription by trainer.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Prescription> findAllPrescriptionByTrainer(SessionRequestContent content) throws ServiceException {
         List<Prescription> itemList;
 
@@ -148,6 +202,13 @@ public class PrescriptionService {
         return itemList;
     }
 
+    /**
+     * Find all prescription by client.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Prescription> findAllPrescriptionByClient(SessionRequestContent content) throws ServiceException {
         List<Prescription> itemList;
 
@@ -159,6 +220,13 @@ public class PrescriptionService {
         return itemList;
     }
 
+    /**
+     * Find related all trainer by client.
+     *
+     * @param content the content
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Trainer> findRelatedAllTrainerByClient(SessionRequestContent content) throws ServiceException {
         List<Trainer> itemList;
 

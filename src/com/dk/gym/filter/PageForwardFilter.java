@@ -15,20 +15,40 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The Class PageForwardFilter. Forward to index page, when not authorized user trying to call jsp page via
+ * browser address bar.
+ */
 @WebFilter(urlPatterns = {"/jsp/*"},
         initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 
 public class PageForwardFilter implements Filter {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The index path. */
     private String indexPath;
 
+    /**
+     * Inits the.
+     *
+     * @param fConfig the f config
+     */
     public void init(FilterConfig fConfig) {
         indexPath = fConfig.getInitParameter("INDEX_PATH");
     }
 
 
+    /**
+     * Do filter.
+     *
+     * @param servletRequest the servlet request
+     * @param servletResponse the servlet response
+     * @param chain the chain
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
@@ -46,6 +66,9 @@ public class PageForwardFilter implements Filter {
         chain.doFilter(req, resp);
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy() {
         indexPath = null;
     }

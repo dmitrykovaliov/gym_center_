@@ -15,29 +15,50 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class UserDaoImpl. Implementation of user dao.
+ */
 public class UserDaoImpl extends UserDao {
 
+    /** The Constant SQL_INSERT_USER. */
     private static final String SQL_INSERT_USER = "INSERT INTO user(id_user, us_login, us_password, us_role) " +
             "VALUES (NULL, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_USER. */
     private static final String SQL_UPDATE_USER = "UPDATE user SET us_login = ?, us_password = ?, us_role = ?" +
             "WHERE id_user = ?";
+    
+    /** The Constant SQL_SELECT_ALL_USER. */
     private static final String SQL_SELECT_ALL_USER = "SELECT user.id_user, us_login, us_password, us_role, " +
             "id_client, cl_name, cl_lastname, id_trainer, tr_name, tr_lastname " +
             "FROM user " +
             "LEFT JOIN client c ON user.id_user = c.id_user " +
             "LEFT JOIN trainer t ON user.id_user = t.id_user " +
             "ORDER BY user.id_user ASC";
+    
+    /** The Constant SQL_SELECT_USER_BY_ID. */
     private static final String SQL_SELECT_USER_BY_ID = "SELECT id_user, us_login, us_password, us_role" +
             " FROM user WHERE id_user = ?";
 
+    /** The Constant SQL_DELETE_USER. */
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id_user = ?";
+    
+    /** The Constant SQL_LOGIN. */
     private static final String SQL_LOGIN = "SELECT count(id_user) count FROM user WHERE us_login = ?";
+    
+    /** The Constant SQL_LOGIN_PASS. */
     private static final String SQL_LOGIN_PASS = "SELECT id_user, us_role FROM user WHERE us_login = ? AND us_password = ?";
 
+    /**
+     * Instantiates a new user dao impl.
+     */
     public UserDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(User entity) throws DaoException {
 
@@ -61,6 +82,9 @@ public class UserDaoImpl extends UserDao {
         return RETURNED_NEGATIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(User entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {
@@ -78,6 +102,9 @@ public class UserDaoImpl extends UserDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<User> findAll() throws DaoException {
 
@@ -108,6 +135,9 @@ public class UserDaoImpl extends UserDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.UserDao#findRelatedAllClient()
+     */
     @Override
     public List<Client> findRelatedAllClient() throws DaoException {
         List<Client> list = new ArrayList<>();
@@ -133,6 +163,9 @@ public class UserDaoImpl extends UserDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.UserDao#findRelatedAllTrainer()
+     */
     @Override
     public List<Trainer> findRelatedAllTrainer() throws DaoException {
         List<Trainer> list = new ArrayList<>();
@@ -158,6 +191,9 @@ public class UserDaoImpl extends UserDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.UserDao#findById(int)
+     */
     @Override
     public User findById(int id) throws DaoException {
 
@@ -184,6 +220,9 @@ public class UserDaoImpl extends UserDao {
         return user;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.UserDao#delete(int)
+     */
     @Override
     public boolean delete(int id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
@@ -195,6 +234,9 @@ public class UserDaoImpl extends UserDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.UserDao#findLogin(java.lang.String)
+     */
     @Override
     public boolean findLogin(String login) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_LOGIN)) {
@@ -213,6 +255,9 @@ public class UserDaoImpl extends UserDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.UserDao#findUser(java.lang.String, java.lang.String)
+     */
     @Override
     public User findUser(String login, String pass) throws DaoException {
         User user = new User();

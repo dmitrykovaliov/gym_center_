@@ -17,6 +17,9 @@ import java.util.List;
 
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The Class TrainingReadTrainerCommand.
+ */
 public class TrainingReadTrainerCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -17,6 +17,9 @@ import com.dk.gym.resource.LocaleManager;
 import static com.dk.gym.command.PageConstant.PAGE_READ_ORDER;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class OrderCreateCommand.
+ */
 public class OrderCreateCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

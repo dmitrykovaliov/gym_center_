@@ -16,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 import static com.dk.gym.command.PageConstant.PAGE_CLIENT_READ_ORDER;
 import static com.dk.gym.service.ParamConstant.PARAM_ERROR;
 
+/**
+ * The Class OrderUpdateClientCommand.
+ */
 public class OrderUpdateClientCommand implements ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger();

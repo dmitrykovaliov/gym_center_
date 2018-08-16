@@ -11,17 +11,32 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ * The Class PoolManager. Support pool, initialize, register driver, deregister driver, providing connection.
+ */
 class PoolManager {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /** The url. */
     private String url;
+    
+    /** The properties. */
     private Properties properties;
+    
+    /** The init pool size. */
     private int initPoolSize;
+    
+    /** The max pool size. */
     private int maxPoolSize;
 
+    /** The Constant resourceBundle. */
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("resource/database");
 
+     /**
+      * Instantiates a new pool manager.
+      */
      PoolManager() {
         url = resourceBundle.getString("db.url");
 
@@ -33,23 +48,41 @@ class PoolManager {
 
         initPoolSize = Integer.parseInt(resourceBundle.getString("db.pool.initsize"));
         maxPoolSize = Integer.parseInt(resourceBundle.getString("db.pool.maxsize"));
-
     }
 
+     /**
+      * Gets the inits the pool size.
+      *
+      * @return the inits the pool size
+      */
      int getInitPoolSize() {
         return initPoolSize;
     }
 
+     /**
+      * Gets the max pool size.
+      *
+      * @return the max pool size
+      */
      int getMaxPoolSize() {
         return maxPoolSize;
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     * @throws SQLException the SQL exception
+     */
     ProxyConnection getConnection() throws SQLException {
         ProxyConnection proxyConnection;
             proxyConnection = new ProxyConnection(DriverManager.getConnection(url, properties));
         return proxyConnection;
     }
 
+    /**
+     * Register driver.
+     */
     void registerDriver() {
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -59,6 +92,9 @@ class PoolManager {
         }
     }
 
+    /**
+     * Deregister drivers.
+     */
     void deregisterDrivers() {
         try {
             Enumeration<Driver> drivers = DriverManager.getDrivers();

@@ -11,20 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.dk.gym.dao.DatabaseConstant.*;
 
+/**
+ * The Class OrderDaoImpl. Implementation of order dao.
+ */
 public class OrderDaoImpl extends OrderDao {
 
+    /** The Constant SQL_INSERT_ORDER. */
     private static final String SQL_INSERT_ORDER = "INSERT INTO order_(id_order, ord_date, ord_price, ord_discount, " +
             "ord_closure, ord_feedback, id_client, id_activity) " +
             "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+    
+    /** The Constant SQL_UPDATE_ORDER. */
     private static final String SQL_UPDATE_ORDER = "UPDATE order_ SET ord_date = ?, ord_price = ?, " +
             "ord_discount = ?, ord_closure = ?, ord_feedback = ?, id_client = ?, id_activity = ?  " +
             "WHERE id_order = ?";
+    
+    /** The Constant SQL_SELECT_ALL_ORDER. */
     private static final String SQL_SELECT_ALL_ORDER = "SELECT id_order, ord_date, ord_price, ord_discount, " +
             "ord_closure, ord_feedback, c.id_client, cl_name, cl_lastname, a.id_activity, act_name " +
             "FROM order_ " +
             "JOIN client c ON order_.id_client = c.id_client " +
             "JOIN activity a ON order_.id_activity = a.id_activity " +
             "ORDER BY ord_date DESC, id_order ASC";
+    
+    /** The Constant SQL_SELECT_ALL_ORDER_BY_TRAINER. */
     private static final String SQL_SELECT_ALL_ORDER_BY_TRAINER = "SELECT order_.id_order, ord_date, ord_price, " +
             "ord_discount, ord_closure, " +
             "ord_feedback, c.id_client, cl_name, cl_lastname, a.id_activity, act_name " +
@@ -52,6 +62,8 @@ public class OrderDaoImpl extends OrderDao {
             "JOIN user u ON t2.id_user = u.id_user " +
             "WHERE u.id_user = ?) " +
             "ORDER BY ord_date DESC,  id_order ASC;";
+    
+    /** The Constant SQL_SELECT_RELATED_ALL_ORDER_BY_CLIENT. */
     private static final String SQL_SELECT_RELATED_ALL_ORDER_BY_CLIENT = "SELECT id_order, ord_date, ord_price, " +
             "ord_discount, ord_closure, ord_feedback, c.id_client, a.id_activity, act_name " +
             "FROM order_ " +
@@ -60,16 +72,26 @@ public class OrderDaoImpl extends OrderDao {
             "JOIN user u ON c.id_user = u.id_user " +
             "WHERE u.id_user = ? " +
             "ORDER BY ord_date DESC,  id_order ASC;";
+    
+    /** The Constant SQL_SELECT_ORDER_BY_ID. */
     private static final String SQL_SELECT_ORDER_BY_ID = "SELECT id_order, ord_date, ord_price, ord_discount," +
             "ord_closure, ord_feedback, id_client, id_activity FROM order_ " +
             "where id_order=?";
+    
+    /** The Constant SQL_DELETE_ORDER. */
     private static final String SQL_DELETE_ORDER = "DELETE FROM order_ WHERE id_order = ?";
 
 
+    /**
+     * Instantiates a new order dao impl.
+     */
     public OrderDaoImpl() {
         connection = ConnectionPool.getInstance().receiveConnection();
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#create(com.dk.gym.entity.Entity)
+     */
     @Override
     public int create(Order entity) throws DaoException {
 
@@ -99,6 +121,9 @@ public class OrderDaoImpl extends OrderDao {
         return RETURNED_NEGATIVE_RESULT;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#update(com.dk.gym.entity.Entity)
+     */
     @Override
     public boolean update(Order entity) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ORDER)) {
@@ -120,6 +145,9 @@ public class OrderDaoImpl extends OrderDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#delete(int)
+     */
     @Override
     public boolean delete(int id) throws DaoException {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ORDER)) {
@@ -131,6 +159,9 @@ public class OrderDaoImpl extends OrderDao {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.AbstractDao#findAll()
+     */
     @Override
     public List<Order> findAll() throws DaoException {
         List<Order> list = new ArrayList<>();
@@ -164,6 +195,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findRelatedAllClient()
+     */
     @Override
     public List<Client> findRelatedAllClient() throws DaoException {
         List<Client> list = new ArrayList<>();
@@ -188,6 +222,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findRelatedAllActivity()
+     */
     @Override
     public List<Activity> findRelatedAllActivity() throws DaoException {
         List<Activity> list = new ArrayList<>();
@@ -210,6 +247,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findById(int)
+     */
     @Override
     public Order findById(int id) throws DaoException {
 
@@ -240,6 +280,9 @@ public class OrderDaoImpl extends OrderDao {
         return order;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findAllOrderByTrainer(int)
+     */
     @Override
     public List<Order> findAllOrderByTrainer(int idUser) throws DaoException {
 
@@ -276,6 +319,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findRelatedAllClientByTrainer(int)
+     */
     @Override
     public List<Client> findRelatedAllClientByTrainer(int idUser) throws DaoException {
         List<Client> list = new ArrayList<>();
@@ -303,6 +349,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findRelatedAllActivityByTrainer(int)
+     */
     @Override
     public List<Activity> findRelatedAllActivityByTrainer(int idUser) throws DaoException {
         List<Activity> list = new ArrayList<>();
@@ -328,6 +377,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findRelatedAllOrderByClient(int)
+     */
     @Override
     public List<Order> findRelatedAllOrderByClient(int idUser) throws DaoException {
         List<Order> list = new ArrayList<>();
@@ -362,6 +414,9 @@ public class OrderDaoImpl extends OrderDao {
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.dk.gym.dao.OrderDao#findAllActivityByClient(int)
+     */
     @Override
     public List<Activity> findAllActivityByClient(int idUser) throws DaoException {
         List<Activity> list = new ArrayList<>();

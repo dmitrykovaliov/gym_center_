@@ -26,16 +26,32 @@ import static com.dk.gym.command.ReturnMessageType.*;
 import static com.dk.gym.dao.AbstractDao.RETURNED_NEGATIVE_RESULT;
 import static com.dk.gym.service.ParamConstant.*;
 
+/**
+ * The Class UserService. Singleton. Logical layer of the application.
+ * Contains several useful methods to support interaction between dao and commands.
+ */
 public class UserService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger();
+    
+    /** The Constant DEFAULT_ID_VALUE. */
     private static final String DEFAULT_ID_VALUE = "0";
 
+    /** The instance. */
     private static UserService instance;
 
+    /**
+     * Instantiates a new user service.
+     */
     private UserService() {
     }
 
+    /**
+     * Gets the single instance of UserService.
+     *
+     * @return single instance of UserService
+     */
     public static UserService getInstance() {
         if (instance == null) {
             instance = new UserService();
@@ -44,6 +60,13 @@ public class UserService {
         return instance;
     }
 
+    /**
+     * Creates the user.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType createUser(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -96,6 +119,12 @@ public class UserService {
         return message;
     }
 
+    /**
+     * Find all user.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<User> findAllUser() throws ServiceException {
         List<User> itemList;
 
@@ -107,6 +136,12 @@ public class UserService {
         return itemList;
     }
 
+    /**
+     * Find related all client.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Client> findRelatedAllClient() throws ServiceException {
         List<Client> itemList;
 
@@ -118,6 +153,12 @@ public class UserService {
         return itemList;
     }
 
+    /**
+     * Find related all trainer.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Trainer> findRelatedAllTrainer() throws ServiceException {
         List<Trainer> itemList;
 
@@ -129,6 +170,13 @@ public class UserService {
         return itemList;
     }
 
+    /**
+     * Delete user.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType deleteUser(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;
@@ -168,6 +216,13 @@ public class UserService {
         return message;
     }
 
+    /**
+     * Check user.
+     *
+     * @param content the content
+     * @return the return message type
+     * @throws ServiceException the service exception
+     */
     public ReturnMessageType checkUser(SessionRequestContent content) throws ServiceException {
 
         ReturnMessageType message = INVALID;

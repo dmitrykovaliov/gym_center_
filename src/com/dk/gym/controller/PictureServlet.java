@@ -14,13 +14,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import static com.dk.gym.service.ParamConstant.PARAM_DIR_UPLOAD;
 
-
+/**
+ * The Class PictureServlet. Utility servlet. Only task to display pictures.
+ */
 @WebServlet(name = "PictureServlet", urlPatterns = {"/picture/*"})
 
 public class PictureServlet extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Do get.
+     *
+     * @param req the req
+     * @param resp the resp
+     * @throws ServletException the servlet exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
