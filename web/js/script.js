@@ -12,6 +12,7 @@ function fillActivityForm (idCount, countNumber, idActivity, idCommand, idSubmit
         idComm.value = "activity_create";
 
     } else {
+        count.focus();
         count.value = countNumber;
         idAct.value = activityValue;
 
@@ -36,6 +37,7 @@ function fillOrderForm (idOrder, idCommand, idSubmit, idClient, idActivity,
         idCl.value = "";
         idAct.value = "";
     } else {
+        idOrd.focus();
         idOrd.value = orderValue;
         idSubm.value = update;
         idComm.value = "order_update";
@@ -62,6 +64,7 @@ function fillOrderFormClient (idOrder, idClient, idActivity, idSubmit, feedback,
         idOrd.value = valueOrder;
         idSubm.hidden = false;
         feedb.hidden = false;
+        feedb.focus();
     }
 }
 
@@ -75,7 +78,6 @@ function fillPrescriptionForm (idCount, countNumber, idOrder, idTrainer, idComma
     var idSubm = document.getElementById(idSubmit);
 
     if(count.value == countNumber) {
-
         count.value = "";
         idOrd.value = "";
         idTrain.value = "";
@@ -83,6 +85,7 @@ function fillPrescriptionForm (idCount, countNumber, idOrder, idTrainer, idComma
         idComm.value = "prescription_create";
 
     } else {
+        count.focus();
         count.value = countNumber;
         idOrd.value = valueOrder;
         idTrain.value = valueTrainer;
@@ -101,13 +104,13 @@ function fillPrescriptionFormTrainer (idCount, countNumber, idOrder, idCommand, 
     var idSubm = document.getElementById(idSubmit);
 
     if(count.value == countNumber) {
-
         count.value = "";
         idOrd.value = "";
         idSubm.value = create;
         idComm.value = "prescription_create_trainer";
 
     } else {
+        count.focus();
         count.value = countNumber;
         idOrd.value = valueOrder;
         idSubm.value = update;
@@ -136,6 +139,7 @@ function fillPrescriptionFormClient (idCount, countValue, idOrder, idTrainer, id
         idSubm.hidden = false;
         clNote.hidden = false;
         agr.hidden = false;
+        clNote.focus();
     }
 }
 
@@ -160,6 +164,7 @@ function fillFormTraining (idCount, countNumber, idTraining, idOrder, idTrainer,
         idComm.value = "training_create";
 
     } else {
+        count.focus();
         count.value = countNumber;
         idTrain.value = valueTraining;
         idOrd.value = valueOrder;
@@ -188,6 +193,7 @@ function fillTrainingFormTrainer (idCount, countNumber, idTraining, idOrder, idS
         count.value = countNumber;
         idSubm.hidden = false;
         trNote.hidden = false;
+        trNote.focus();
     }
 }
 
@@ -210,5 +216,6 @@ function fillTrainingFormClient (idCount, countNumber, idTraining, idOrder, idTr
         count.value = countNumber;
         idSubm.hidden = false;
         clNote.hidden = false;
+        clNote.focus();
     }
 }

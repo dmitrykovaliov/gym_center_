@@ -39,6 +39,7 @@ public class ChainDateValidatorTest {
                 {"218/05/06", false},
                 {"2018/0/06", false},
                 {"2018/05/6", false},
+                {"2018 05 06", true},
                 {"2018/02/29", false},
                 {"2018/02/28", true},
                 {"18/04/12", false},

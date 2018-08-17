@@ -777,3 +777,9 @@ j
 :src/com/dk/gym/validation/chain/ChainPercentValidator.java,0/9/0977345e51aa15f668c5bedc242905d81449c0e1
 e
 5src/test/com/dk/gym/validation/TimeValidatorTest.java,3/f/3ff58ec0206924ccc084f8f1b359eb82f70e4de4
+]
+-logs/2018-08-17/2018-08-17_07-26_priority.log,b/a/baf0b684089823c5ab81622fec14aebf9ba99534
+]
+-logs/2018-08-17/2018-08-16_18-29_priority.log,1/0/10190a3275b9429f65fbcf26562f60f244d7ae63
+e
+5src/test/com/dk/gym/validation/DateValidatorTest.java,e/7/e7c099283212a6513f20c86306ab5fa0537dedd0

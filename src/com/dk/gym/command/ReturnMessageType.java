@@ -9,7 +9,8 @@ public enum ReturnMessageType {
     ENTER_ERROR("message.error.enter"),
     USER_NOT_EXIST("message.info.userNotExist"),
     USER_EXIST("message.info.userExist"),
-    INVALID("message.error.invalid");
+    INVALID("message.error.invalid"),
+    TIME_ERROR("message.error.time");
 
     /** The property. */
     private String property;

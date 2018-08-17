@@ -127,12 +127,12 @@
         <jsp:useBean id="readAllTrainer" scope="request" type="java.util.List"/>
         <tr>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
-            <td><input form="createForm" type="text" name="date"></td>
+            <td><input form="createForm" type="text" name="date" placeholder="yyyy-mm-dd"></td>
             <td><input form="createForm" type="text" name="weeks"></td>
             <td><input form="createForm" type="text" name="trainingsWeek"></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>
             <td><input form="createForm" type="text" name="clientNote"></td>
-            <td><input form="createForm" type="text" name="agreed"></td>
+            <td><input form="createForm" type="text" name="agreed" placeholder="yyyy-mm-dd"></td>
             <td>
                 <select form="createForm" id="idOrder" name="orderId" required>
                     <option></option>

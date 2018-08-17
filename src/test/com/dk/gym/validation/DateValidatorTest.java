@@ -46,6 +46,8 @@ public class DateValidatorTest {
                 {"1", false},
                 {"-1", false},
                 {"dddd-dd-dd", false},
+                {"2018 05 06", true},
+                {"2018 05  06", false},
         };
     }
 }

@@ -117,7 +117,7 @@
         <jsp:useBean id="readAllOrder" scope="request" type="java.util.List"/>
         <tr>
             <td><input form="createForm" type="text" id="idCount" name="count" readonly></td>
-            <td><input form="createForm" type="text" name="date"></td>
+            <td><input form="createForm" type="text" name="date" placeholder="yyyy-mm-dd"></td>
             <td><input form="createForm" type="text" name="weeks"></td>
             <td><input form="createForm" type="text" name="trainingsWeek"></td>
             <td><input form="createForm" type="text" name="trainerNote"></td>

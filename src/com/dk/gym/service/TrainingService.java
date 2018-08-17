@@ -64,17 +64,24 @@ public class TrainingService {
 
         ReturnMessageType message = INVALID;
 
-        if (new TrainingValidator().validate(content)) {
+        TrainingValidator trainingValidator = new TrainingValidator();
+
+        if (trainingValidator.validate(content)) {
             try (TrainingDao trainingDao = new TrainingDaoImpl()) {
 
                 Training training = new TrainingDirector().buildTraining(content);
 
-                int createdItemId = trainingDao.create(training);
+                if(trainingValidator.validateTimeSequence(training)) {
 
-                if (createdItemId != RETURNED_NEGATIVE_RESULT) {
-                    message = DONE;
+                    int createdItemId = trainingDao.create(training);
+
+                    if (createdItemId != RETURNED_NEGATIVE_RESULT) {
+                        message = DONE;
+                    } else {
+                        message = ENTER_ERROR;
+                    }
                 } else {
-                    message = ENTER_ERROR;
+                    message = TIME_ERROR;
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
@@ -130,7 +137,9 @@ public class TrainingService {
 
         ReturnMessageType message = INVALID;
 
-        if (new TrainingValidator().validate(content)) {
+        TrainingValidator trainingValidator = new TrainingValidator();
+
+        if (trainingValidator.validate(content)) {
             TransactionManager transactionManager = new TransactionManager();
                 try (TrainingDao trainingDao = new TrainingDaoImpl()) {
 
@@ -140,11 +149,15 @@ public class TrainingService {
 
                     new TrainingDirector().buildTraining(training, content);
 
-                    trainingDao.update(training);
+                    if(trainingValidator.validateTimeSequence(training)) {
+                        trainingDao.update(training);
 
-                    transactionManager.commit();
+                        transactionManager.commit();
 
-                    message = DONE;
+                        message = DONE;
+                    } else {
+                        message = TIME_ERROR;
+                    }
 
                 } catch (DaoException e) {
                     transactionManager.rollback();
