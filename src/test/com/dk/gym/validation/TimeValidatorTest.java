@@ -37,6 +37,8 @@ public class TimeValidatorTest {
                 {"08.25", false},
                 {"08 25", true},
                 {"08  25", false},
+                {"null", false},
+                {"dd dd", false},
         };
     }
 }

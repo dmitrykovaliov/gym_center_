@@ -1,5 +1,6 @@
-2018-08-17 09:13:40.020 [main] ERROR dk.gym.validation.chain.ChainDateValidator - java.time.DateTimeException: Invalid date 'February 29' as '2018' is not a leap year
-2018-08-17 09:13:40.055 [main] ERROR dk.gym.validation.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 1
-2018-08-17 09:13:40.057 [main] ERROR dk.gym.validation.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 0
-2018-08-17 09:13:40.061 [main] ERROR dk.gym.validation.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 1
-2018-08-17 09:13:40.063 [main] ERROR dk.gym.validation.chain.ChainDateValidator - java.lang.ArrayIndexOutOfBoundsException: 2
+2018-08-18 07:56:28.736 [main] ERROR dk.gym.validation.chain.ChainTimeValidator - java.time.format.DateTimeParseException: Text '5:59' could not be parsed at index 0
+2018-08-18 07:56:28.749 [main] ERROR dk.gym.validation.chain.ChainTimeValidator - java.time.format.DateTimeParseException: Text '25:06' could not be parsed: Invalid value for HourOfDay (valid values 0 - 23): 25
+2018-08-18 07:56:28.752 [main] ERROR dk.gym.validation.chain.ChainTimeValidator - java.time.format.DateTimeParseException: Text '00:60' could not be parsed: Invalid value for MinuteOfHour (valid values 0 - 59): 60
+2018-08-18 07:56:28.753 [main] ERROR dk.gym.validation.chain.ChainTimeValidator - java.time.format.DateTimeParseException: Text '000:01' could not be parsed at index 2
+2018-08-18 07:56:28.755 [main] ERROR dk.gym.validation.chain.ChainTimeValidator - java.time.format.DateTimeParseException: Text '05:052' could not be parsed, unparsed text found at index 5
+2018-08-18 07:56:28.760 [main] ERROR dk.gym.validation.chain.ChainTimeValidator - java.time.format.DateTimeParseException: Text 'null' could not be parsed at index 0

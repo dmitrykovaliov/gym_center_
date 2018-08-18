@@ -37,6 +37,7 @@ public class ChainTimeValidatorTest {
                 {"05:052", false},
                 {"23:59", true},
                 {"23 59", true},
+                {"null", false}
         };
     }
 
