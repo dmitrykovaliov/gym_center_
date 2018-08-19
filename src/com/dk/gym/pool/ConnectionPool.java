@@ -154,6 +154,11 @@ public final class ConnectionPool {
             LOGGER.log(Level.WARN, "Receive connection interrupted: ", e);
             Thread.currentThread().interrupt();
         }
+
+        LOGGER.log(Level.INFO, "Receive_FreeConnections: " + freeConnections.size());
+        LOGGER.log(Level.INFO, "Receive_BoundConnections: " + boundConnections.size());
+        LOGGER.log(Level.INFO, "Receive_PoolSize: " + currentPoolSize);
+
         return connection;
     }
 
@@ -179,6 +184,9 @@ public final class ConnectionPool {
             LOGGER.log(Level.ERROR, "Connection not released: ", e);
         }
 
+        LOGGER.log(Level.INFO, "Release_FreeConnections: " + freeConnections.size());
+        LOGGER.log(Level.INFO, "Release_BoundConnections: " + boundConnections.size());
+        LOGGER.log(Level.INFO, "Release_PoolSize: " + currentPoolSize);
 
         monitorPool();
     }
@@ -205,9 +213,6 @@ public final class ConnectionPool {
                 closeConnection();
             }
         }
-        LOGGER.log(Level.INFO, "FreeConnections: " + freeConnections.size());
-        LOGGER.log(Level.INFO, "BoundConnections: " + boundConnections.size());
-        LOGGER.log(Level.INFO, "PoolSize: " + currentPoolSize);
     }
 
     /**

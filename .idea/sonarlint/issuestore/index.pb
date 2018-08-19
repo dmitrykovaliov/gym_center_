@@ -801,3 +801,7 @@ m
 =src/test/com/dk/gym/validation/ChainPercentValidatorTest.java,3/6/36d61ccb70100dd2206b9962af5ba11b6fc351fc
 f
 6src/test/com/dk/gym/validation/EmailValidatorTest.java,9/a/9a431f16dc4f0dc94b9b49b20b60f0f45ef3cd62
+]
+-logs/2018-08-18/2018-08-18_07-56_priority.log,c/9/c94c4171e151e353d4457e4767c9fa667bba12ce
+]
+-logs/2018-08-18/2018-08-18_07-55_priority.log,0/4/04a80ab5f01951aeaa1afab42fcec190269d5559

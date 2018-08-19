@@ -1064,7 +1064,7 @@
     <column id="260" parent="236" name="ord_price">
       <Position>3</Position>
       <Comment>used price, taken from service price on the date of the order</Comment>
-      <DataType>decimal(10)|0</DataType>
+      <DataType>decimal(19,2) unsigned|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="261" parent="236" name="ord_discount">
